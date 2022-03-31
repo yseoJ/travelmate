@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>TRAVELMATE</title>
 </head>
 <body>
-	테스트페이지
+	안녕하세요. TRAVELMATE 입니다.
 </body>
 </html>
