@@ -13,32 +13,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi" />
-<title>TRAVELMATE</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi" />
+	<!-- 부트스트랩 CSS 추가하기 -->
+	<link rel="stylesheet" href="./css/bootstap.min.css">
+	<!-- 커스텀 CSS 추가하기 -->
+	<link rel="stylesheet" href="./css/custom.css">
+	<title>TRAVELMATE</title>
 </head>
 <body>
-	<h2> 관광지 목록 </h2>
-	<table border="1" width="50%">
-		<tr>
-			<th>관광지 ID </th>
-			<th>관광지 명</th>
-		</tr>    
-	    <%     
-	    sql = "SELECT SIGHTS_ID, SIGHTS_NM FROM SIGHTS_INFO ORDER BY SIGHTS_ID" ;
-	    res = conn.prepareStatement(sql).executeQuery(); 
-	    
-	    while (res.next()) {            
-	      String SIGHTS_ID = res.getString("SIGHTS_ID");
-	      String SIGHTS_NM = res.getString("SIGHTS_NM");   
-	    %>   
-	      <tr>
-	         <td><%=SIGHTS_ID%></td> 
-	         <td><%=SIGHTS_NM%></td> 
-	      </tr>      
-	         <%
-	         }
-	       %>                 
-	</table> 
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="index.jsp">트래블메이트</a>
+	</nav>
+	<form class="form-inline my-2-my-lg-0">
+		<input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="search">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+	</form>
+	
+	<!-- 제이쿼리 자바스크립트 추가하기 -->
+	<script src="./js/jquery.min.js"></script>
+	<!-- 파퍼 자바스크립트 추가하기 -->
+	<script src="./js/pooper.js"></script>
+	<!-- 부트스트랩 자바스크립트 추가하기 -->
+	<script src="./js/bootstrap.min.js"></script>
 </body>
 </html>
