@@ -1,40 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
-<%
-	/* db connection */
-	 String user = "trip";
-	 String pw = "trip";
-	 String url = "jdbc:oracle:thin:@mytripdb.crd3fcdurp5u.ap-northeast-2.rds.amazonaws.com:1521:ORCL";
-	 String sql = "";
-	 Class.forName("oracle.jdbc.driver.OracleDriver");
-	 Connection conn = DriverManager.getConnection(url, user, pw);
-	 ResultSet res;
-%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi" />
-	<!-- 부트스트랩 CSS 추가하기 -->
+	<!-- 遺몄ㅽ몃 CSS 異媛湲 -->
 	<link rel="stylesheet" href="./css/bootstap.min.css">
-	<!-- 커스텀 CSS 추가하기 -->
+	<!-- 而ㅼㅽ CSS 異媛湲 -->
 	<link rel="stylesheet" href="./css/custom.css">
 	<title>TRAVELMATE</title>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="index.jsp">트래블메이트</a>
+		<a class="navbar-brand" href="index.jsp">몃釉硫댄</a>
 	</nav>
 	<form class="form-inline my-2-my-lg-0">
-		<input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="search">
-		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+		<input class="form-control mr-sm-2" type="search" placeholder="댁⑹ �ν몄" aria-label="search">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">寃</button>
 	</form>
 	
-	<!-- 제이쿼리 자바스크립트 추가하기 -->
+	<!-- �댁옘由 諛ㅽщ┰ 異媛湲 -->
 	<script src="./js/jquery.min.js"></script>
-	<!-- 파퍼 자바스크립트 추가하기 -->
+	<!--  諛ㅽщ┰ 異媛湲 -->
 	<script src="./js/pooper.js"></script>
-	<!-- 부트스트랩 자바스크립트 추가하기 -->
+	<!-- 遺몄ㅽ몃 諛ㅽщ┰ 異媛湲 -->
 	<script src="./js/bootstrap.min.js"></script>
 </body>
 </html>
