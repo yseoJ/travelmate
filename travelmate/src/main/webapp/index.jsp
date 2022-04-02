@@ -1,44 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
-<%
-	/* db connection */
-	 String user = "trip";
-	 String pw = "trip";
-	 String url = "jdbc:oracle:thin:@mytripdb.crd3fcdurp5u.ap-northeast-2.rds.amazonaws.com:1521:ORCL";
-	 String sql = "";
-	 Class.forName("oracle.jdbc.driver.OracleDriver");
-	 Connection conn = DriverManager.getConnection(url, user, pw);
-	 ResultSet res;
-%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi" />
+<meta charset="EUC-KR">
 <title>TRAVELMATE</title>
 </head>
 <body>
-	<h2> Й╢─Й╢▒Л╖─ К╙╘К║² </h2>
-	<table border="1" width="50%">
-		<tr>
-			<th>Й╢─Й╢▒Л╖─ ID </th>
-			<th>Й╢─Й╢▒Л╖─ К╙┘</th>
-		</tr>    
-	    <%     
-	    sql = "SELECT SIGHTS_ID, SIGHTS_NM FROM SIGHTS_INFO ORDER BY SIGHTS_ID" ;
-	    res = conn.prepareStatement(sql).executeQuery(); 
-	    
-	    while (res.next()) {            
-	      String SIGHTS_ID = res.getString("SIGHTS_ID");
-	      String SIGHTS_NM = res.getString("SIGHTS_NM");   
-	    %>   
-	      <tr>
-	         <td><%=SIGHTS_ID%></td> 
-	         <td><%=SIGHTS_NM%></td> 
-	      </tr>      
-	         <%
-	         }
-	       %>                 
-	</table> 
+	╬хЁГго╪╪©Д. TRAVELMATE ют╢о╢ы.
+	╧щ╟║©Ж©И
 </body>
 </html>
