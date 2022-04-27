@@ -38,8 +38,30 @@
 		<a class="navbar-brand" href="index.jsp">TRAVELMATE</a>
 	</nav>
 	<form class="form-inline my-2-my-lg-0">
-		<input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="search">
+		<input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search"  style="width:80%; height:50px;">
 		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 	</form>
+	<h2> 여행 목록 </h2>  
+	    <%     
+	    sql = "SELECT TRIP_TITLE, TRIP_MEET_DATE_TIME,  TOT_NUM FROM TRIP_INFO  ORDER BY TRIP_MEET_DATE_TIME" ;
+	    res = conn.prepareStatement(sql).executeQuery(); 
+	    
+	    while (res.next()) {            
+	      String TRIP_TITLE = res.getString("TRIP_TITLE");
+	      String TRIP_MEET_DATE_TIME = res.getString("TRIP_MEET_DATE_TIME");   
+	      String TOT_NUM = res.getString("TOT_NUM");
+	    %>   
+		    <table border="1" width="50%">
+			<tr>
+			<td>
+				제목 : <%=TRIP_TITLE%>
+				날짜 : <%=TRIP_MEET_DATE_TIME%>
+				참여 인원 : <%=TOT_NUM%>
+			</td>
+			</tr>
+			</table>    
+        <%
+        }
+      	%>                 
 </body>
 </html>
