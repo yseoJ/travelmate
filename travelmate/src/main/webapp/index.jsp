@@ -6,18 +6,17 @@
     request.setCharacterEncoding("UTF-8");
 
     /* db connection */
-	String user = "trip";
-	String pw = "trip";
-	String url = "jdbc:oracle:thin:@mytripdb.crd3fcdurp5u.ap-northeast-2.rds.amazonaws.com:1521:ORCL";
-	String sql = "";
-	Class.forName("oracle.jdbc.driver.OracleDriver");
-	Connection conn = DriverManager.getConnection(url, user, pw);
-	ResultSet res;
+	
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet res = null;
+	
 %>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi" />
 	<!-- 부트스트랩 CSS 추가하기 -->
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -42,26 +41,46 @@
 		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 	</form>
 	<h2> 여행 목록 </h2>  
+	<table border="1" width="50%">
+		<tr>
+			<th>제목</th>
+			<th>날짜</th>
+			<th>참여 인원</th>
+		</tr>
 	    <%     
-	    sql = "SELECT TRIP_TITLE, TRIP_MEET_DATE_TIME,  TOT_NUM FROM TRIP_INFO  ORDER BY TRIP_MEET_DATE_TIME" ;
-	    res = conn.prepareStatement(sql).executeQuery(); 
-	    
-	    while (res.next()) {            
-	      String TRIP_TITLE = res.getString("TRIP_TITLE");
-	      String TRIP_MEET_DATE_TIME = res.getString("TRIP_MEET_DATE_TIME");   
-	      String TOT_NUM = res.getString("TOT_NUM");
-	    %>   
-		    <table border="1" width="50%">
+	    try{
+	    	String url = "jdbc:oracle:thin:@mytripdb.crd3fcdurp5u.ap-northeast-2.rds.amazonaws.com:1521:ORCL";
+	    	String user = "trip";
+	    	String pw = "trip";
+	    	Class.forName("oracle.jdbc.driver.OracleDriver");
+	    	conn = DriverManager.getConnection(url, user, pw);
+	    	String sql = "SELECT TRIP_TITLE, TRIP_MEET_DATE,  TOT_NUM FROM TRIP_INFO  ORDER BY TRIP_MEET_DATE" ;
+	    	pstmt = conn.prepareStatement(sql);
+	    	res = pstmt.executeQuery();
+		    
+		    while (res.next()) {            
+		      String TRIP_TITLE = res.getString("TRIP_TITLE");
+		      String TRIP_MEET_DATE = res.getString("TRIP_MEET_DATE");   
+		      String TOT_NUM = res.getString("TOT_NUM");
+		    %>   
 			<tr>
-			<td>
-				제목 : <%=TRIP_TITLE%>
-				날짜 : <%=TRIP_MEET_DATE_TIME%>
-				참여 인원 : <%=TOT_NUM%>
-			</td>
-			</tr>
-			</table>    
-        <%
-        }
-      	%>                 
+				<td><%=TRIP_TITLE%></td>
+				<td><%=TRIP_MEET_DATE%></td>
+				<td><%=TOT_NUM%></td>
+			</tr>   
+	        <%
+	        }
+	    } catch(SQLException e){
+	    	e.printStackTrace();
+	    } finally{
+	    	if(res!=null)
+	    		try{res.close();}catch(SQLException sqle){}
+	    	if(pstmt!=null)
+	    		try{pstmt.close();}catch(SQLException sqle){}
+	    	if(conn != null)
+	    		try{conn.close();}catch(SQLException sqle){}
+	    }
+      	%>    
+      </table>             
 </body>
 </html>
