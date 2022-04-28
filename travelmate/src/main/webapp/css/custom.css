@@ -1,5 +1,7 @@
+@import "reset.css";
 @import url(https://fonts.googleapis.com/earlyaccess/jejugothic.css);
 @import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
 .navbar-brand, h1, h2, h3, h4 {
 	font-family: 'Jeju Gothic';;
 }

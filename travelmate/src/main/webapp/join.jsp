@@ -43,20 +43,25 @@
 	<title>Join</title>
 </head>
 <body>
-	<h2>회원가입</h2>
-	<a>아이디 : <%=id %></a><br>
+	<br>
+	<h2 align="center">회원가입</h2>
+	<br><br>
+	<!--  <a>아이디 : <%=id %></a><br> -->
 	<a>이름 : <%=name %></a><br>
 	<a>이메일 : <%=email %></a><br><br><br>
 	
-	<label for="BirthDay">생년월일&emsp;</label><input type="text" name="BirthDay" id="datepicker"><br>
-	<label>성별&emsp;&emsp;</label>
+	<label for="ADDM_YEAR">학번&emsp;&emsp;&emsp;</label><input type="text" name="ADDM_YEAR"><br>
+	<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ex)19</a><br><br>
+	
+	<label>성별&emsp;&emsp;&emsp;</label>
 	<input type="radio" name="Gender" id="rdoGenderFemale" value="F" checked/><label for="rdoGenderFemale">&nbsp;여성</label>
-    <input type="radio" name="Gender" id="rdoGenderMale" value="M" /><label for="rdoGenderMale">&nbsp;남성</label><br>
-	<label for="txtPhoneNum">핸드폰번호&emsp;</label><input type="text" name="PhoneNum" id="txtPhoneNum" placeholder="01012345678" size="20" value=""/><br>
+    <input type="radio" name="Gender" id="rdoGenderMale" value="M" /><label for="rdoGenderMale">&nbsp;남성</label><br><br>
+    
+	<label for="txtPhoneNum">핸드폰번호&nbsp;</label><input type="text" name="PhoneNum" id="txtPhoneNum" placeholder="01012345678" size="20" value=""/><br>
 	<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*숫자만 입력하세요</a> 
 	<br><br><br><br><br><br>
-	<button class="join" type="button">
-    	회원가입
-	</button>
+	<div class="d-grid gap-2">
+		<button class="btn btn-primary btn-ls" type="button">회원가입</button>
+	</div>
 </body>
 </html>
