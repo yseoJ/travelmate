@@ -18,6 +18,7 @@
 	String id=request.getParameter("id");
 	String name=request.getParameter("name");
 	String email=request.getParameter("email");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -50,18 +51,71 @@
 	<a>이름 : <%=name %></a><br>
 	<a>이메일 : <%=email %></a><br><br><br>
 	
-	<label for="ADDM_YEAR">학번&emsp;&emsp;&emsp;</label><input type="text" name="ADDM_YEAR"><br>
-	<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ex)19</a><br><br>
+	<form name="InsertPerson" action="index.jsp" method="post" >
+		<input type="hidden" name="ID" value="<%=id %>" />
+		<input type="hidden" name="NAME" value="<%=name %>" />
+		<input type="hidden" name="EMAIL" value="<%=email %>" />
+		
+		<label for="ADDM_YEAR">학번&emsp;&emsp;&emsp;</label><input type="number" name="ADDM_YEAR" oninput='handleOnInput(this, 2)'><br>
+		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ex)19</a><br><br>
+		
+		<label>성별&emsp;&emsp;&emsp;</label>
+		<input type="radio" name="GENDER" id="rdoGenderFemale" value="F" checked/><label for="rdoGenderFemale">&nbsp;여성</label>
+	    <input type="radio" name="GENDER" id="rdoGenderMale" value="M" /><label for="rdoGenderMale">&nbsp;남성</label><br><br>
+	    
+		<label for="txtPhoneNum">핸드폰번호&nbsp;</label><input type="text" name="PHONE_NUM" id="txtPhoneNum" placeholder="01012345678" size="20" value="" pattern="[0-9]+" minlength="10" maxlength="11"/><br>
+		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*숫자만 입력하세요</a> 
+		<br><br><br><br><br><br>
+		<div class="d-grid gap-2">
+			<button class="btn btn-primary btn-ls" type="button" onclick="checkJoin();">회원가입</button>
+		</div>
+		<%
+		
+		%>
+	</form> 
 	
-	<label>성별&emsp;&emsp;&emsp;</label>
-	<input type="radio" name="Gender" id="rdoGenderFemale" value="F" checked/><label for="rdoGenderFemale">&nbsp;여성</label>
-    <input type="radio" name="Gender" id="rdoGenderMale" value="M" /><label for="rdoGenderMale">&nbsp;남성</label><br><br>
-    
-	<label for="txtPhoneNum">핸드폰번호&nbsp;</label><input type="text" name="PhoneNum" id="txtPhoneNum" placeholder="01012345678" size="20" value=""/><br>
-	<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*숫자만 입력하세요</a> 
-	<br><br><br><br><br><br>
-	<div class="d-grid gap-2">
-		<button class="btn btn-primary btn-ls" type="button">회원가입</button>
-	</div>
+	<script>
+		function handleOnInput(el, maxlength) {
+			if(el.value.length > maxlength)  {
+				el.value  = el.value.substr(0, maxlength);
+		  }
+		}
+		function isEmpty(obj, msg) {
+			if (typeof obj == "string") {
+				obj = document.querySelector("#" + obj);
+			}
+			if(obj.value == "") {
+				alert(msg);
+				obj.focus();
+				return true;
+			}
+			return false;
+		}
+		function checkPhone(firstPhone, msg2){
+			if(firstPhone == "010"||"011"||"017"||"019"){
+				alert(msg2);
+				firstPhone.focus();
+				return true;
+			}
+			return false;
+		}
+		function checkJoin(){
+			var f = document.InsertPerson;
+			if (isEmpty(f.ADDM_YEAR, "학번을 입력하세요")) return;
+			if (isEmpty(f.PHONE_NUM, "핸드폰 번호를 입력하세요")) return;
+			
+			//if (f.PhoneNum.substr(0,3) != "010"){ alert("전화번호 형식이 잘못되었습니다"); }
+			
+			//if(checkPhone(firstPhone,"전화번호 형식이 잘못되었습니다")) return;
+			
+			f.submit();
+			//adyear=Integer.parseInt(request.getParameter("ADDM_YEAR"));
+			//phone=request.getParameter("Gender");
+			//gender=request.getParameter("PhoneNum");
+			//status="진행중";
+			
+		}
+
+	</script>
 </body>
 </html>
