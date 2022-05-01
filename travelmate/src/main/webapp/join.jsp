@@ -93,11 +93,11 @@
 		}
 		function checkPhone(firstPhone, msg2){
 			if(firstPhone == "010"||"011"||"017"||"019"){
-				alert(msg2);
-				firstPhone.focus();
-				return true;
+				return false;
 			}
-			return false;
+			alert(msg2);
+			firstPhone.focus();
+			return true;
 		}
 		function checkJoin(){
 			var f = document.InsertPerson;

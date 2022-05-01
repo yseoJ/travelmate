@@ -20,9 +20,9 @@
 
 	sql = String.format( "select * from MEMB_INFO where MEMB_ID = '%s'", id);
 	res = conn.prepareStatement(sql).executeQuery();
-	System.out.println(res.next());
+	//System.out.println(res.next());
 	
-	if(res.next() != true){
+	if(!res.next()){
 		String name = request.getParameter("NAME");
 		String email = request.getParameter("EMAIL");
 		String phone = request.getParameter("PHONE_NUM");
@@ -69,28 +69,31 @@
 	<title>TRAVELMATE</title>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="justify-content: right !important">
-		<a class="navbar-brand" href="index.jsp">TRAVELMATE</a>
-		<div style="margin-left:55px; margin-right:10px;">
-			<!-- 로그아웃 -->
-			<a href="userLogin.jsp" onclick="signOut();">
-				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-unlock" viewBox="0 0 16 16">
-					<path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z"/>
+	<header style="position: fixed; top: 0; width: 100%; height:50px; z-index: 1">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="justify-content: right !important">
+			<a class="navbar-brand" href="index.jsp">TRAVELMATE</a>
+			<div style="margin-left:55px; margin-right:10px;">
+				<!-- 로그아웃 -->
+				<a href="userLogin.jsp" onclick="signOut();">
+					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-unlock" viewBox="0 0 16 16">
+						<path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z"/>
+					</svg>
+				</a>
+				<!-- 마이페이지 -->
+				<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+		  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
 				</svg>
-			</a>
-			<!-- 마이페이지 -->
-			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-	  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-			</svg>
-		</div>
-	</nav>
-	<form class="form-inline my-2-my-lg-0">
-		<input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search"  style="width:80%; height:40px; float:left;">
-		<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="width:20%; height:40px; float:right; margin: 0px !important">검색</button>
-	</form>
-	<br><br><br><br>
-	<h4> 여행 목록 </h4>  
-	
+			</div>
+		</nav>
+	</header>
+	<main style="position: absolute; top: 50px; width:100%">
+		<form class="form-inline my-2-my-lg-0">
+			<input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search"  style="width:80%; height:40px; float:left;">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="width:20%; height:40px; float:right; margin: 0px !important">검색</button>
+		</form>
+		<br><br><br><br>
+		<h4> 여행 목록 </h4>  
+		
 	    <%     
 	    sql = "SELECT TRIP_TITLE, TO_CHAR(TRIP_MEET_DATE, 'YYYY/MM/DD') TRIP_MEET_DATE,  TOT_NUM FROM TRIP_INFO  ORDER BY TRIP_MEET_DATE" ;
 	    res = conn.prepareStatement(sql).executeQuery();
@@ -110,10 +113,10 @@
 			<br>참여 인원 : <%=TOT_NUM%></td>
 		</tr>   
 		</table>
-        <%
+	       <%
 	    }
-     	res.close();
-  		conn.close();
+	    	res.close();
+	 		conn.close();
 		%>
 		<script>
 		  function signOut() {
@@ -126,6 +129,18 @@
 		    location.href= "userLogin.jsp"
 		    //auth2.disconnect();
 		  }
-		</script>             
+		</script> 
+	</main>
+	<footer style="position: fixed; bottom: 0; width: 100%;">
+	<!-- 여행 개설 -->
+		<div style="margin-left: 85%;">
+		<br>
+			<a href="sightList.jsp">
+				<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+			  		<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+				</svg>
+			</a>
+		</div>
+	</footer>
 </body>
 </html>
