@@ -56,7 +56,7 @@
 	<!-- 커스텀 CSS 추가하기 -->
 	<link rel="stylesheet" href="./css/custom.css?after">
 	<meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="120857777045-1oeeagtes07pmn0n2q2kfnvja770b2eg.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="120857777045-1oeeagtes07pmn0n2q2kfnvja770b2eg.apps.googleusercontent.com"/>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 	
 	<!-- 부트스트랩 자바스크립트 추가하기 -->
@@ -119,16 +119,18 @@
 	 		conn.close();
 		%>
 		<script>
-		  function signOut() {
-			if(gapi.auth2 != undefined){
-			    var auth2 = gapi.auth2.getAuthInstance();
-			    auth2.signOut().then(function () {
-			      console.log('User signed out.');
-			    });
-			}
-		    location.href= "userLogin.jsp"
-		    //auth2.disconnect();
-		  }
+			function signOut() {
+		      var auth2 = gapi.auth2.getAuthInstance();
+		      auth2.signOut().then(function () {
+		        console.log('User signed out.');
+		      });
+		    }
+
+		    function onLoad() {
+		      gapi.load('auth2', function() {
+		        gapi.auth2.init();
+		      });
+		    }
 		</script> 
 	</main>
 	<footer style="position: fixed; bottom: 0; width: 100%;">
@@ -142,5 +144,6 @@
 			</a>
 		</div>
 	</footer>
+	<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 </body>
 </html>
