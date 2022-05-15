@@ -70,7 +70,7 @@
 </head>
 <body>
 	<header style="position: fixed; top: 0; width: 100%; height:50px; z-index: 1">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="justify-content: right !important">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="justify-content: right !important; ">
 			<a class="navbar-brand" href="index.jsp">TRAVELMATE</a>
 			<div style="margin-left:55px; margin-right:10px;">
 				<!-- 로그아웃 -->
@@ -93,9 +93,8 @@
 		</form>
 		<br><br><br><br>
 		<h4> 여행 목록 </h4>  
-		
 	    <%     
-	    sql = "SELECT TRIP_TITLE, TO_CHAR(TRIP_MEET_DATE, 'YYYY/MM/DD') TRIP_MEET_DATE,  TOT_NUM FROM TRIP_INFO  ORDER BY TRIP_MEET_DATE" ;
+	    sql = "SELECT TRIP_ID, TRIP_TITLE, TO_CHAR(TRIP_MEET_DATE, 'YYYY/MM/DD') TRIP_MEET_DATE,  TOT_NUM FROM TRIP_INFO  ORDER BY TRIP_MEET_DATE" ;
 	    res = conn.prepareStatement(sql).executeQuery();
 	    //System.out.print(rs.next());
 		
@@ -103,20 +102,25 @@
 	      String TRIP_TITLE = res.getString("TRIP_TITLE");
 	      String TRIP_MEET_DATE = res.getString("TRIP_MEET_DATE");   
 	      String TOT_NUM = res.getString("TOT_NUM");
+	      String TRIP_ID = res.getString("TRIP_ID");
 	      System.out.print(sql);
 		%>
 		<br>
-		<table style="width: 100%; border: 1px solid #000;">
-		<tr>
-			<td>제목 : <%=TRIP_TITLE%>
-			<br>날짜 : <%=TRIP_MEET_DATE%>
-			<br>참여 인원 : <%=TOT_NUM%></td>
-		</tr>   
-		</table>
-	       <%
+		<form name="frmTripInfo" action="tripInfo.jsp" method="post" >
+			<button type="submit" style="width:100%; text-align: left; border-radius: 20px; background: rgba(51, 150, 51, 0.3);">
+				<br>제목 : <%=TRIP_TITLE%>
+				<br>날짜 : <%=TRIP_MEET_DATE%>
+				<br>인원 : <%=TOT_NUM%>
+				<br><br>
+			</button>
+			<input type="hidden" name="MembId" value="<%=DbId %>" />
+			<input type="hidden" name="TripTitle" value="<%=TRIP_TITLE %>" />
+			<input type="hidden" name="TripId" value="<%=TRIP_ID %>" />
+		</form>
+	    <%
 	    }
-	    	res.close();
-	 		conn.close();
+    	res.close();
+ 		conn.close();
 		%>
 		<script>
 			function signOut() {
@@ -133,15 +137,16 @@
 		    }
 		</script> 
 	</main>
-	<footer style="position: fixed; bottom: 0; width: 100%;">
+	<footer style="position: fixed; bottom: 10px; width: 100%;">
 	<!-- 여행 개설 -->
 		<div style="margin-left: 85%;">
 		<br>
-			<a href="sightList.jsp">
-				<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-			  		<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-				</svg>
-			</a>
+		<form name="frmSightList" action="sightList.jsp" method="post" >
+			<button type="submit" class="addTrip">
+				+
+			</button>
+			<input type="hidden" name="MembId" value="<%=DbId %>" />
+		</form>
 		</div>
 	</footer>
 	<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
