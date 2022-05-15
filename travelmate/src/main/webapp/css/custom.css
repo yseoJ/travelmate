@@ -26,3 +26,23 @@ a:hover { color: black; text-decoration: none;}
 input:invalid {
   border: 3px solid red;
 }
+
+.sights {
+	border: 1px solid black; 
+	border-collapse: collapse;
+}
+th, td {
+	border: 1px solid black;
+}
+
+.addTrip{
+	width: 50px;
+	height:50px;
+	border-radius: 50%;
+	background: black;
+	font-size: 30px;
+	text-align: center;
+	line-height:25px;
+	color: white;
+	border: none;
+}
