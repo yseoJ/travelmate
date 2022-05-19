@@ -73,12 +73,11 @@
     	res.close();
 		conn.close();
 	%>
+	<br><br><br>
 	<footer style="position: fixed; bottom: 0; width: 100%;">
 	<!-- 여행 개설 -->
 	<form name="frmMakeTrip" action="makeTrip.jsp" method="post" >
-		<div class="d-grid gap-2">
-			<button class="btn btn-primary btn-ls" type="submit">여행 계획 만들기</button>
-		</div>
+		<button class="makeTripButton" type="submit">선택하기</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
 		<input type="hidden" name="sightId" value="<%=sight_id %>" />
 	</form>

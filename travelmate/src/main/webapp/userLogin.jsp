@@ -57,8 +57,8 @@
         
         const sookemail = "@sookmyung.ac.kr";
         if(!profile.getEmail().endsWith(sookemail)){
-  		  alert("해당 사이트는 숙명여자대학교 재학생만 사용 가능합니다.");
-  		  history.back();
+  			alert("해당 사이트는 숙명여자대학교 재학생만 사용 가능합니다.");
+  			gapi.auth2.getAuthInstance().signOut();
   	  	} else {
 	  	  	console.log("ID: " + profile.getId());
 	        console.log('Full Name: ' + profile.getName());

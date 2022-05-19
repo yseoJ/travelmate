@@ -53,29 +53,29 @@
 <body style="line-height: 100%">
 	<br><h2 style="text-align: center">여행 계획하기</h2>
 	<hr> 
-	<form name="frmInsertTrip" action="insertTrip.jsp" method="post" >
-		<div style="width:80px; height:25px; float:left; line-height: 25px;">제목</div><input type="text" name="Title" id="txtTitle" value="" style="width:300px; height:25px; font-size:15px;"/><br><br>
-		<div style="width:80px; height:25px; float:left; line-height: 25px;">여행날짜</div><input type="text" name="Date" id="txtDate" value="" style="width:300px; height:25px; font-size:15px;"/><br><br>
-		<div style="border: 1px solid black;"><br>
-			<p style="color: red">*모임시간과 장소는 수락이 결정된 참여자에 한하여 열람 가능합니다.</p><br>
-			<div style="width:80px; height:25px; float:left; line-height: 25px;">모임시간</div><input type="text" name="Time" id="txtTime" value="" style="width:300px; height:25px; font-size:15px;"/><br><br>
-			<div style="width:80px; height:25px; float:left; line-height: 25px;">모임장소</div><input type="text" name="Place" id="txtPlace" value="" style="width:300px; height:25px; font-size:15px;"/><br><br>
-			<div style="width:80px; height:25px; float:left; line-height: 25px;">오픈채팅방</div><input type="text" name="Link" id="txtLink" value="" style="width:300px; height:25px; font-size:15px;"/><br>
-			<div style="width:80px; height:25px; float:left; line-height: 25px;"></div><p style="color: red">*필수 항목 아님</p><br>
-		</div><br>
-		<div style="width:80px; height:25px; float:left; line-height: 25px;">모객인원</div><input type="text" name="Num" id="txtNum" value="" style="width:300px; height:25px; font-size:15px;"/><br><br>
-		<div style="width:80px; height:25px; float:left; line-height: 25px;">예상비용</div><input type="text" name="Cost" id="txtCost" value="" style="width:300px; height:25px; font-size:15px;"/><br><br>
-		<div style="width:80px; height:25px; float:left; line-height: 25px;">관광지명</div><div style="border: 1px solid black; width : 300px; display:inline-block; line-height: 25px;"> <%=sightName %> </div>
-		<br><br><div style="width:80px; height:25px; float:left; line-height: 25px;">주소</div><div style="border: 1px solid black; width : 300px; display:inline-block; line-height: 25px;"> <%=sightAddr %> </div>
-		<br><br><div style="width:80px; height:25px; float:left; line-height: 25px;">교통정보</div><div style="border: 1px solid black; width : 300px; display:inline-block; line-height: 25px;"> <%=sightTraf %> </div>
-		<br><br><div style="width:80px; height:25px; float:left; line-height: 25px;">세부정보</div><textarea name="Detail" id="txtDetail" rows="7" style="width:300px; font-size:15px;"></textarea>
-
-	<footer style="position: fixed; bottom: 0; width: 100%;">
-	<!-- 여행 개설 -->
-		<div class="d-grid gap-2">
-			<button class="btn btn-primary btn-ls" type="submit">여행 계획 만들기</button>
+	<form name="frmMakeTrip" action="makeTripCheck.jsp" method="post" >
+		<div class="makeTripInput">
+			<div style="width:100%; height:25px; float:left; line-height: 25px;">제목</div><input type="text" name="Title" id="txtTitle" value=""/><br><br>
+			<div style="width:100%; height:25px; float:left; line-height: 25px;">여행날짜</div><input type="text" name="Date" id="txtDate" value="" placeholder="YYYY-MM-DD"/><br><br>
+			<div style="border: 1px solid black;"><br>
+				<p style="color: red; font-size: 13px;">*모임시간,장소,오픈채팅링크는<br>수락이 결정된 참여자에 한하여 열람 가능합니다.</p><br>
+				<div style="width:100%; height:25px; float:left; line-height: 25px;">모임시간</div><input type="text" name="Time" id="txtTime" value=""/><br><br>
+				<div style="width:100%; height:25px; float:left; line-height: 25px;">모임장소</div><input type="text" name="Place" id="txtPlace" value=""/><br><br>
+				<div style="width:100%; height:25px; float:left; line-height: 25px;">오픈채팅방</div><input type="text" name="Link" id="txtLink" value=""  placeholder="*필수 항목 아님"/><br><br>
+			</div><br>
+			<div style="width:100%; height:25px; float:left; line-height: 25px;">모객인원</div><input type="number" name="Num" id="txtNum" value=""/><br><br>
+			<div style="width:100%; height:25px; float:left; line-height: 25px;">예상비용</div><input type="number" name="Cost" id="txtCost" value=""/><br><br>
+			<div style="width:100%; height:25px; float:left; line-height: 25px;">관광지명</div><div style="border: 2px solid black; width : 90%; display:inline-block; line-height: 25px;"> <%=sightName %> </div>
+			<br><br><div style="width:100%; height:25px; float:left; line-height: 25px;">주소</div><div style="border: 2px solid black; width : 90%; display:inline-block; line-height: 25px;"> <%=sightAddr %> </div>
+			<br><br><div style="width:100%; height:25px; float:left; line-height: 25px;">교통정보</div><div style="border: 2px solid black; width : 90%; display:inline-block; line-height: 25px;"> <%=sightTraf %> </div>
+			<br><br><div style="width:100%; height:25px; float:left; line-height: 25px;">세부정보</div><textarea name="Detail" id="txtDetail" rows="7" style="border: 2px solid black; border-radius: 30px; padding: 0 1em; width:90%; font-size:15px;"></textarea><br><br><br><br><br>
 		</div>
-	</footer>
+		<footer style="position: fixed; bottom: 0; width: 100%;">
+			<!-- 여행 개설 -->
+			<button class="makeTripButton" type="submit">개설하기</button>
+			<input type="hidden" name="membId" value="<%=memb_id %>" />
+			<input type="hidden" name="sightId" value="<%=sight_id %>" />
+		</footer>
 	</form>
 </body>
 </html>

@@ -31,7 +31,7 @@
 	String cost = res.getString("PLAN_COST");
 	String detail = res.getString("TRIP_DETAIL");
 	
-	sql = String.format("SELECT COUNT(MEMB_ID) JOIN_NUM FROM TRIP_JOIN_LIST WHERE TRIP_ID = '%s'", trip_id);
+	sql = String.format("SELECT COUNT(MEMB_ID) JOIN_NUM FROM TRIP_JOIN_LIST WHERE TRIP_ID = '%s' AND PRG_STATUS = '수락'", trip_id);
 	res = conn.prepareStatement(sql).executeQuery();
 	res.next();
 	
@@ -90,15 +90,40 @@
 	<br><br>세부 내용 : <%=detail %>
 	<br><br>주최자 : <%=makerName %>
 	<br>safety level :
-	<%
-    	res.close();
-		conn.close();
-	%>
+	<br><br><br>
 	<footer style="position: fixed; bottom: 0; width: 100%;">
-	<!-- 여행 개설 -->
-		<div class="d-grid gap-2">
-			<button class="btn btn-primary btn-ls" type="button" onclick="checkJoin();">참여하기</button>
-		</div>
+		<!-- 여행 참여 -->
+		<form name="frmJoin" method="post">
+			<input type="hidden" name="memb_id" value="<%=memb_id %>" />
+			<input type="hidden" name="trip_id" value="<%=trip_id %>" />
+		</form>
+		<button class="joinTrip" type="button" onclick="openJoin();">참여하기</button>
 	</footer>
+
+	<script type="text/javascript">
+		function openJoin() {
+			<%
+			sql = String.format( "select * from TRIP_JOIN_LIST where TRIP_ID = '%s' and MEMB_ID = '%s'", trip_id, memb_id);
+			res = conn.prepareStatement(sql).executeQuery();
+			if(res.next()){%>
+				{
+					openWindow('joinExist.jsp','joinExist','250','150','0','0');
+				}
+			<% } else {%>
+				{
+					openWindow('joinPopup.jsp','joinPopup','250','150','0','0');
+					document.frmJoin.target='joinPopup'; // 팝업창 윈도우 이름
+					document.frmJoin.action = 'joinPopup.jsp'; // 팝업창 주소
+					frmJoin.submit();
+				}
+			<%}
+			res.close();
+			conn.close();
+			%>
+		}
+		function openWindow(url,name,w,h,top,left) {
+			window.open(url,name,"width="+w+",height="+h+",scrollbars=yes,resizable=no,status=no,top="+top+",left="+left);
+		}
+	</script>
 </body>
 </html>
