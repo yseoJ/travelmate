@@ -70,9 +70,9 @@
 </head>
 <body>
 	<header style="position: fixed; top: 0; width: 100%; height:50px; z-index: 1">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="justify-content: right !important; ">
-			<a class="navbar-brand" href="index.jsp">TRAVELMATE</a>
-			<div style="margin-left:55px; margin-right:10px;">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div style="display: inline; margin: 0 auto; margin-right: 55px;"><a class="navbar-brand" href="index.jsp?ID=<%=DbId %>">TRAVELMATE</a></div>
+			<div style="display: inline; float: right; margin: 0;">
 				<!-- 로그아웃 -->
 				<a href="userLogin.jsp" onclick="signOut();">
 					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-unlock" viewBox="0 0 16 16">
@@ -80,13 +80,18 @@
 					</svg>
 				</a>
 				<!-- 마이페이지 -->
-				<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-		  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-				</svg>
+				<form name="frmMyPage" action="myPage.jsp" method="post" style="display:inline;">
+					<button type="submit" class="myPage">
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+			  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+					</svg>
+					</button>
+					<input type="hidden" name="MembId" value="<%=DbId %>" />
+				</form>
 			</div>
 		</nav>
 	</header>
-	<main style="position: absolute; top: 50px; width:100%">
+	<main style="position: absolute; top: 48px; width:100%">
 		<form class="form-inline my-2-my-lg-0">
 			<input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search"  style="width:80%; height:40px; float:left;">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="width:20%; height:40px; float:right; margin: 0px !important">검색</button>
@@ -107,7 +112,7 @@
 		%>
 		<br>
 		<form name="frmTripInfo" action="tripInfo.jsp" method="post" >
-			<button type="submit" style="width:100%; text-align: left; border-radius: 20px; background: rgba(51, 150, 51, 0.3);">
+			<button type="submit" class="tripList">
 				<br>제목 : <%=TRIP_TITLE%>
 				<br>날짜 : <%=TRIP_MEET_DATE%>
 				<br>인원 : <%=TOT_NUM%>

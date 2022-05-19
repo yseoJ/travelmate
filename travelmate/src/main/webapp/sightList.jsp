@@ -51,11 +51,11 @@
 	<h4> * 여행 계획을 등록할 관광지를 선택하세요. </h4>
 	<br>
 	<table class="sights">
-		<tr>
+		<tr style=" background-color: rgba(51, 150, 51, 0.1);">
 			<th>관광지 명</th>
-			<th style="width: 200px;">지역</th>
-			<th style="width: 50px;">테마</th>
-			<th style="width: 60px;">선택</th>
+			<th style="width: 150px; height: 20px; line-height: 20px;">지역</th>
+			<th style="width: 50px; height: 20px; line-height: 20px;">테마</th>
+			<th style="width: 60px; height: 20px; line-height: 20px;">선택</th>
 		</tr>
 		<%     
 		    sql = "select * from SIGHTS_INFO" ;
@@ -70,12 +70,12 @@
 		      String splitAddr = sightAddr.substring(0,10) + "...";
 		%>
 		<tr>
-			<td><%=sightName%></td>
-			<td><%=splitAddr%></td>
+			<td style="font-size: 13px;"><%=sightName%></td>
+			<td style="font-size: 13px;"><%=splitAddr%></td>
 			<td><%=sightClas%></td>
-			<td>
+			<td style="vertical-align:middle;">
 				<form name="frmsightInfo" action="sightInfo.jsp" method="post" >
-					<button type="submit" style="width: 100%;">선택</button>
+					<button type="submit" style="width: 100%; background-color: rgba(163, 201, 129, 0.5);">선택</button>
 					<input type="hidden" name="sightId" value="<%=sightId %>" />
 					<input type="hidden" name="membId" value="<%=memb_id %>" />
 				</form>
