@@ -16,7 +16,8 @@
 	Connection conn = DriverManager.getConnection(url, user, pw);
 	ResultSet res = null;
 	
-	String memb_id = request.getParameter("MembId");
+	String id = request.getParameter("MembId");
+	String search = request.getParameter("search");
 %>
 <!DOCTYPE html>
 <html>
@@ -41,14 +42,6 @@
 	<title>SIGHTS LIST</title>
 </head>
 <body>
-	<br><h2 style="text-align: center">여행지 선택</h2>
-	<hr>
-	<form class="form-inline my-2-my-lg-0" action="searchSight.jsp">
-		<input class="form-control mr-sm-2" name="search" type="search" placeholder="내용을 입력하세요" aria-label="Search"  style="width:80%; height:40px; float:left;">
-		<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="width:20%; height:40px; float:right; margin: 0px !important">검색</button>
-		<input type="hidden" name="MembId" value="<%=memb_id %>" />
-	</form>
-	<br><br><br>
 	<h4> * 여행 계획을 등록할 관광지를 선택하세요. </h4>
 	<br>
 	<table class="sights">
@@ -59,8 +52,15 @@
 			<th style="width: 60px; height: 20px; line-height: 20px;">선택</th>
 		</tr>
 		<%     
-		    sql = "select * from SIGHTS_INFO order by SIGHTS_CLAS, SIGHTS_ADDR" ;
+		    sql = "SELECT * FROM SIGHTS_INFO "+
+		    	"WHERE SIGHTS_NM LIKE '%" + search + "%' "+
+		    	"OR SIGHTS_ADDR LIKE '%" + search + "%' "+
+		    	"OR SIGHTS_CLAS LIKE '%" + search + "%' "+
+		    	"OR SIGHTS_TRAFFIC LIKE '%" + search + "%' "+
+		    	"ORDER BY SIGHTS_CLAS, SIGHTS_ADDR" ;
+		
 		    res = conn.prepareStatement(sql).executeQuery();
+		    System.out.println(sql);
 			
 		    while(res.next()) {            
 		      String sightName = res.getString("SIGHTS_NM");
@@ -78,7 +78,7 @@
 				<form name="frmsightInfo" action="sightInfo.jsp" method="post" >
 					<button type="submit" style="width: 100%; background-color: rgba(163, 201, 129, 0.5);">선택</button>
 					<input type="hidden" name="sightId" value="<%=sightId %>" />
-					<input type="hidden" name="membId" value="<%=memb_id %>" />
+					<input type="hidden" name="membId" value="<%=id %>" />
 				</form>
 			</td>
 		</tr>
