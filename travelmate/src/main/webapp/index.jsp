@@ -44,7 +44,7 @@
 	String DbGender = res.getString("GENDER");
 	String DbAdyear = res.getString("ADDM_YEAR");
 	String DbStatus = res.getString("MEMB_STATUS");
-	System.out.print(DbId); System.out.print(DbName); System.out.print(DbEmail); System.out.print(DbPhone); System.out.print(DbGender); System.out.print(DbAdyear); System.out.print(DbStatus);
+	System.out.print(DbId); System.out.print(DbName); System.out.print(DbEmail); System.out.print(DbPhone); System.out.print(DbGender); System.out.print(DbAdyear); System.out.println(DbStatus);
 %>
 <!DOCTYPE html>
 <html>
@@ -92,14 +92,16 @@
 		</nav>
 	</header>
 	<main style="position: absolute; top: 48px; width:100%">
-		<form class="form-inline my-2-my-lg-0">
-			<input class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요" aria-label="Search"  style="width:80%; height:40px; float:left;">
+		<form class="form-inline my-2-my-lg-0" action="searchTrip.jsp">
+			<input class="form-control mr-sm-2" name="search" type="search" placeholder="내용을 입력하세요" aria-label="Search"  style="width:80%; height:40px; float:left;">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="width:20%; height:40px; float:right; margin: 0px !important">검색</button>
+			<input type="hidden" name="MembId" value="<%=DbId %>" />
 		</form>
 		<br><br><br><br>
 		<h4> 여행 목록 </h4>  
 	    <%     
-	    sql = "SELECT TRIP_ID, TRIP_TITLE, TO_CHAR(TRIP_MEET_DATE, 'YYYY/MM/DD') TRIP_MEET_DATE,  TOT_NUM FROM TRIP_INFO  ORDER BY TRIP_MEET_DATE" ;
+	    sql = "SELECT TRIP_ID, TRIP_TITLE, TO_CHAR(TRIP_MEET_DATE, 'YYYY/MM/DD') TRIP_MEET_DATE,  TOT_NUM "+
+	    		"FROM TRIP_INFO  ORDER BY TRIP_MEET_DATE" ;
 	    res = conn.prepareStatement(sql).executeQuery();
 	    //System.out.print(rs.next());
 		
@@ -108,7 +110,7 @@
 	      String TRIP_MEET_DATE = res.getString("TRIP_MEET_DATE");   
 	      String TOT_NUM = res.getString("TOT_NUM");
 	      String TRIP_ID = res.getString("TRIP_ID");
-	      System.out.print(sql);
+	      //System.out.println(sql);
 		%>
 		<br>
 		<form name="frmTripInfo" action="tripInfo.jsp" method="post" >
