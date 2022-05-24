@@ -33,9 +33,14 @@
 	res.next();
 	String tripId = res.getString("tripId");
    
-	//trip_id 넣어서 등록
+	//trip_id 넣어서 trip_info에등록
 	sql = String.format( "INSERT INTO TRIP_INFO (TRIP_ID,SIGHTS_ID,MEMB_ID,TRIP_TITLE,TRIP_MEET_DATE,TRIP_MEET_PLACE,TRIP_MEET_TIME,TOT_NUM,PLAN_COST,TRIP_DETAIL,TRIP_CHATLINK,TRIP_STATUS) values (to_number('%s'),to_number('%s'),'%s','%s',to_date('%s','YYYY-MM-DD'),'%s','%s',to_number('%s'),to_number('%s'),'%s','%s','진행중')",
 			tripId, sightId, membId, Title, Date, Place, Time, Num, Cost, Detail, Link); 
+	System.out.println(sql);
+	conn.prepareStatement(sql).executeUpdate();
+	//주최자도 trip_join_list에 등록 (수락상태로 등록)
+	sql = String.format( "INSERT INTO TRIP_JOIN_LIST (TRIP_ID,MEMB_ID,PRG_STATUS) values (to_number('%s'),'%s','수락')",
+			tripId, membId); 
 	System.out.println(sql);
 	conn.prepareStatement(sql).executeUpdate();
 	

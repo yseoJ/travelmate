@@ -30,6 +30,7 @@ input:invalid {
 .sights {
 	border: 1px solid black; 
 	border-collapse: collapse;
+	width: 100%;
 }
 th, td {
 	border: 1px solid black;
@@ -127,4 +128,23 @@ th, td {
  	border-radius: 30px;
  	height:25px; 
  	font-size:15px;
+}
+
+.myTripList{
+	width: 95%;
+	margin: 0 auto;
+}
+.myTripList th{
+	text-align: center;
+}
+
+.myTripButton{
+	width: 100%; 
+	background-color: rgba(0,0,0,0); 
+	border: 0; 
+	outline: 0; 
+	color: rgb(7, 94, 1); 
+	font-weight: bold;
+	text-align: left;
+	text-decoration-line: underline;
 }
