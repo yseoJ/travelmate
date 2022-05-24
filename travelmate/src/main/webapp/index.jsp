@@ -101,7 +101,9 @@
 		<h4> 여행 목록 </h4>  
 	    <%     
 	    sql = "SELECT TRIP_ID, TRIP_TITLE, TO_CHAR(TRIP_MEET_DATE, 'YYYY/MM/DD') TRIP_MEET_DATE,  TOT_NUM "+
-	    		"FROM TRIP_INFO  ORDER BY TRIP_MEET_DATE" ;
+	    		"FROM TRIP_INFO "+
+	    		"WHERE to_char(TRIP_MEET_DATE,'YYYY-MM-DD') > to_char(SYSDATE, 'YYYY-MM-DD') "+
+	    		"ORDER BY TRIP_MEET_DATE ";
 	    res = conn.prepareStatement(sql).executeQuery();
 	    //System.out.print(rs.next());
 		

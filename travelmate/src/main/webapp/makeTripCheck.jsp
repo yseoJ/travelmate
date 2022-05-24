@@ -60,7 +60,8 @@
 <body style="line-height: 200%">
 	<br><h2 style="text-align: center">여행 계획 확인</h2>
 	<hr> 
-	<div style="display: inline-block; font-weight: bold; width: 50px">제목:</div><div style="display: inline-block; text-decoration: underline;"><%=Date %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 50px">제목:</div><div style="display: inline-block; text-decoration: underline;"><%=Title %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 50px">날짜:</div><div style="display: inline-block; text-decoration: underline;"><%=Date %></div><br>
 	<div style="display: inline-block; font-weight: bold; width: 50px">시간:</div><div style="display: inline-block; text-decoration: underline;"><%=Time %></div><br>
 	<div style="display: inline-block; font-weight: bold; width: 50px">장소:</div><div style="display: inline-block; text-decoration: underline;"><%=Place %></div><br>
 	<div style="display: inline-block; font-weight: bold; width: 100px">오픈채팅방:</div><div style="display: inline-block; text-decoration: underline;"><%=Link %></div><br>

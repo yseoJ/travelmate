@@ -18,12 +18,34 @@
 	
 	String memb_id = request.getParameter("MembId");
 	
-	sql = String.format("SELECT * FROM MEMB_INFO WHERE MEMB_ID = '%s'", memb_id);
+	sql = String.format("SELECT FULL_NM, MEMB_STATUS, NVL(MBTI,'입력해주세요') MBTI FROM MEMB_INFO WHERE MEMB_ID = '%s'", memb_id);
 	res = conn.prepareStatement(sql).executeQuery();
 	res.next();
 	System.out.print(sql);
 	String name = res.getString("FULL_NM");
 	String status = res.getString("MEMB_STATUS");
+	String mbti = res.getString("MBTI");
+	
+	sql = "SELECT COUNT(*) count_ing FROM TRIP_JOIN_LIST l JOIN TRIP_INFO i "+
+			"ON l.trip_id = i.trip_id "+
+			"WHERE i.trip_status = '진행중' "+
+			"AND l.memb_id = '" + memb_id + "' "+
+			"AND to_char(i.TRIP_MEET_DATE,'YYYY-MM-DD') >= to_char(SYSDATE, 'YYYY-MM-DD') ";
+	res = conn.prepareStatement(sql).executeQuery();
+	res.next();
+	System.out.print(sql);
+	String count_ing = res.getString("count_ing");
+	
+	sql = "SELECT COUNT(*) count_prev FROM TRIP_JOIN_LIST l JOIN TRIP_INFO i "+
+			"ON l.trip_id = i.trip_id "+
+			"WHERE i.trip_status = '진행중' "+
+			"AND l.memb_id = '" + memb_id + "' "+
+			"AND l.prg_status = '수락' "+
+			"AND to_char(i.TRIP_MEET_DATE,'YYYY-MM-DD') < to_char(SYSDATE, 'YYYY-MM-DD') ";
+	res = conn.prepareStatement(sql).executeQuery();
+	res.next();
+	System.out.print(sql);
+	String count_prev = res.getString("count_prev");
 %>
 <!DOCTYPE html>
 <html>
@@ -51,10 +73,6 @@
 	<div style="background-color: rgba(163, 201, 129, 0.5);">
 		<br><h2 style="text-align: center"><%=name %>님</h2><br>
 	</div><hr style="margin-top: 0px; margin-bottom: 30px;">
-	<%
-    	res.close();
-		conn.close();
-	%>
 	<!-- 만족도/재동행희망률 /동적 변환, db연동 필요 -->
 	<div class="myPageText2">만족도</div>
 	<div style="margin: auto; width: 95%; height: 30px; background-color:#dedede;">           
@@ -69,7 +87,7 @@
 	<form name="frmMyTrip" action="myTrip.jsp" method="post" >
 		<button class="myTrip" type="submit">
 			<div class="myPageButton">진행중인 여행</div>
-			<div class="myPageButton2">N건 ></div>
+			<div class="myPageButton2"><%=count_ing %>건 ></div>
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
 	</form>
@@ -77,7 +95,7 @@
 	<form name="frmMyTripPast" action="myTripPast.jsp" method="post" >
 		<button class="myTrip" type="submit">
 			<div class="myPageButton">완료한 여행 / 평가</div>
-			<div class="myPageButton2">N건 ></div>
+			<div class="myPageButton2"><%=count_prev %>건 ></div>
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
 	</form>
@@ -102,7 +120,7 @@
 	<div class="myPageText">MBTI</div>
 	<form name="frmMyMBTI" action="myMBTI.jsp" method="post" >
 		<button class="myTrip" type="submit">
-			<div class="myPageButton">ENFJ(db연동)</div>
+			<div class="myPageButton"><%=mbti %></div>
 			<div class="myPageButton2">></div>
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
@@ -110,5 +128,9 @@
 	
 	<!-- 회원 탈퇴 -->
 	<div style="text-align: center;"><a href="#" style="text-decoration: underline; color: gray">회원탈퇴</a></div>
+	<%
+    	res.close();
+		conn.close();
+	%>
 </body>
 </html>

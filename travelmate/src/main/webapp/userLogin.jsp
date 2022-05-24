@@ -101,7 +101,7 @@
       }
 	  
 	  function post_to_url(path, params, method) {
-		  method = method||"post";
+		  method = method||"get";		//DB에 저장한 임의의 계정으로 접근하기 위해 get 방식으로 설정
 		  
 		  var form = document.createElement("form");
 		  form.setAttribute("method", method);
