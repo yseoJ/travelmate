@@ -45,14 +45,14 @@
 	<hr>
 	<form class="form-inline my-2-my-lg-0" action="searchSight.jsp">
 		<input class="form-control mr-sm-2" name="search" type="search" placeholder="내용을 입력하세요" aria-label="Search"  style="width:80%; height:40px; float:left;">
-		<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="width:20%; height:40px; float:right; margin: 0px !important">검색</button>
+		<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="width:20%; height:40px; float:right; margin: 0px !important">검색</button>
 		<input type="hidden" name="MembId" value="<%=memb_id %>" />
 	</form>
 	<br><br><br>
 	<h4> * 여행 계획을 등록할 관광지를 선택하세요. </h4>
 	<br>
 	<table class="sights">
-		<tr style=" background-color: rgba(51, 150, 51, 0.1);">
+		<tr style=" background-color: rgba(66, 133, 244, 0.1);">
 			<th>관광지 명</th>
 			<th style="width: 150px; height: 20px; line-height: 20px;">지역</th>
 			<th style="width: 50px; height: 20px; line-height: 20px;">테마</th>
@@ -76,7 +76,7 @@
 			<td><%=sightClas%></td>
 			<td style="vertical-align:middle;">
 				<form name="frmsightInfo" action="sightInfo.jsp" method="post" >
-					<button type="submit" style="width: 100%; background-color: rgba(163, 201, 129, 0.5);">선택</button>
+					<button type="submit" style="width: 100%; background-color: rgba(66, 133, 244, 0.5);">선택</button>
 					<input type="hidden" name="sightId" value="<%=sightId %>" />
 					<input type="hidden" name="membId" value="<%=memb_id %>" />
 				</form>

@@ -40,7 +40,7 @@
 	<title>joinPopup</title>
 </head>
 <body>
-	<h2 style="text-align: center; background-color: rgba(163, 201, 129, 0.5); height: 30px; line-height: 30px;">참여 신청</h2>
+	<h2 style="text-align: center; background-color: rgba(66, 133, 244, 0.5); height: 30px; line-height: 30px;">참여 신청</h2>
 	<br><div  style="margin: 0 auto; text-align: center;">여행에 참여를 신청하시겠습니까?</div><br>
 	<div style="margin: 0 auto; text-align: center;">
 		<button onClick="window.close();" style=" display: inline-block; border-radius: 6px; background-color: white; height: 25px;">아니요</button>
