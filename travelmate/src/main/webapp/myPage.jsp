@@ -70,17 +70,17 @@
 	<title>MY PAGE</title>
 </head>
 <body style="line-height: 200%">
-	<div style="background-color: rgba(163, 201, 129, 0.5);">
+	<div style="background-color: rgba(66, 133, 244, 0.5);">
 		<br><h2 style="text-align: center"><%=name %>님</h2><br>
 	</div><hr style="margin-top: 0px; margin-bottom: 30px;">
 	<!-- 만족도/재동행희망률 /동적 변환, db연동 필요 -->
 	<div class="myPageText2">만족도</div>
 	<div style="margin: auto; width: 95%; height: 30px; background-color:#dedede;">           
-		<div style="width: 80%; height: 30px; padding: 0; text-align:center; background-color: rgba(163, 201, 129, 0.5);"> </div>
+		<div style="width: 80%; height: 30px; padding: 0; text-align:center; background-color: rgba(66, 133, 244, 0.5);"> </div>
 	</div><br>
 	<div class="myPageText2">재동행 희망률</div>
 	<div style="margin: auto; width: 95%; height: 30px; background-color:#dedede;">           
-		<div style="width: 70%; height: 30px; padding: 0; text-align:center; background-color: rgba(163, 201, 129, 0.5);"> </div>
+		<div style="width: 70%; height: 30px; padding: 0; text-align:center; background-color: rgba(66, 133, 244, 0.5);"> </div>
 	</div>
 	<hr style="margin-top: 30px; margin-bottom: 30px;">
 	<!-- 진행중인 여행 -->

@@ -47,7 +47,7 @@
 	<h4> 주최한 여행 </h4>
 	<br>
 	<table class="myTripList">
-		<tr style=" background-color: rgba(51, 150, 51, 0.1);">
+		<tr style=" background-color: rgba(66, 133, 244, 0.1);">
 			<th style="height: 20px; line-height: 20px;">제목</th>
 			<th>여행 날짜</th>
 		</tr>
@@ -67,7 +67,7 @@
 		%>
 		<tr>
 			<td style="font-size: 13px;">
-				<form name="frmMyTripHost" action="myTripHost.jsp" method="post" >
+				<form name="frmMyTripHost" action="pastTrip.jsp" method="post" >
 					<button class="myTripButton" type="submit"><%=tripTitle%></button>
 					<input type="hidden" name="tripId" value="<%=tripId %>" />
 					<input type="hidden" name="membId" value="<%=memb_id %>" />
@@ -83,7 +83,7 @@
 	<h4> 참여한 여행 </h4>
 	<br>
 	<table class="myTripList">
-		<tr style=" background-color: rgba(51, 150, 51, 0.1);">
+		<tr style=" background-color: rgba(66, 133, 244, 0.1);">
 			<th style="height: 20px; line-height: 20px;">제목</th>
 			<th>여행 날짜</th>
 		</tr>
@@ -105,7 +105,7 @@
 		%>
 		<tr>
 			<td style="font-size: 13px;">
-				<form name="frmMyTripHost" action="myTripHost.jsp" method="post" >
+				<form name="frmMyTripHost" action="pastTrip.jsp" method="post" >
 					<button class="myTripButton" type="submit"><%=tripTitle%></button>
 					<input type="hidden" name="tripId" value="<%=tripId %>" />
 					<input type="hidden" name="membId" value="<%=memb_id %>" />

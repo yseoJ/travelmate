@@ -32,7 +32,13 @@
 	String Cost = res.getString("PLAN_COST");
 	String Detail = res.getString("TRIP_Detail");
 	String sightId = res.getString("SIGHTS_ID");
+	String HostId = res.getString("MEMB_ID");
 	
+	sql = String.format("SELECT FULL_NM FROM MEMB_INFO WHERE MEMB_ID = '%s'", HostId);
+	res = conn.prepareStatement(sql).executeQuery();
+	res.next();
+	
+	String HostNM = res.getString("FULL_NM");
 	
 	sql = String.format("SELECT TO_CHAR(TRIP_MEET_DATE, 'YYYY-MM-DD') TRIP_MEET_DATE, NVL(TRIP_CHATLINK, ' ') TRIP_CHATLINK FROM TRIP_INFO WHERE TRIP_ID = %d", tripid);
 	res = conn.prepareStatement(sql).executeQuery();
@@ -68,7 +74,7 @@
 	<!-- 파퍼 자바스크립트 추가하기 -->
 	<script src="./js/pooper.js"></script>
 	
-	<title>Make Trip</title>
+	<title>My Trip</title>
 </head>
 <body style="line-height: 200%">
 	<br><h2 style="text-align: center"><%=Title %></h2>
@@ -77,23 +83,22 @@
 	<div style="display: inline-block; font-weight: bold; width: 50px">인원:</div><div style="display: inline-block;"><%=Num %></div><br>
 	<div style="display: inline-block; font-weight: bold; width: 50px">비용:</div><div style="display: inline-block;"><%=Cost %></div><br>
 	<div style="display: inline-block; font-weight: bold; width: 80px">관광지명:</div><div style="display: inline-block;"><%=sightName %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 80px">세부정보:</div><div style="display: inline-block;"><%=Detail %></div><br><br>
-	<div style="color: red; font-size: 13px; line-height:120%">*모임시간,장소,오픈채팅링크, 참여자 정보*는 수락된 참여자에 한하여 열람 가능합니다.</div>
-	<div style="border: 1px solid black;">
-		<div style="display: inline-block; font-weight: bold; width: 50px">시간:</div><div style="display: inline-block;"><%=Time %></div><br>
-		<div style="display: inline-block; font-weight: bold; width: 50px">장소:</div><div style="display: inline-block;"><%=Place %></div><br>
-		<div style="display: inline-block; font-weight: bold; width: 100px">오픈채팅방:</div><div style="display: inline-block;"><%=Link %></div><br>
-	</div>
+	<div style="display: inline-block; font-weight: bold; width: 80px">세부정보:</div><div style="display: inline-block;"><%=Detail %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 80px">주최자:</div><div style="display: inline-block;"><%=HostNM %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 50px">시간:</div><div style="display: inline-block;"><%=Time %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 50px">장소:</div><div style="display: inline-block;"><%=Place %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 100px">오픈채팅방:</div><div style="display: inline-block;"><%=Link %></div><br>
 	<br>
 	<table style="width: 95%; margin: 0 auto;">
 		<tr style=" background-color: rgba(66, 133, 244, 0.1);">
 			<th style="height: 20px; line-height: 20px; text-align: center;">참여자명</th>
-			<th style="text-align: center;">수락 / 거절</th>
+			<th style="text-align: center;">평가</th>
 		</tr>
 		<%     
 		sql = "SELECT * FROM TRIP_JOIN_LIST l JOIN MEMB_INFO m ON l.MEMB_ID = m.MEMB_ID "+
 				"WHERE l.TRIP_ID = " + tripid + " "+
-				"AND l.MEMB_ID != '" + membId + "' ";
+				"AND l.MEMB_ID != '" + membId + "' "+
+				"AND PRG_STATUS = '수락'";
 		res = conn.prepareStatement(sql).executeQuery();
 			
 		while(res.next()) {            
@@ -112,64 +117,8 @@
 			</td>
 			<td style="font-size: 13px;">
 				<div style="margin: 0 auto; text-align: center;">
-				<%
-				sql = "SELECT PRG_STATUS FROM TRIP_JOIN_LIST "+
-							"WHERE TRIP_ID = " + tripid + " "+
-							"AND MEMB_ID != '" + membId + "' ";
-				res = conn.prepareStatement(sql).executeQuery();
-				res.next();
-				String PRG_STATUS = res.getString("PRG_STATUS");
-				String apply = "신청";
-				if(PRG_STATUS.equals(apply)) {
-				%>
-					<p id="status"></p>
-					<div id="button">
-						<form name="frmAccept" method="post" style="display: inline;">		
-							<input type="hidden" name="tripId" value="<%=tripid %>" />
-							<input type="hidden" name="membId" value="<%=participantId %>" />
-						</form>
-						<button onClick="accept();" style="display: inline-block; background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">수락</button>
-						|
-						<form name="frmReject" method="post" style="display: inline;">
-							<input type="hidden" name="tripId" value="<%=tripid %>" />
-							<input type="hidden" name="membId" value="<%=participantId %>" />
-						</form>
-						<button onClick="reject();"  style="display: inline-block; background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">거절</button>
-					</div>
-				<%
-				} else{
-				%>
-				<p id="status"><%=PRG_STATUS %>됨</p>
-				<%} %>
+					평가하기
 				</div>
-				
-				<script type="text/javascript">
-					const status = document.getElementById("status");
-					const button = document.getElementById("button");
-					
-					function accept() {
-						console.log('수락');
-						status.innerText = "수락됨";
-					    button.style.display = "none";
-					    openWindow('accept.jsp','accept','150','150','0','0');
-						document.frmAccept.target='accept'; // 팝업창 윈도우 이름
-						document.frmAccept.action = 'accept.jsp'; // 팝업창 주소
-						frmAccept.submit();
-					}
-					function reject() {
-						console.log('거절');
-						status.innerText = "거절됨";
-					    button.style.display = "none";
-					    openWindow('reject.jsp','reject','150','150','0','0');
-						document.frmReject.target='reject'; // 팝업창 윈도우 이름
-						document.frmReject.action = 'reject.jsp'; // 팝업창 주소
-						frmReject.submit();
-					}
-					
-					function openWindow(url,name,w,h,top,left) {
-						window.open(url,name,"width="+w+",height="+h+",scrollbars=yes,resizable=no,status=no,top="+top+",left="+left);
-					}
-				</script>
 			</td>
 		</tr>
 		
