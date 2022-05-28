@@ -53,7 +53,7 @@
 <body style="line-height: 100%">
 	<br><h2 style="text-align: center">여행 계획하기</h2>
 	<hr> 
-	<form name="frmMakeTrip" action="makeTripCheck.jsp" method="post" >
+	<form name="frmMakeTrip" action="makeTripCheck.jsp" method="get" >
 		<div class="makeTripInput">
 			<div style="width:100%; height:25px; float:left; line-height: 25px;">제목</div><input type="text" name="Title" id="txtTitle" value=""/><br><br>
 			<div style="width:100%; height:25px; float:left; line-height: 25px;">여행날짜</div><input type="text" name="Date" id="txtDate" value="" placeholder="YYYY-MM-DD"/><br><br>

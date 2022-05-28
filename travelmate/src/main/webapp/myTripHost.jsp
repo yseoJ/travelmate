@@ -104,7 +104,7 @@
 			<td style="font-size: 13px;">
 				<div style="margin: 0 auto; text-align: center;">
 					<a style="font-weight: bold; font-size: 15px;">&nbsp;<%=Name%></a>
-					<form name="frmMembInfo" action="membInfo.jsp" method="post" style="display: inline;">
+					<form name="frmMembInfo" action="membInfo.jsp" method="get" style="display: inline;">
 						<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">자세히</button>
 						<input type="hidden" name="participantId" value="<%=participantId %>" />
 					</form>
@@ -124,13 +124,13 @@
 				%>
 					<p id="status"></p>
 					<div id="button">
-						<form name="frmAccept" method="post" style="display: inline;">		
+						<form name="frmAccept" method="get" style="display: inline;">		
 							<input type="hidden" name="tripId" value="<%=tripid %>" />
 							<input type="hidden" name="membId" value="<%=participantId %>" />
 						</form>
 						<button onClick="accept();" style="display: inline-block; background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">수락</button>
 						|
-						<form name="frmReject" method="post" style="display: inline;">
+						<form name="frmReject" method="get" style="display: inline;">
 							<input type="hidden" name="tripId" value="<%=tripid %>" />
 							<input type="hidden" name="membId" value="<%=participantId %>" />
 						</form>
