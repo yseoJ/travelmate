@@ -148,3 +148,12 @@ th, td {
 	text-align: left;
 	text-decoration-line: underline;
 }
+
+.tripInfo{
+	 border-color: rgba(0,0,0,0.1); 
+	 border-color: rgba(0,0,0,0.1); 
+	 width:100%;
+}
+.tripInfo tr td{
+	 border-color: rgba(0,0,0,0.1); 
+}

@@ -122,11 +122,12 @@
 			</tr>
 			
 			<%
-			    }
-			    res.close();
-			 	conn.close();
+			} 
 			%>
 		</table>
-	<%} %> 
+	<%
+	} 
+	res.close();
+	conn.close();%> 
 </body>
 </html>
