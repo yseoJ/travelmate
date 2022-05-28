@@ -65,13 +65,12 @@
 	    
 		<label for="txtPhoneNum">핸드폰번호&nbsp;</label><input type="text" name="PHONE_NUM" id="txtPhoneNum" placeholder="01012345678" size="20" value="" pattern="[0-9]+" minlength="10" maxlength="11"/><br>
 		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*숫자만 입력하세요</a> 
-		<br><br><br><br><br><br>
-		<div class="d-grid gap-2">
-			<button class="btn btn-primary btn-ls" type="button" onclick="checkJoin();">회원가입</button>
-		</div>
-		<%
-		
-		%>
+		<br><br><br>
+		<footer style="position: fixed; bottom: 0; width: 100%;">
+			<div class="d-grid gap-2">
+				<button class="btn btn-primary btn-ls" type="button" onclick="checkJoin();">회원가입</button>
+			</div>
+		</footer>
 	</form> 
 	
 	<script>

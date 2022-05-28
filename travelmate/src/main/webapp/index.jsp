@@ -17,12 +17,13 @@
 	ResultSet res = null;
 	
 	String id = request.getParameter("ID");
+	String search = request.getParameter("search"); 
 
 	sql = String.format( "select * from MEMB_INFO where MEMB_ID = '%s'", id);
 	res = conn.prepareStatement(sql).executeQuery();
 	//System.out.println(res.next());
 	
-	if(!res.next()){
+	if(!res.next()){		//회원 정보가 없으면 저장
 		String name = request.getParameter("NAME");
 		String email = request.getParameter("EMAIL");
 		String phone = request.getParameter("PHONE_NUM");
@@ -31,11 +32,14 @@
 
 		sql = String.format( "Insert into MEMB_INFO (MEMB_ID,FULL_NM,EMAIL_ADDR,ADDM_YEAR,PHONE_NUM,GENDER,MEMB_STATUS) values ('%s','%s','%s','%s','%s','%s','가입') ", id, name, email, adyear, phone, gender); 
 		conn.prepareStatement(sql).executeUpdate();
+		
 	}
+	//회원 정보 있으면
 	
 	sql = String.format( "select * from MEMB_INFO where MEMB_ID = '%s'", id);
 	System.out.println(sql);
 	res = conn.prepareStatement(sql).executeQuery();
+	
 	res.next();
 	String DbId = res.getString("MEMB_ID");
 	String DbName = res.getString("FULL_NM");
@@ -69,7 +73,7 @@
 	<title>TRAVELMATE</title>
 </head>
 <body>
-	<header style="position: fixed; top: 0; width: 100%; height:50px; z-index: 1">
+	<header style="position: fixed; top: 0; width: 100%; height:100px; z-index: 1">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div style="display: inline; margin: 0 auto; margin-right: 55px;"><a class="navbar-brand" href="index.jsp?ID=<%=DbId %>">TRAVELMATE</a></div>
 			<div style="display: inline; float: right; margin: 0;">
@@ -90,20 +94,35 @@
 				</form>
 			</div>
 		</nav>
-	</header>
-	<main style="position: absolute; top: 48px; width:100%">
-		<form class="form-inline my-2-my-lg-0" action="searchTrip.jsp">
-			<input class="form-control mr-sm-2" name="search" type="search" placeholder="내용을 입력하세요" aria-label="Search"  style="width:80%; height:40px; float:left;">
+		<form class="form-inline my-2-my-lg-0" action="index.jsp" method="get">
+			<input class="form-control mr-sm-2" name="search" type="search" placeholder="내용을 입력하세요" aria-label="Search" <%if (search != null && search.trim() != "") { %> value="<%=search %>"<%} %> style="width:80%; height:40px; float:left;">
 			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="width:20%; height:40px; float:right; margin: 0px !important">검색</button>
-			<input type="hidden" name="MembId" value="<%=DbId %>" />
 		</form>
-		<br><br><br><br>
+		<br>
+	</header>
+	<main style="position: absolute; top: 100px; width:100%; ">
 		<h4> 여행 목록 </h4>  
 	    <%     
-	    sql = "SELECT TRIP_ID, TRIP_TITLE, TO_CHAR(TRIP_MEET_DATE, 'YYYY/MM/DD') TRIP_MEET_DATE,  TOT_NUM "+
-	    		"FROM TRIP_INFO "+
-	    		"WHERE to_char(TRIP_MEET_DATE,'YYYY-MM-DD') > to_char(SYSDATE, 'YYYY-MM-DD') "+
-	    		"ORDER BY TRIP_MEET_DATE ";
+	    
+	    sql = "SELECT x.TRIP_ID, x.TRIP_TITLE, x.TRIP_MEET_DATE, x.TOT_NUM, x.JOIN_NUM, "+
+	          			"CASE WHEN join_num < tot_num THEN '모집중' "+
+	          			"ELSE '마감' "+
+	          			"END TRIP_CLOSE "+
+				"FROM ( "+
+	         			"SELECT m.TRIP_ID, m.TRIP_TITLE, TO_CHAR(m.TRIP_MEET_DATE, 'YYYY/MM/DD') TRIP_MEET_DATE,  m.TOT_NUM, m.SIGHTS_ID, "+
+	                	"(SELECT COUNT(*) FROM TRIP_JOIN_LIST j WHERE j.TRIP_ID = m.TRIP_ID AND (PRG_STATUS = '수락' OR PRG_STATUS = '신청')) JOIN_NUM "+
+	        			"FROM TRIP_INFO m "+
+	        			"WHERE to_char(m.TRIP_MEET_DATE,'YYYY-MM-DD') > to_char(SYSDATE, 'YYYY-MM-DD') "+
+	        			") x LEFT OUTER JOIN SIGHTS_INFO s ON x.SIGHTS_ID = s.SIGHTS_ID ";
+	        	if (search != null && search.trim() != ""){
+	        		search = search.trim();
+		 			sql = sql + "WHERE x.TRIP_TITLE LIKE '%" + search + "%' "+
+		        				"OR s.SIGHTS_NM LIKE '%" + search + "%' "+
+					 			"OR s.SIGHTS_ADDR LIKE '%" + search + "%' "+
+					 			"OR s.SIGHTS_CLAS LIKE '%" + search + "%' "+
+					 			"OR s.SIGHTS_TRAFFIC LIKE '%" + search + "%' ";
+	        	}
+	    sql = sql + "ORDER BY TRIP_MEET_DATE ";
 	    res = conn.prepareStatement(sql).executeQuery();
 	    //System.out.print(rs.next());
 		
@@ -112,11 +131,14 @@
 	      String TRIP_MEET_DATE = res.getString("TRIP_MEET_DATE");   
 	      String TOT_NUM = res.getString("TOT_NUM");
 	      String TRIP_ID = res.getString("TRIP_ID");
+	      String TRIP_CLOSE = res.getString("TRIP_CLOSE");
+	      String JOIN_NUM = res.getString("JOIN_NUM");
 	      //System.out.println(sql);
 		%>
 		<br>
 		<form name="frmTripInfo" action="tripInfo.jsp" method="post" >
 			<button type="submit" class="tripList">
+			<div style="float:left; width: 75%;">
 				<br><div style="font-weight:bold; line-height:50%;"><%=TRIP_TITLE%></div>
 				<br>
 				<!-- 여행 날짜 -->
@@ -131,12 +153,18 @@
 				  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
 				  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
 				</svg>
-				&nbsp;<%=TOT_NUM%>
+				&nbsp;총 모집 인원 <%=TOT_NUM %> 명 중 <%=JOIN_NUM %>명 참여중
 				<br><br>
+			</div>
+			<div style="display:inline-block; float:right; text-align:center; border: 2px solid <%if ("모집중".equals(TRIP_CLOSE)){%>green<%} else{%>red<%} %>; margin: 5px; width: 20%;">
+				<div style="color: <%if ("모집중".equals(TRIP_CLOSE)){%>green<%} else{%>red<%} %>; vertical-align: middle; margin: 5px;"><%=TRIP_CLOSE%></div>
+			</div>
 			</button>
 			<input type="hidden" name="MembId" value="<%=DbId %>" />
 			<input type="hidden" name="TripTitle" value="<%=TRIP_TITLE %>" />
 			<input type="hidden" name="TripId" value="<%=TRIP_ID %>" />
+			<input type="hidden" name="TripClose" value="<%=TRIP_CLOSE %>" />
+			<input type="hidden" name="JoinNum" value="<%=JOIN_NUM %>" />
 		</form>
 	    <%
 	    }
@@ -162,7 +190,7 @@
 	<!-- 여행 개설 -->
 		<div style="margin-left: 85%;">
 		<br>
-		<form name="frmSightList" action="sightList.jsp" method="post" >
+		<form name="frmSightList" action="sightList.jsp" method="get" >
 			<button type="submit" class="addTrip">
 				+
 			</button>

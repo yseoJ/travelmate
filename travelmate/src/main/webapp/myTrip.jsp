@@ -52,8 +52,8 @@
 			<th>여행 날짜</th>
 		</tr>
 		<%     
-		sql = "SELECT i.TRIP_ID, i.TRIP_TITLE, TO_CHAR(i.TRIP_MEET_DATE, 'YYYY-MM-DD') AS TRIP_MEET_DATE FROM TRIP_JOIN_LIST l JOIN TRIP_INFO i "+
-				"ON l.trip_id = i.trip_id AND i.memb_id = l.memb_id "+
+		sql = "SELECT i.TRIP_ID, i.TRIP_TITLE, TO_CHAR(i.TRIP_MEET_DATE, 'YYYY-MM-DD') AS TRIP_MEET_DATE "+
+				"FROM TRIP_JOIN_LIST l JOIN TRIP_INFO i ON l.trip_id = i.trip_id AND i.memb_id = l.memb_id "+
 				"WHERE i.trip_status = '진행중' "+
 				"AND i.memb_id = '" + memb_id + "' "+
 				"AND to_char(i.TRIP_MEET_DATE,'YYYY-MM-DD') >= to_char(SYSDATE, 'YYYY-MM-DD') "+

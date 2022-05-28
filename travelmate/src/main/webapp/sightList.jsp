@@ -17,6 +17,7 @@
 	ResultSet res = null;
 	
 	String memb_id = request.getParameter("MembId");
+	String search = request.getParameter("search");
 %>
 <!DOCTYPE html>
 <html>
@@ -43,8 +44,8 @@
 <body>
 	<br><h2 style="text-align: center">여행지 선택</h2>
 	<hr>
-	<form class="form-inline my-2-my-lg-0" action="searchSight.jsp">
-		<input class="form-control mr-sm-2" name="search" type="search" placeholder="내용을 입력하세요" aria-label="Search"  style="width:80%; height:40px; float:left;">
+	<form class="form-inline my-2-my-lg-0" action="sightList.jsp" method="get">
+		<input class="form-control mr-sm-2" name="search" type="search" placeholder="내용을 입력하세요" aria-label="Search" <%if (search != null && search.trim() != "") { %> value="<%=search %>"<%} %> style="width:80%; height:40px; float:left;">
 		<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="width:20%; height:40px; float:right; margin: 0px !important">검색</button>
 		<input type="hidden" name="MembId" value="<%=memb_id %>" />
 	</form>
@@ -59,7 +60,15 @@
 			<th style="width: 60px; height: 20px; line-height: 20px;">선택</th>
 		</tr>
 		<%     
-		    sql = "select * from SIGHTS_INFO order by SIGHTS_CLAS, SIGHTS_ADDR" ;
+		    sql = "SELECT * FROM SIGHTS_INFO ";
+		    		if (search != null && search.trim() != ""){
+		        		search = search.trim();
+			 			sql = sql + "WHERE SIGHTS_NM LIKE '%" + search + "%' "+
+			 			    	"OR SIGHTS_ADDR LIKE '%" + search + "%' "+
+			 			    	"OR SIGHTS_CLAS LIKE '%" + search + "%' "+
+			 			    	"OR SIGHTS_TRAFFIC LIKE '%" + search + "%' ";
+		        	}
+		    sql = sql + "ORDER BY SIGHTS_CLAS, SIGHTS_ADDR " ;
 		    res = conn.prepareStatement(sql).executeQuery();
 			
 		    while(res.next()) {            
@@ -75,7 +84,7 @@
 			<td style="font-size: 13px;"><%=splitAddr%></td>
 			<td><%=sightClas%></td>
 			<td style="vertical-align:middle;">
-				<form name="frmsightInfo" action="sightInfo.jsp" method="post" >
+				<form name="frmsightInfo" action="sightInfo.jsp" method="get" >
 					<button type="submit" style="width: 100%; background-color: rgba(66, 133, 244, 0.5);">선택</button>
 					<input type="hidden" name="sightId" value="<%=sightId %>" />
 					<input type="hidden" name="membId" value="<%=memb_id %>" />

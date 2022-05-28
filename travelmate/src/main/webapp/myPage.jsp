@@ -74,7 +74,7 @@
 		<br><h2 style="text-align: center"><%=name %>님</h2><br>
 	</div><hr style="margin-top: 0px; margin-bottom: 30px;">
 	<!-- 만족도/재동행희망률 /동적 변환, db연동 필요 -->
-	<div class="myPageText2">만족도</div>
+	<div class="myPageText2">나에 대한 평가</div>
 	<div style="margin: auto; width: 95%; height: 30px; background-color:#dedede;">           
 		<div style="width: 80%; height: 30px; padding: 0; text-align:center; background-color: rgba(66, 133, 244, 0.5);"> </div>
 	</div><br>
@@ -94,7 +94,7 @@
 	<!-- 완료한 여행 -->
 	<form name="frmMyTripPast" action="myTripPast.jsp" method="post" >
 		<button class="myTrip" type="submit">
-			<div class="myPageButton">완료한 여행 / 평가</div>
+			<div class="myPageButton">완료한 여행<br><p style="font-size: 10px;">*완료한 여행에 대해 평가하세요</p></div>
 			<div class="myPageButton2"><%=count_prev %>건 ></div>
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
@@ -125,9 +125,6 @@
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
 	</form>
-	
-	<!-- 회원 탈퇴 -->
-	<div style="text-align: center;"><a href="#" style="text-decoration: underline; color: gray">회원탈퇴</a></div>
 	<%
     	res.close();
 		conn.close();
