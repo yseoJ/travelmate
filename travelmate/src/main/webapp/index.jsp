@@ -84,7 +84,7 @@
 					</svg>
 				</a>
 				<!-- 마이페이지 -->
-				<form name="frmMyPage" action="myPage.jsp" method="post" style="display:inline;">
+				<form name="frmMyPage" action="myPage.jsp" method="get" style="display:inline;">
 					<button type="submit" class="myPage">
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
 			  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
@@ -97,6 +97,7 @@
 		<form class="form-inline my-2-my-lg-0" action="index.jsp" method="get">
 			<input class="form-control mr-sm-2" name="search" type="search" placeholder="내용을 입력하세요" aria-label="Search" <%if (search != null && search.trim() != "") { %> value="<%=search %>"<%} %> style="width:80%; height:40px; float:left;">
 			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="width:20%; height:40px; float:right; margin: 0px !important">검색</button>
+			<input type="hidden" name="ID" value="<%=DbId %>" />
 		</form>
 		<br>
 	</header>
@@ -136,7 +137,7 @@
 	      //System.out.println(sql);
 		%>
 		<br>
-		<form name="frmTripInfo" action="tripInfo.jsp" method="post" >
+		<form name="frmTripInfo" action="tripInfo.jsp" method="get" >
 			<button type="submit" class="tripList">
 			<div style="float:left; width: 75%;">
 				<br><div style="font-weight:bold; line-height:50%;"><%=TRIP_TITLE%></div>

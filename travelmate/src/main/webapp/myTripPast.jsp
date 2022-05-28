@@ -67,7 +67,7 @@
 		%>
 		<tr>
 			<td style="font-size: 13px;">
-				<form name="frmMyTripHost" action="pastTrip.jsp" method="post" >
+				<form name="frmMyTripHost" action="pastTrip.jsp" method="get" >
 					<button class="myTripButton" type="submit"><%=tripTitle%></button>
 					<input type="hidden" name="tripId" value="<%=tripId %>" />
 					<input type="hidden" name="membId" value="<%=memb_id %>" />
@@ -105,7 +105,7 @@
 		%>
 		<tr>
 			<td style="font-size: 13px;">
-				<form name="frmMyTripHost" action="pastTrip.jsp" method="post" >
+				<form name="frmMyTripHost" action="pastTrip.jsp" method="get" >
 					<button class="myTripButton" type="submit"><%=tripTitle%></button>
 					<input type="hidden" name="tripId" value="<%=tripId %>" />
 					<input type="hidden" name="membId" value="<%=memb_id %>" />

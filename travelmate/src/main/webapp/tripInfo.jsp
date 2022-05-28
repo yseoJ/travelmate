@@ -169,7 +169,7 @@
 		</svg>
 		<p style="font-size:10px; display:inline-block;">주최자</p>
 	&nbsp;<%=HostNM %>
-	<form name="frmMembInfo" action="membInfo.jsp" method="post" style="display: inline;">
+	<form name="frmHostInfo" action="hostInfo.jsp" method="post" style="display: inline;">
 		<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">자세히</button>
 		<input type="hidden" name="participantId" value="<%=HostId %>" />
 	</form>

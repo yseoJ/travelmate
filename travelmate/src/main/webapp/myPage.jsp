@@ -84,7 +84,7 @@
 	</div>
 	<hr style="margin-top: 30px; margin-bottom: 30px;">
 	<!-- 진행중인 여행 -->
-	<form name="frmMyTrip" action="myTrip.jsp" method="post" >
+	<form name="frmMyTrip" action="myTrip.jsp" method="get" >
 		<button class="myTrip" type="submit">
 			<div class="myPageButton">진행중인 여행</div>
 			<div class="myPageButton2"><%=count_ing %>건 ></div>
@@ -92,7 +92,7 @@
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
 	</form>
 	<!-- 완료한 여행 -->
-	<form name="frmMyTripPast" action="myTripPast.jsp" method="post" >
+	<form name="frmMyTripPast" action="myTripPast.jsp" method="get" >
 		<button class="myTrip" type="submit">
 			<div class="myPageButton">완료한 여행<br><p style="font-size: 10px;">*완료한 여행에 대해 평가하세요</p></div>
 			<div class="myPageButton2"><%=count_prev %>건 ></div>
@@ -100,7 +100,7 @@
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
 	</form>
 	<!-- 받은 매너 평가 -->
-	<form name="frmMyEvaluation" action="myEvaluation.jsp" method="post" >
+	<form name="frmMyEvaluation" action="myEvaluation.jsp" method="get" >
 		<button class="myTrip" type="submit">
 			<div class="myPageButton">받은 매너 평가</div>
 			<div class="myPageButton2">></div>
@@ -109,7 +109,7 @@
 	</form>
 	<!-- 나의 관심사 -->
 	<div class="myPageText">나의 관심사</div>
-	<form name="frmMyInterest" action="myInterset.jsp" method="post" >
+	<form name="frmMyInterest" action="myInterset.jsp" method="get" >
 		<button class="myTrip" type="submit">
 			<div class="myPageButton">궁, 강 ..(db연동)</div>
 			<div class="myPageButton2">></div>
@@ -118,7 +118,7 @@
 	</form>
 	<!-- 나의 mbti -->
 	<div class="myPageText">MBTI</div>
-	<form name="frmMyMBTI" action="myMBTI.jsp" method="post" >
+	<form name="frmMyMBTI" action="myMBTI.jsp" method="get" >
 		<button class="myTrip" type="submit">
 			<div class="myPageButton"><%=mbti %></div>
 			<div class="myPageButton2">></div>

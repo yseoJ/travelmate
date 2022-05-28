@@ -43,11 +43,13 @@
 
 	<title> 로그인 | travelmate </title>
 </head>
-<body>
-	<br>
-	<h2 align="center">TRAVELAMATE</h2>
+<body style="background-color: rgba(66, 133, 244, 0.5);">
+	<br><br><br>
+	<h2 align="center" style="text-decoration: underline; text-decoration-style: wavy; text-underline-position: under;">TRAVELAMATE</h2>
 	<br><br><br><br><br><br>
-	<div class="g-signin2" data-onsuccess="onSignIn" style="text-align: center; margin: 0 auto;"></div>
+	<div style="width: 150px; border: 5px solid blue; margin: 0 auto; border-radius: 20px;">
+		<div class="g-signin2" data-onsuccess="onSignIn" style="text-align: center; margin: 10px;"></div>
+   	</div>
     <script type="text/javascript">
 	  //구글 로그인
       function onSignIn() {
