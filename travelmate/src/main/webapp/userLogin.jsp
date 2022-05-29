@@ -45,7 +45,7 @@
 </head>
 <body style="background-color: rgba(66, 133, 244, 0.5);">
 	<br><br><br>
-	<h2 align="center" style="text-decoration: underline; text-decoration-style: wavy; text-underline-position: under;">TRAVELAMATE</h2>
+	<h2 align="center" style="text-decoration: underline; text-decoration-style: wavy; text-underline-position: under;">TRAVELMATE</h2>
 	<br><br><br><br><br><br>
 	<div style="width: 150px; border: 5px solid blue; margin: 0 auto; border-radius: 20px;">
 		<div class="g-signin2" data-onsuccess="onSignIn" style="text-align: center; margin: 10px;"></div>

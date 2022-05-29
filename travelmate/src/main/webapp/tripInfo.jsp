@@ -169,13 +169,13 @@
 		</svg>
 		<p style="font-size:10px; display:inline-block;">주최자</p>
 	&nbsp;<%=HostNM %>
-	<form name="frmHostInfo" action="hostInfo.jsp" method="post" style="display: inline;">
+	<form name="frmHostInfo" action="hostInfo.jsp" method="get" style="display: inline;">
 		<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">자세히</button>
 		<input type="hidden" name="participantId" value="<%=HostId %>" />
 	</form>
 	<footer style="position: fixed; bottom: 0; width: 100%;">
 		<!-- 여행 참여 -->
-		<form name="frmJoin" method="post" action="joinFinish.jsp">
+		<form name="frmJoin" method="get" action="joinFinish.jsp">
 			<input type="hidden" name="memb_id" value="<%=memb_id %>" />
 			<input type="hidden" name="trip_id" value="<%=trip_id %>" />
 		</form>
