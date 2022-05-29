@@ -94,8 +94,8 @@
 	<!-- 완료한 여행 -->
 	<form name="frmMyTripPast" action="myTripPast.jsp" method="get" >
 		<button class="myTrip" type="submit">
-			<div class="myPageButton">완료한 여행<br><p style="font-size: 10px;">*완료한 여행에 대해 평가하세요</p></div>
-			<div class="myPageButton2"><%=count_prev %>건 ></div>
+			<div class="myPageButton" style="line-height: 50px;">완료한 여행<p style="font-size: 10px; line-height: 0px;">*완료한 여행에 대해 평가하세요</p></div>
+			<div class="myPageButton2" style="line-height: 60px;"><%=count_prev %>건 ></div>
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
 	</form>
@@ -103,6 +103,14 @@
 	<form name="frmMyEvaluation" action="myEvaluation.jsp" method="get" >
 		<button class="myTrip" type="submit">
 			<div class="myPageButton">받은 매너 평가</div>
+			<div class="myPageButton2">></div>
+		</button>
+		<input type="hidden" name="membId" value="<%=memb_id %>" />
+	</form>
+	<!-- 추천 여행 -->
+	<form name="frmTopKTrip" action="topKTrip.jsp" method="get" >
+		<button class="myTrip" type="submit">
+			<div class="myPageButton">추천 여행 (top-K)<br></div>
 			<div class="myPageButton2">></div>
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />

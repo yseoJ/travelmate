@@ -47,7 +47,7 @@
 	<form class="form-inline my-2-my-lg-0" action="sightList.jsp" method="get">
 		<input class="form-control mr-sm-2" name="search" type="search" placeholder="내용을 입력하세요" aria-label="Search" <%if (search != null && search.trim() != "") { %> value="<%=search %>"<%} %> style="width:80%; height:40px; float:left;">
 		<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="width:20%; height:40px; float:right; margin: 0px !important">검색</button>
-		<input type="hidden" name="ID" value="<%=memb_id %>" />
+		<input type="hidden" name="MembId" value="<%=memb_id %>" />
 	</form>
 	<br><br><br>
 	<h4> * 여행 계획을 등록할 관광지를 선택하세요. </h4>
