@@ -18,14 +18,14 @@
 	
 	String membId = request.getParameter("membId");
 	int tripid = Integer.parseInt(request.getParameter("tripId"));
+	String acceptReject = request.getParameter("acceptReject");
+	String participantId = request.getParameter("participantId");
 	
-	sql = "UPDATE TRIP_JOIN_LIST  SET PRG_STATUS='수락' "+
-    		"WHERE MEMB_ID = '" + membId + "' "+
+	sql = "UPDATE TRIP_JOIN_LIST  SET PRG_STATUS='" + acceptReject + "' "+
+    		"WHERE MEMB_ID = '" + participantId + "' "+
     		"AND TRIP_ID = " + tripid + " ";
 	
 	conn.prepareStatement(sql).executeUpdate();
-	
-	conn.close();
 
 %>
 <!DOCTYPE html>
@@ -45,12 +45,19 @@
 	<!-- 파퍼 자바스크립트 추가하기 -->
 	<script src="./js/pooper.js"></script>
 	
-	<title>Accept</title>
+	<title>joinFinish</title>
 </head>
 <body>
-	<br><div style="font-size: 15px; font-weight: bold; text-align:center;"><a>수락되었습니다.</a></div><br>
+	<br>
+	<h2 style="text-align:center;"><%=acceptReject %>이 완료되었습니다.</h2><br><br>
 	<div style="margin: 0 auto; text-align: center;">
+	<form name="frmInex" action="index.jsp" method="post" >
 		<button onClick="window.close();" style=" display: inline-block; border-radius: 6px; background-color: rgba(66, 133, 244, 0.3); height: 25px;">확인</button>
+		<input type="hidden" name="ID" value="<%=membId %>" />
+	</form>
 	</div>
+	<%
+	conn.close();
+	%>
 </body>
 </html>

@@ -75,7 +75,7 @@
 <body>
 	<header style="position: fixed; top: 0; width: 100%; height:100px; z-index: 1">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div style="display: inline; margin: 0 auto; margin-right: 55px;"><a class="navbar-brand" href="index.jsp?ID=<%=DbId %>">TRAVELMATE</a></div>
+			<div style="display: inline; margin: 0 auto; float: center; margin-right: 55px;"><a class="navbar-brand" href="index.jsp?ID=<%=DbId %>">TRAVELMATE</a></div>
 			<div style="display: inline; float: right; margin: 0;">
 				<!-- 로그아웃 -->
 				<a href="userLogin.jsp" onclick="signOut();">
