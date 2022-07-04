@@ -124,17 +124,21 @@
 				%>
 					<p id="status"></p>
 					<div id="button">
-						<form name="frmAccept" method="get" style="display: inline;">		
+						<form name="frmAccept" method="get" style="display: inline;" action="acceptReject.jsp">		
 							<input type="hidden" name="tripId" value="<%=tripid %>" />
-							<input type="hidden" name="membId" value="<%=participantId %>" />
+							<input type="hidden" name="participantId" value="<%=participantId %>" />
+							<input type="hidden" name="membId" value="<%=membId %>" />
+							<input type="hidden" name="acceptReject" value="수락" />
 						</form>
-						<button onClick="accept();" style="display: inline-block; background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">수락</button>
+						<button onClick="accept();" type="submit" style="display: inline-block; background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">수락</button>
 						|
-						<form name="frmReject" method="get" style="display: inline;">
+						<form name="frmReject" method="get" style="display: inline;" action="acceptReject.jsp">
 							<input type="hidden" name="tripId" value="<%=tripid %>" />
-							<input type="hidden" name="membId" value="<%=participantId %>" />
+							<input type="hidden" name="participantId" value="<%=participantId %>" />
+							<input type="hidden" name="membId" value="<%=membId %>" />
+							<input type="hidden" name="acceptReject" value="거절" />
 						</form>
-						<button onClick="reject();"  style="display: inline-block; background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">거절</button>
+						<button onClick="reject();" type="submit" style="display: inline-block; background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">거절</button>
 					</div>
 				<%
 				} else{
@@ -144,39 +148,32 @@
 				</div>
 				
 				<script type="text/javascript">
-					const status = document.getElementById("status");
-					const button = document.getElementById("button");
-					
 					function accept() {
-						console.log('수락');
-						status.innerText = "수락됨";
-					    button.style.display = "none";
-					    openWindow('accept.jsp','accept','150','150','0','0');
-						document.frmAccept.target='accept'; // 팝업창 윈도우 이름
-						document.frmAccept.action = 'accept.jsp'; // 팝업창 주소
-						frmAccept.submit();
+							var result = confirm("수락하시겠습니까?");
+							if(result){
+								document.frmAccept.submit();
+								return true;
+							}
+							else{
+								return false;
+							}
 					}
 					function reject() {
-						console.log('거절');
-						status.innerText = "거절됨";
-					    button.style.display = "none";
-					    openWindow('reject.jsp','reject','150','150','0','0');
-						document.frmReject.target='reject'; // 팝업창 윈도우 이름
-						document.frmReject.action = 'reject.jsp'; // 팝업창 주소
-						frmReject.submit();
-					}
-					
-					function openWindow(url,name,w,h,top,left) {
-						window.open(url,name,"width="+w+",height="+h+",scrollbars=yes,resizable=no,status=no,top="+top+",left="+left);
-					}
+						var result = confirm("거절하시겠습니까?");
+						if(result){
+							document.frmReject.submit();
+							return true;
+						}
+						else{
+							return false;
+						}
+				}
 				</script>
 			</td>
 		</tr>
-		
-		<%
-		    }
-		    res.close();
-		 	conn.close();
+		<%}
+		res.close();
+		conn.close();
 		%>
 	</table> 
 </body>
