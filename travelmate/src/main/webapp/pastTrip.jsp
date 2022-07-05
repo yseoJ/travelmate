@@ -112,12 +112,18 @@
 					<form name="frmMembInfo" action="membInfo.jsp" method="get" style="display: inline;">
 						<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">자세히</button>
 						<input type="hidden" name="participantId" value="<%=participantId %>" />
+						<input type="hidden" name="membId" value="<%=membId %>" />
 					</form>
 				</div>
 			</td>
 			<td style="font-size: 13px;">
 				<div style="margin: 0 auto; text-align: center;">
-					평가하기
+					<form name="frmMembEval" action="membEval.jsp" method="get" style="display: inline;">
+						<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">평가하기</button>
+						<input type="hidden" name="participantId" value="<%=participantId %>" />
+						<input type="hidden" name="membId" value="<%=membId %>" />
+						<input type="hidden" name="tripId" value="<%=tripId %>" />
+					</form>
 				</div>
 			</td>
 		</tr>
