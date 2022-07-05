@@ -45,7 +45,7 @@
 	<!-- 파퍼 자바스크립트 추가하기 -->
 	<script src="./js/pooper.js"></script>
 	
-	<title>joinFinish</title>
+	<title>AcceptReject</title>
 </head>
 <body>
 	<br>
