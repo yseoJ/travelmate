@@ -119,12 +119,24 @@
 			<td style="font-size: 13px;">
 				<div style="margin: 0 auto; text-align: center;">
 					<form name="frmMembEval" action="membEval.jsp" method="get" style="display: inline;">
-						<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">평가하기</button>
+						<% 
+						ResultSet rs = null;
+						sql = "SELECT * FROM MEMB_EVALUATION "+
+								"WHERE TRIP_ID = " + tripId + " "+
+								"AND GIVE_MEMB_ID = '" + membId + "' "+
+								"AND GET_MEMB_ID = '" + participantId + "' ";
+						rs = conn.prepareStatement(sql).executeQuery();
+						if(rs.next()){ %>
+							<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0;" disabled='disabled'>평가완료</button>
+						<%} else{ %>
+							<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">평가하기</button>
+						<%} %>
 						<input type="hidden" name="participantId" value="<%=participantId %>" />
 						<input type="hidden" name="membId" value="<%=membId %>" />
 						<input type="hidden" name="tripId" value="<%=tripId %>" />
 					</form>
 				</div>
+				
 			</td>
 		</tr>
 		

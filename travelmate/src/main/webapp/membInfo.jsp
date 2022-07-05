@@ -16,9 +16,10 @@
 	Connection conn = DriverManager.getConnection(url, user, pw);
 	ResultSet res = null;
 	
-	String membId = request.getParameter("participantId");
+	String participantId = request.getParameter("participantId");
+	String membId = request.getParameter("membId");
 	
-	sql = String.format("SELECT FULL_NM,ADDM_YEAR,PHONE_NUM,NVL(MBTI,' ') MBTI FROM MEMB_INFO WHERE MEMB_ID = '%s'", membId);
+	sql = String.format("SELECT FULL_NM,ADDM_YEAR,PHONE_NUM,NVL(MBTI,' ') MBTI FROM MEMB_INFO WHERE MEMB_ID = '%s'", participantId);
 	res = conn.prepareStatement(sql).executeQuery();
 	res.next();
 	
@@ -31,7 +32,7 @@
 			"FROM TRIP_JOIN_LIST l JOIN TRIP_INFO i "+
 			"ON l.trip_id = i.trip_id AND i.memb_id = l.memb_id "+
 			"WHERE i.trip_status = '진행중' "+
-			"AND i.memb_id = '" + membId + "' ";
+			"AND i.memb_id = '" + participantId + "' ";
 	res = conn.prepareStatement(sql).executeQuery();
 	res.next();
 	
@@ -41,8 +42,8 @@
 			"FROM TRIP_JOIN_LIST l JOIN TRIP_INFO i "+
 			"ON l.trip_id = i.trip_id "+
 			"WHERE i.trip_status = '진행중' "+
-			"AND l.memb_id = '" + membId + "' "+
-			"AND i.memb_id != '" + membId + "' "+
+			"AND l.memb_id = '" + participantId + "' "+
+			"AND i.memb_id != '" + participantId + "' "+
 			"AND l.prg_status = '수락' ";
 	res = conn.prepareStatement(sql).executeQuery();
 	res.next();
@@ -74,7 +75,14 @@
 <body style="line-height: 200%">
 	<br><h2 style="text-align: center">참여자 정보</h2>
 	<hr> 
-	<div style="display: inline-block; font-weight: bold; width: 50px">이름:</div><div style="display: inline-block;"><%=Name %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 50px">이름:</div>
+	<div style="display: inline-block;"><%=Name %>
+		<form name="frmReport" action="report.jsp" method="get" style="display: inline;">
+			<input type="hidden" name="participantId" value="<%=participantId %>" />
+			<input type="hidden" name="membId" value="<%=membId %>" />
+		</form>
+		<button type="submit" onclick="report()" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline; color: red;">신고하기</button>
+	</div><br>
 	<div style="display: inline-block; font-weight: bold; width: 50px">학번:</div><div style="display: inline-block;"><%=Year %></div><br>
 	<div style="display: inline-block; font-weight: bold; width: 80px">전화번호:</div><div style="display: inline-block;"><%=Phone %></div><br>
 	<div style="display: inline-block; font-weight: bold; width: 50px">MBTI:</div><div style="display: inline-block;"><%=MBTI %></div><br>
@@ -82,5 +90,16 @@
 	<div style="display: inline-block; font-weight: bold; width: 80px">참여횟수:</div><div style="display: inline-block;"><%=countJoin %></div><br><br>
 	<div style="background-color: rgba(66, 133, 244, 0.5); height: 100px;">매너평가</div><br>
 	<div style="background-color: rgba(66, 133, 244, 0.5); height: 100px;">평가정보</div>
+	
+	<script type="text/javascript">
+		function report() {
+			var result = prompt('신고항목\n1.약속에 나오지 않았어요.\n2. 비매너 참여자에요.\n3. 욕설을 해요.\n4. 다른 목적이 있어요.\n5. 다른 문제가 있어요.');
+			if(result == '1' || result == '2' || result == '3' || result == '4' || result == '5'){
+			    alert(result + '신고처리');
+			}else{
+				alert('신고항목에 없는 신고 내용입니다.');
+			}
+		}
+	</script>
 </body>
 </html>

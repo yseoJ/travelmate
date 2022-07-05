@@ -192,3 +192,15 @@ input[class="sad"]:focus + svg {
 }
 
 input[type=radio] {display: none; margin: 10px;}
+
+.list {
+  margin: 10px;  
+}
+
+.list__item {
+  margin: 0 0 10px 10px;
+}
+
+.checkbox {
+  margin: 0 5px 0 0 ;
+}
