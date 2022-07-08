@@ -16,10 +16,10 @@
 	Connection conn = DriverManager.getConnection(url, user, pw);
 	ResultSet res = null;
 	
-	String tripId = request.getParameter("tripId");
-	String membId = request.getParameter("membId");
+	String trip_id = request.getParameter("tripId");
+	String memb_id = request.getParameter("membId");
 	
-	int tripid = Integer.parseInt(tripId);
+	int tripid = Integer.parseInt(trip_id);
 	
 	sql = String.format("SELECT * FROM TRIP_INFO WHERE TRIP_ID = %d", tripid);
 	res = conn.prepareStatement(sql).executeQuery();
@@ -77,6 +77,13 @@
 	<title>My Trip</title>
 </head>
 <body style="line-height: 200%">
+	<div style="display: inline; position: relative; left: 10px; top: 5px;">
+		<a href="#" onClick="history.go(-1); return false;">
+			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+			</svg>
+		</a>
+	</div>
 	<br><h2 style="text-align: center"><%=Title %></h2>
 	<hr> 
 	<div style="display: inline-block; font-weight: bold; width: 50px">날짜:</div><div style="display: inline-block;"><%=Date %></div><br>
@@ -97,7 +104,7 @@
 		<%     
 		sql = "SELECT * FROM TRIP_JOIN_LIST l JOIN MEMB_INFO m ON l.MEMB_ID = m.MEMB_ID "+
 				"WHERE l.TRIP_ID = " + tripid + " "+
-				"AND l.MEMB_ID != '" + membId + "' "+
+				"AND l.MEMB_ID != '" + memb_id + "' "+
 				"AND PRG_STATUS = '수락'";
 		res = conn.prepareStatement(sql).executeQuery();
 			
@@ -112,7 +119,7 @@
 					<form name="frmMembInfo" action="membInfo.jsp" method="get" style="display: inline;">
 						<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">자세히</button>
 						<input type="hidden" name="participantId" value="<%=participantId %>" />
-						<input type="hidden" name="membId" value="<%=membId %>" />
+						<input type="hidden" name="membId" value="<%=memb_id %>" />
 					</form>
 				</div>
 			</td>
@@ -122,8 +129,8 @@
 						<% 
 						ResultSet rs = null;
 						sql = "SELECT * FROM MEMB_EVALUATION "+
-								"WHERE TRIP_ID = " + tripId + " "+
-								"AND GIVE_MEMB_ID = '" + membId + "' "+
+								"WHERE TRIP_ID = " + tripid + " "+
+								"AND GIVE_MEMB_ID = '" + memb_id + "' "+
 								"AND GET_MEMB_ID = '" + participantId + "' ";
 						rs = conn.prepareStatement(sql).executeQuery();
 						if(rs.next()){ %>
@@ -132,8 +139,8 @@
 							<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">평가하기</button>
 						<%} %>
 						<input type="hidden" name="participantId" value="<%=participantId %>" />
-						<input type="hidden" name="membId" value="<%=membId %>" />
-						<input type="hidden" name="tripId" value="<%=tripId %>" />
+						<input type="hidden" name="membId" value="<%=memb_id %>" />
+						<input type="hidden" name="tripId" value="<%=tripid %>" />
 					</form>
 				</div>
 				

@@ -56,7 +56,9 @@
 	<title>Make Trip Finish</title>
 </head>
 <body style="line-height: 100%">
-	<br><br><br><br><div style="font-size: 13px; font-weight: bold; text-align:center;"><a>평가가 완료되었습니다.</a></div><br><br>
+	<br><br><br><br>
+	<div style="font-size: 20px; font-weight: bold; text-align:center;"><a>평가가 완료되었습니다.</a></div>
+	<br><br><br>
 	<div style="margin: 0 auto; text-align: center; height: 100px;">
 		<form name="frm" action="pastTrip.jsp" method="get" >
 			<button onClick="location.href='pastTrip.jsp'" style=" display: inline-block; border-radius: 6px; background-color: rgba(66, 133, 244, 0.3); height: 25px;">확인</button>

@@ -16,8 +16,8 @@
 	Connection conn = DriverManager.getConnection(url, user, pw);
 	ResultSet res = null;
 	
-	String memb_id = request.getParameter("memb_id");
-	String trip_id = request.getParameter("trip_id");
+	String memb_id = request.getParameter("membId");
+	String trip_id = request.getParameter("tripId");
 
 	sql = String.format( "Insert into TRIP_JOIN_LIST (TRIP_ID,MEMB_ID,PRG_STATUS)  values ('%s','%s','신청')", trip_id, memb_id); 
 	conn.prepareStatement(sql).executeUpdate();
@@ -42,11 +42,13 @@
 	<title>joinFinish</title>
 </head>
 <body>
-	<br>
-	<h2 style="text-align:center;">참여 신청이 완료되었습니다.</h2>
-	<br><div style="font-size: 15px; text-align:center;"><a>주최자가 수락할때까지 시간이 소요될 수 있습니다.</a></div><br><br>
+	<br><br><br><br>
+	<div style="font-size: 20px; font-weight: bold; text-align:center;"><a>참여 신청이 완료되었습니다.</a></div>
+	<br><br>
+	<div style="font-size: 15px; text-align:center;"><a>주최자가 수락할때까지 시간이 소요될 수 있습니다.</a></div>
+	<br><br><br>
 	<div style="margin: 0 auto; text-align: center;">
-	<form name="frmInex" action="index.jsp" method="post" >
+	<form name="frmInex" action="index.jsp" method="get" >
 		<button onClick="window.close();" style=" display: inline-block; border-radius: 6px; background-color: rgba(66, 133, 244, 0.3); height: 25px;">확인</button>
 		<input type="hidden" name="ID" value="<%=memb_id %>" />
 	</form>
