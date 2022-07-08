@@ -17,7 +17,7 @@
 	ResultSet res = null;
 	
 	String tripId = request.getParameter("tripId");
-	String membId = request.getParameter("membId");
+	String memb_id = request.getParameter("membId");
 	String status = request.getParameter("status");
 	
 	int tripid = Integer.parseInt(tripId);
@@ -78,6 +78,13 @@
 	<title>Make Trip</title>
 </head>
 <body style="line-height: 200%">
+	<div style="display: inline; position: relative; left: 10px; top: 5px;">
+		<a href="#" onClick="history.go(-1); return false;">
+			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+			</svg>
+		</a>
+	</div>
 	<br><h2 style="text-align: center"><%=Title %></h2>
 	<hr> 
 	<div style="display: inline-block; font-weight: bold; width: 50px">날짜:</div><div style="display: inline-block;"><%=Date %></div><br>
@@ -101,7 +108,7 @@
 			<%     
 			sql = "SELECT * FROM TRIP_JOIN_LIST l JOIN MEMB_INFO m ON l.MEMB_ID = m.MEMB_ID "+
 					"WHERE l.TRIP_ID = " + tripid + " "+
-					"AND l.MEMB_ID != '" + membId + "' "+
+					"AND l.MEMB_ID != '" + memb_id + "' "+
 					"AND PRG_STATUS = '수락'";
 			res = conn.prepareStatement(sql).executeQuery();
 				

@@ -16,9 +16,9 @@
 	Connection conn = DriverManager.getConnection(url, user, pw);
 	ResultSet res = null;
 	
-	String membId = request.getParameter("membId");
-	String participantId = request.getParameter("participantId");
-	String tripId = request.getParameter("tripId");
+	String memb_id = request.getParameter("membId");
+	String participant_id = request.getParameter("participantId");
+	String trip_id = request.getParameter("tripId");
 
 %>
 <!DOCTYPE html>
@@ -41,7 +41,14 @@
 	<title>EVALUATION</title>
 </head>
 <body style="line-height: 200%;">
-	<br><h2 style="text-align: center"> <%=participantId %>님 평가하기 </h2>
+	<div style="display: inline; position: relative; left: 10px; top: 5px;">
+		<a href="#" onClick="history.go(-1); return false;">
+			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+			</svg>
+		</a>
+	</div>
+	<br><h2 style="text-align: center"> <%=participant_id %>님 평가하기 </h2>
 	<hr><br>
 	<form name="frmJoin" method="get" action="evalFinish.jsp">
 		<div class="rating" style="text-align: center; border: 2px solid;">
@@ -115,9 +122,9 @@
 		<br><br><br>
 		<footer style="position: fixed; bottom: 0; width: 100%;">
 			<button class="Eval" type="submit">평가하기</button>
-			<input type="hidden" name="membId" value="<%=membId %>" />
-			<input type="hidden" name="participantId" value="<%=participantId %>" />
-			<input type="hidden" name="tripId" value="<%=tripId %>" />
+			<input type="hidden" name="membId" value="<%=memb_id %>" />
+			<input type="hidden" name="participantId" value="<%=participant_id %>" />
+			<input type="hidden" name="tripId" value="<%=trip_id %>" />
 		</footer>
 	</form>
 </body>

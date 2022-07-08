@@ -66,6 +66,18 @@
 	<title>TRIP_INFO</title>
 </head>
 <body style="line-height: 200%">
+	<div style="display: inline; position: relative; left: 10px; top: 5px;">
+		<a href="#" onClick="history.go(-1); return false;">
+			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+			  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+			</svg>
+		</a>
+		<a href="index.jsp?ID=<%=memb_id %>">
+			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+			  <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+			</svg>
+		</a>
+	</div>
 	<br><h2 style="text-align: center"> <%=title %> </h2>
 	<hr>
 	<table class="tripInfo">
@@ -172,12 +184,13 @@
 	<form name="frmHostInfo" action="hostInfo.jsp" method="get" style="display: inline;">
 		<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">자세히</button>
 		<input type="hidden" name="participantId" value="<%=HostId %>" />
+		<input type="hidden" name="membId" value="<%=memb_id %>" />
 	</form>
 	<footer style="position: fixed; bottom: 0; width: 100%;">
 		<!-- 여행 참여 -->
 		<form name="frmJoin" method="get" action="joinFinish.jsp">
-			<input type="hidden" name="memb_id" value="<%=memb_id %>" />
-			<input type="hidden" name="trip_id" value="<%=trip_id %>" />
+			<input type="hidden" name="membId" value="<%=memb_id %>" />
+			<input type="hidden" name="tripId" value="<%=trip_id %>" />
 		</form>
 		<%if ("마감".equals(trip_close)) { %>
 			<button class="joinTrip" type='button' disabled='disabled'>마감</button>

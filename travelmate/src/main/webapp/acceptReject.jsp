@@ -49,9 +49,11 @@
 </head>
 <body>
 	<br>
-	<h2 style="text-align:center;"><%=acceptReject %>이 완료되었습니다.</h2><br><br>
+	<br><br><br><br>
+	<div style="font-size: 20px; font-weight: bold; text-align:center;"><a><%=acceptReject %>이 완료되었습니다.</a></div>
+	<br><br><br>
 	<div style="margin: 0 auto; text-align: center;">
-	<form name="frmInex" action="index.jsp" method="post" >
+	<form name="frmInex" action="index.jsp" method="get" >
 		<button onClick="window.close();" style=" display: inline-block; border-radius: 6px; background-color: rgba(66, 133, 244, 0.3); height: 25px;">확인</button>
 		<input type="hidden" name="ID" value="<%=membId %>" />
 	</form>
