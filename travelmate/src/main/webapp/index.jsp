@@ -114,6 +114,7 @@
 	                	"(SELECT COUNT(*) FROM TRIP_JOIN_LIST j WHERE j.TRIP_ID = m.TRIP_ID AND (PRG_STATUS = '수락' OR PRG_STATUS = '신청')) JOIN_NUM "+
 	        			"FROM TRIP_INFO m "+
 	        			"WHERE to_char(m.TRIP_MEET_DATE,'YYYY-MM-DD') > to_char(SYSDATE, 'YYYY-MM-DD') "+
+	        			"AND m.TRIP_STATUS != '삭제' "+
 	        			") x LEFT OUTER JOIN SIGHTS_INFO s ON x.SIGHTS_ID = s.SIGHTS_ID ";
 	        	if (search != null && search.trim() != ""){
 	        		search = search.trim();

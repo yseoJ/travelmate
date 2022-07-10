@@ -63,14 +63,29 @@
 	<form name="frmMakeTrip" action="makeTripCheck.jsp" method="get" >
 		<div class="makeTripInput">
 			<div style="width:100%; height:25px; float:left; line-height: 25px;">제목</div><input type="text" name="Title" id="txtTitle" value=""/><br><br>
-			<div style="width:100%; height:25px; float:left; line-height: 25px;">여행날짜</div><input type="text" name="Date" id="txtDate" value="" placeholder="YYYY-MM-DD"/><br><br>
+			<div style="width:100%; height:25px; float:left; line-height: 25px;">여행날짜</div><input type="date" name="Date" id="Date"/><br><br>
 			<div style="border: 1px solid black;"><br>
 				<p style="color: red; font-size: 13px;">*모임시간,장소,오픈채팅링크는<br>수락이 결정된 참여자에 한하여 열람 가능합니다.</p><br>
-				<div style="width:100%; height:25px; float:left; line-height: 25px;">모임시간</div><input type="text" name="Time" id="txtTime" value=""/><br><br>
+				<div style="width:100%; height:25px; float:left; line-height: 25px;">모임시간</div><input type="time" name="Time" /><br><br>
 				<div style="width:100%; height:25px; float:left; line-height: 25px;">모임장소</div><input type="text" name="Place" id="txtPlace" value=""/><br><br>
-				<div style="width:100%; height:25px; float:left; line-height: 25px;">오픈채팅방</div><input type="text" name="Link" id="txtLink" value=""  placeholder="*필수 항목 아님"/><br><br>
+				<div style="width:100%; height:25px; float:left; line-height: 25px;">오픈채팅방</div><input type="text" name="Link" id="txtLink" value="" /><br>
+				<p style="color: gray; font-size: 13px;">*참여자와의 연락을 위해 올바르게 입력해주세요.</p><br>
 			</div><br>
-			<div style="width:100%; height:25px; float:left; line-height: 25px;">모객인원</div><input type="number" name="Num" id="txtNum" value=""/><br><br>
+			<div style="width:100%; height:25px; float:left; line-height: 25px;">모객인원</div>
+			<div>
+				<select name="Num" size="1">
+					<option value="">--</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+				</select>
+				명
+			</div>
+			<p style="color: gray; font-size: 13px;">*주최자를 포함한 인원수를 입력해주세요.</p><br>
 			<div style="width:100%; height:25px; float:left; line-height: 25px;">예상비용</div><input type="number" name="Cost" id="txtCost" value=""/><br><br>
 			<div style="width:100%; height:25px; float:left; line-height: 25px;">관광지명</div><div style="border: 2px solid black; width : 90%; display:inline-block; line-height: 25px;"> <%=sightName %> </div>
 			<br><br><div style="width:100%; height:25px; float:left; line-height: 25px;">주소</div><div style="border: 2px solid black; width : 90%; display:inline-block; line-height: 25px;"> <%=sightAddr %> </div>
@@ -79,10 +94,45 @@
 		</div>
 		<footer style="position: fixed; bottom: 0; width: 100%;">
 			<!-- 여행 개설 -->
-			<button class="makeTripButton" type="submit">개설하기</button>
+			<button class="makeTripButton" type="button" onClick="checkPlan();">개설하기</button>
 			<input type="hidden" name="membId" value="<%=memb_id %>" />
 			<input type="hidden" name="sightId" value="<%=sight_id %>" />
 		</footer>
 	</form>
+	
+	<script type="text/javascript">
+		var now_utc = Date.now() // 지금 날짜를 밀리초로
+		// getTimezoneOffset()은 현재 시간과의 차이를 분 단위로 반환
+		var timeOff = new Date().getTimezoneOffset()*60000; // 분단위를 밀리초로 변환
+		// new Date(now_utc-timeOff).toISOString()은 '2022-05-11T18:09:38.134Z'를 반환
+		var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+		document.getElementById("Date").setAttribute("min", today);
+		
+		function isEmpty(obj, msg) {
+			if (typeof obj == "string") {
+				obj = document.querySelector("#" + obj);
+			}
+			if(obj.value == "") {
+				alert(msg);
+				obj.focus();
+				return true;
+			}
+			return false;
+		}
+		function checkPlan(){
+			var f = document.frmMakeTrip;
+			if (isEmpty(f.Title, "제목을 입력하세요")) return;
+			if (isEmpty(f.Date, "여행날짜를 입력하세요")) return;
+			if (isEmpty(f.Time, "모임시간을 입력하세요")) return;
+			if (isEmpty(f.Place, "모임장소를 입력하세요")) return;
+			if (isEmpty(f.Link, "오픈채팅방링크를 입력하세요")) return;
+			if (isEmpty(f.Num, "모객인원을 입력하세요")) return;
+			if (isEmpty(f.Cost, "예상비용을 입력하세요")) return;
+			if (isEmpty(f.Detail, "세부정보를 입력하세요")) return;
+			
+			f.submit();	
+		}
+
+	</script>
 </body>
 </html>

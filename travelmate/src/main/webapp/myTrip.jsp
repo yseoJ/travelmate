@@ -62,12 +62,12 @@
 		<tr style=" background-color: rgba(66, 133, 244, 0.1);">
 			<th style="height: 20px; line-height: 20px;">제목</th>
 			<th>여행 날짜</th>
+			<th>비고</th>
 		</tr>
 		<%     
-		sql = "SELECT i.TRIP_ID, i.TRIP_TITLE, TO_CHAR(i.TRIP_MEET_DATE, 'YYYY-MM-DD') AS TRIP_MEET_DATE "+
+		sql = "SELECT i.TRIP_ID, i.TRIP_TITLE, i.TRIP_STATUS, TO_CHAR(i.TRIP_MEET_DATE, 'YYYY-MM-DD') AS TRIP_MEET_DATE "+
 				"FROM TRIP_JOIN_LIST l JOIN TRIP_INFO i ON l.trip_id = i.trip_id AND i.memb_id = l.memb_id "+
-				"WHERE i.trip_status = '진행중' "+
-				"AND i.memb_id = '" + memb_id + "' "+
+				"WHERE i.memb_id = '" + memb_id + "' "+
 				"AND to_char(i.TRIP_MEET_DATE,'YYYY-MM-DD') >= to_char(SYSDATE, 'YYYY-MM-DD') "+
 				"ORDER BY TRIP_MEET_DATE ";
 		    res = conn.prepareStatement(sql).executeQuery();
@@ -76,6 +76,7 @@
 		      String tripId = res.getString("TRIP_ID");
 		      String tripTitle = res.getString("TRIP_TITLE");   
 		      String date = res.getString("TRIP_MEET_DATE");
+		      String tripStatus = res.getString("TRIP_STATUS");
 		%>
 		<tr>
 			<td style="font-size: 13px;">
@@ -86,6 +87,7 @@
 				</form>
 			</td>
 			<td style="font-size: 13px;"><%=date%></td>
+			<td style="font-size: 13px;"><%=tripStatus%></td>
 		</tr>
 		<%
 		    }
@@ -103,8 +105,7 @@
 		<%     
 		sql = "SELECT i.TRIP_ID, i.TRIP_TITLE, TO_CHAR(i.TRIP_MEET_DATE, 'YYYY-MM-DD') AS TRIP_MEET_DATE, PRG_STATUS FROM TRIP_JOIN_LIST l JOIN TRIP_INFO i "+
 				"ON l.trip_id = i.trip_id "+
-				"WHERE i.trip_status = '진행중' "+
-				"AND l.memb_id = '" + memb_id + "' "+
+				"WHERE l.memb_id = '" + memb_id + "' "+
 				"AND i.memb_id != '" + memb_id + "' "+
 				"AND to_char(i.TRIP_MEET_DATE,'YYYY-MM-DD') >= to_char(SYSDATE, 'YYYY-MM-DD') "+
 				"ORDER BY TRIP_MEET_DATE ";

@@ -49,8 +49,9 @@
 		</a>
 	</div>
 	<br><h2 style="text-align: center"> <%=participant_id %>님 평가하기 </h2>
-	<hr><br>
-	<form name="frmJoin" method="get" action="evalFinish.jsp">
+	<hr>
+	<form name="frmEval" method="get" action="evalFinish.jsp">
+		<div style="text-align: center;"><a style="font-weight:bold; margin: auto;">만족도 평가</a></div><br>
 		<div class="rating" style="text-align: center; border: 2px solid;">
 			<label for="happy" style="padding: 15px">
 				<input type="radio" name="rating" class="happy" id="happy" value="happy" />
@@ -121,11 +122,30 @@
 		</ul>
 		<br><br><br>
 		<footer style="position: fixed; bottom: 0; width: 100%;">
-			<button class="Eval" type="submit">평가하기</button>
+			<button class="Eval" type="button" onClick="checkEval();">평가하기</button>
 			<input type="hidden" name="membId" value="<%=memb_id %>" />
 			<input type="hidden" name="participantId" value="<%=participant_id %>" />
 			<input type="hidden" name="tripId" value="<%=trip_id %>" />
 		</footer>
 	</form>
+	<script type="text/javascript">
+		function isEmpty(obj, msg) {
+			if (typeof obj == "string") {
+				obj = document.querySelector("#" + obj);
+			}
+			if(obj.value == "") {
+				alert(msg);
+				obj.focus();
+				return true;
+			}
+			return false;
+		}
+		function checkEval(){
+			var f = document.frmEval;
+			if (isEmpty(f.rating, "만족도를 골라주세요")) return;
+			
+			f.submit();	
+		}
+	</script>
 </body>
 </html>
