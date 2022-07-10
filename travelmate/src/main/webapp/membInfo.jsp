@@ -19,14 +19,16 @@
 	String participant_id = request.getParameter("participantId");
 	String memb_id = request.getParameter("membId");
 	
-	sql = String.format("SELECT FULL_NM,ADDM_YEAR,PHONE_NUM,NVL(MBTI,' ') MBTI FROM MEMB_INFO WHERE MEMB_ID = '%s'", participant_id);
+	sql = String.format("SELECT FULL_NM,ADDM_YEAR,PHONE_NUM,EMAIL_ADDR,NVL(MBTI,' ') MBTI FROM MEMB_INFO WHERE MEMB_ID = '%s'", participant_id);
 	res = conn.prepareStatement(sql).executeQuery();
 	res.next();
 	
 	String Name = res.getString("FULL_NM");
 	String Year = res.getString("ADDM_YEAR");
-	String Phone = res.getString("PHONE_NUM");
+	String Phone = res.getString("PHONE_NUM");	//비공개
 	String MBTI  = res.getString("MBTI");
+	String Email  = res.getString("EMAIL_ADDR");
+	
 	
 	sql = "SELECT COUNT(*) countHost "+ 
 			"FROM TRIP_JOIN_LIST l JOIN TRIP_INFO i "+
@@ -90,9 +92,9 @@
 		</form>
 		<button type="submit" onclick="report()" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline; color: red;">신고하기</button>
 	</div><br>
-	<div style="display: inline-block; font-weight: bold; width: 50px">학번:</div><div style="display: inline-block;"><%=Year %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 80px">전화번호:</div><div style="display: inline-block;"><%=Phone %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 50px">MBTI:</div><div style="display: inline-block;"><%=MBTI %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 60px">학번:</div><div style="display: inline-block;"><%=Year %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 60px">이메일:</div><div style="display: inline-block;"><%=Email %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 60px">MBTI:</div><div style="display: inline-block;"><%=MBTI %></div><br>
 	<div style="display: inline-block; font-weight: bold; width: 80px">주최횟수:</div><div style="display: inline-block;"><%=countHost %></div><br>
 	<div style="display: inline-block; font-weight: bold; width: 80px">참여횟수:</div><div style="display: inline-block;"><%=countJoin %></div><br>
 	<hr>
@@ -105,7 +107,7 @@
 	<hr> 
 	<div>
 		<a href="myEval.jsp?membId=<%=participant_id %>">
-			<div style="float: left; font-weight: bold;">받은 매너평가</div>
+			<div style="float: left; font-weight: bold;">받은 매너/비매너 평가</div>
 			<div style="float: right; display: inline-block; font-weight: bold;">>&nbsp;</div>
 		</a>
 		<br><br>
@@ -146,8 +148,8 @@
 	
 	<script type="text/javascript">
 		function report() {
-			var result = prompt('신고항목\n1.약속에 나오지 않았어요.\n2. 비매너 참여자에요.\n3. 욕설을 해요.\n4. 다른 목적이 있어요.\n5. 다른 문제가 있어요.');
-			if(result == '1' || result == '2' || result == '3' || result == '4' || result == '5'){
+			var result = prompt('신고항목\n1. 다른 목적이 있어요(종교, 사기 등).\n2. 폭력적이에요.\n3. 기타');
+			if(result == '1' || result == '2' || result == '3'){
 			    alert(result + '신고처리');
 			}else{
 				alert('신고항목에 없는 신고 내용입니다.');

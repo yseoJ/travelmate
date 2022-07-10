@@ -111,10 +111,10 @@
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
 	</form>
-	<!-- 받은 매너 평가 -->
+	<!-- 받은 매너/비매너 평가 -->
 	<form name="frmMyEvaluation" action="myEval.jsp" method="get" >
 		<button class="myTrip" type="submit">
-			<div class="myPageButton">받은 매너 평가</div>
+			<div class="myPageButton">받은 매너/비매너 평가</div>
 			<div class="myPageButton2">></div>
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />

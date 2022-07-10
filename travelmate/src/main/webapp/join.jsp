@@ -112,7 +112,6 @@
 			//phone=request.getParameter("Gender");
 			//gender=request.getParameter("PhoneNum");
 			//status="진행중";
-			
 		}
 
 	</script>

@@ -102,7 +102,7 @@
 	<hr> 
 	<div>
 		<a href="myEval.jsp?membId=<%=participant_id %>">
-			<div style="float: left; font-weight: bold;">받은 매너평가</div>
+			<div style="float: left; font-weight: bold;">받은 매너/비매너 평가</div>
 			<div style="float: right; display: inline-block; font-weight: bold;">>&nbsp;</div>
 		</a>
 		<br><br>
