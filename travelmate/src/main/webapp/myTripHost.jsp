@@ -33,6 +33,7 @@
 	String Cost = res.getString("PLAN_COST");
 	String Detail = res.getString("TRIP_Detail");
 	String sightId = res.getString("SIGHTS_ID");
+	String tripStatus = res.getString("TRIP_STATUS");
 	
 	
 	sql = String.format("SELECT TO_CHAR(TRIP_MEET_DATE, 'YYYY-MM-DD') TRIP_MEET_DATE, NVL(TRIP_CHATLINK, ' ') TRIP_CHATLINK FROM TRIP_INFO WHERE TRIP_ID = %d", tripid);
@@ -73,7 +74,7 @@
 </head>
 <body style="line-height: 200%">
 	<div style="display: inline; position: relative; left: 10px; top: 5px;">
-		<a href="#" onClick="history.go(-1); return false;">
+		<a href="myTrip.jsp?membId=<%=memb_id %>">
 			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
 			  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
 			</svg>
@@ -178,7 +179,7 @@
 	<br>
 	<div style="margin: 0 auto; text-align: right;">
 		<form name="frmDeleteTrip" action="deleteTrip.jsp" method="get" style="display: inline;">
-			<button type="button" onClick="checkDelete();" style="line-height:25px; display: inline-block; border-radius: 6px; background-color: rgba(66, 133, 244, 0.3); height: 25px;">삭제</button>
+			<button type="button" <%if(tripStatus.equals("삭제")){ %>disabled = "disabled"<%} %> onClick="checkDelete();" style="line-height:25px; display: inline-block; border-radius: 6px; background-color: rgba(66, 133, 244, 0.3); height: 25px;">삭제</button>
 			<input type="hidden" name="membId" value="<%=memb_id %>" />
 			<input type="hidden" name="tripId" value="<%=tripid %>" />
 		</form>

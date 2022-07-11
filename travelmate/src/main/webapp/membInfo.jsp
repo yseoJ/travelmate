@@ -98,12 +98,31 @@
 	<div style="display: inline-block; font-weight: bold; width: 80px">주최횟수:</div><div style="display: inline-block;"><%=countHost %></div><br>
 	<div style="display: inline-block; font-weight: bold; width: 80px">참여횟수:</div><div style="display: inline-block;"><%=countJoin %></div><br>
 	<hr>
-	<div>
-		<div style="float: left; font-weight: bold;">만족도</div><br><br>
-		<div style="margin: auto; width: 95%; height: 30px; background-color:#dedede;">           
-			<div style="width: 80%; height: 30px; padding: 0; text-align:center; background-color: rgba(66, 133, 244, 0.5);"> </div>
+	<% 
+	String score = null;
+	sql = "SELECT SATIS_SCORE "+
+			"FROM MEMB_SCORE "+
+			"WHERE GET_MEMB_ID = '" + participant_id + "' ";
+	res = conn.prepareStatement(sql).executeQuery();
+	if(res.next()){
+		sql = "SELECT ROUND(AVG(SATIS_SCORE), 1) score "+
+				"FROM MEMB_SCORE "+
+				"WHERE GET_MEMB_ID = '" + participant_id + "' ";
+		res = conn.prepareStatement(sql).executeQuery();
+		res.next();
+		score = res.getString("score");
+		int scoreForText = 0;
+	%>
+		<div class="myPageText2">만족도 (<%=score %>%)</div>
+		<div class="statisBack">           
+			<div class="statis" style="width: <%=score %>% !important;"> </div>
 		</div>
-	</div><br>
+	<%}else{ %>
+		<div class="myPageText2">만족도 </div>
+		<div class="statisBack"></div>
+		<div style="text-align:center;">평가 내용이 업습니다.</div>
+	<%} %>
+	<br>
 	<hr> 
 	<div>
 		<a href="myEval.jsp?membId=<%=participant_id %>">
