@@ -73,6 +73,21 @@ th, td {
 	padding: 0;
 }
 
+.statisBack{
+	margin: auto; 
+	width: 90%;
+	height: 30px; 
+	background-color:#dedede;
+}
+
+.statis{
+	width: 0%; 	/*기본값*/
+	height: 30px;
+	padding: 0; 
+	text-align:center; 
+	background-color: rgba(66, 133, 244, 0.5);
+}
+
 .myTrip{
 	width: 95%;
 	height: 70px;

@@ -18,7 +18,7 @@
 	
 	String memb_id = request.getParameter("MembId");
 	
-	sql = String.format("SELECT FULL_NM, MEMB_STATUS, NVL(MBTI,'입력해주세요') MBTI FROM MEMB_INFO WHERE MEMB_ID = '%s'", memb_id);
+	sql = String.format("SELECT FULL_NM, MEMB_STATUS, NVL(MBTI,'입력해주세요') MBTI FROM MEMB_INFO WHERE MEMB_ID = '%s' ", memb_id);
 	res = conn.prepareStatement(sql).executeQuery();
 	res.next();
 	System.out.print(sql);
@@ -72,11 +72,6 @@
 <body style="line-height: 200%">
 	<div style="background-color: rgba(66, 133, 244, 0.5);">
 		<div style="display: inline; position: relative; left: 10px; top: 5px;">
-			<a href="#" onClick="history.go(-1); return false;">
-				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-				  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-				</svg>
-			</a>
 			<a href="index.jsp?ID=<%=memb_id %>">
 				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
 				  <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
@@ -85,15 +80,30 @@
 		</div>
 		<br><h2 style="text-align: center"><%=name %>님</h2><br>
 	</div><hr style="margin-top: 0px; margin-bottom: 30px;">
-	<!-- 만족도/재동행희망률 /동적 변환, db연동 필요 -->
-	<div class="myPageText2">나에 대한 평가</div>
-	<div style="margin: auto; width: 95%; height: 30px; background-color:#dedede;">           
-		<div style="width: 80%; height: 30px; padding: 0; text-align:center; background-color: rgba(66, 133, 244, 0.5);"> </div>
-	</div><br>
-	<div class="myPageText2">재동행 희망률</div>
-	<div style="margin: auto; width: 95%; height: 30px; background-color:#dedede;">           
-		<div style="width: 70%; height: 30px; padding: 0; text-align:center; background-color: rgba(66, 133, 244, 0.5);"> </div>
-	</div>
+	<% 
+	String score = null;
+	sql = "SELECT SATIS_SCORE "+
+			"FROM MEMB_SCORE "+
+			"WHERE GET_MEMB_ID = '" + memb_id + "' ";
+	res = conn.prepareStatement(sql).executeQuery();
+	if(res.next()){
+		sql = "SELECT ROUND(AVG(SATIS_SCORE), 1) score "+
+				"FROM MEMB_SCORE "+
+				"WHERE GET_MEMB_ID = '" + memb_id + "' ";
+		res = conn.prepareStatement(sql).executeQuery();
+		res.next();
+		score = res.getString("score");
+		int scoreForText = 0;
+	%>
+		<div class="myPageText2">만족도 (<%=score %>%)</div>
+		<div class="statisBack">           
+			<div class="statis" style="width: <%=score %>% !important;"> </div>
+		</div>
+	<%}else{ %>
+		<div class="myPageText2">만족도 </div>
+		<div class="statisBack"></div>
+		<div style="text-align:center;">평가 내용이 업습니다.</div>
+	<%} %>
 	<hr style="margin-top: 30px; margin-bottom: 30px;">
 	<!-- 진행중인 여행 -->
 	<form name="frmMyTrip" action="myTrip.jsp" method="get" >
