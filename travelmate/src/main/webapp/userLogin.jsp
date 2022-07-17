@@ -58,6 +58,7 @@
         const profile = googleuser.getBasicProfile();
         
         const sookemail = "@sookmyung.ac.kr";
+        
         if(!profile.getEmail().endsWith(sookemail)){
   			alert("해당 사이트는 숙명여자대학교 재학생만 사용 가능합니다.");
   			gapi.auth2.getAuthInstance().signOut();
@@ -81,7 +82,10 @@
   	  		// HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨. 
   	  		.done(function(json) { 
   	  			console.debug(json);
-  	  			if(json.isExist == 'true'){
+  	  			if(json.isExist == 'expulsion'){
+  	  				alert("신고 당한 계정이므로 더 이상 서비스를 사용할 수 없습니다.");
+  	  				gapi.auth2.getAuthInstance().signOut();
+  	  			} else if(json.isExist == 'true'){
   	  				//DB에 값이 존재하면
   	  				post_to_url("index.jsp", {'ID': id});
   	  			} else {

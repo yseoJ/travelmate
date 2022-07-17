@@ -101,12 +101,17 @@
 	</form>
 	
 	<script type="text/javascript">
-		var now_utc = Date.now() // 지금 날짜를 밀리초로
-		// getTimezoneOffset()은 현재 시간과의 차이를 분 단위로 반환
-		var timeOff = new Date().getTimezoneOffset()*60000; // 분단위를 밀리초로 변환
-		// new Date(now_utc-timeOff).toISOString()은 '2022-05-11T18:09:38.134Z'를 반환
-		var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
-		document.getElementById("Date").setAttribute("min", today);
+		
+		var today = new Date();
+		var tomorrow = new Date();
+		var day = today.getDate() + 1;		//최소 일자를 내일로 설정
+		var month = today.getMonth() + 1;	// 1월이 0부터 시작하여 1을 더해준다.
+		var year = today.getFullYear();
+		if (day < 10) day = '0' + day;
+		if (month < 10) month = '0' + month;
+		tomorrow = year + '-' + month + '-' + day;
+
+		document.getElementById("Date").setAttribute("min", tomorrow);
 		
 		function isEmpty(obj, msg) {
 			if (typeof obj == "string") {

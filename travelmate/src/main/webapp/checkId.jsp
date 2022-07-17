@@ -24,15 +24,20 @@
 	String MEMB_STATUS = "";
 	String ADDM_YEAR = "";
 	
-	sql = String.format( "select * from MEMB_INFO where MEMB_ID = '%s' and FULL_NM = '%s'", id, name);
-	
-	res = stmt.executeQuery(sql);
+	sql = String.format( "select MEMB_ID, MEMB_STATUS from MEMB_INFO where MEMB_ID = '%s' and FULL_NM = '%s'", id, name);
+	res = conn.prepareStatement(sql).executeQuery();
 
 	
 
 	if(res.next()){%>
 		{
-			"isExist": "true"
+			<%
+			String status = res.getString("MEMB_STATUS");
+			if(status.equals("제명")){%>
+				"isExist": "expulsion"
+			<%} else{%>
+				"isExist": "true"
+			<%} %>
 		}
 	<% } else {%>
 		{

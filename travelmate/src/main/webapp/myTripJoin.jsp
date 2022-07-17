@@ -89,7 +89,7 @@
 	<br><h2 style="text-align: center"><%=Title %></h2>
 	<hr>
 	<%if("삭제".equals(TripStatus)) {%>
-		<div style="color: red; font-size: 13px; line-height:120%; border: 1px solid red; display: inline-block;">주최자에 의해 여행이 <p style="font-size: 20px; display:inline">취소</p>되었습니다.</div>
+		<div style="color: red; font-size: 13px; line-height:120%; border: 1px solid red; display: inline-block;">주최자에 의해 여행이 <p style="font-size: 20px; display:inline">삭제</p>되었습니다.</div>
 	<%} else{ %>
 		<div style="color: blue; font-size: 13px; line-height:120%; border: 1px solid blue; display: inline-block;">진행중</div>
 	<%} %>
@@ -180,6 +180,7 @@
 				<button type="button" onClick="checkDelete();" style="line-height:25px; display: inline-block; border-radius: 6px; background-color: rgba(66, 133, 244, 0.3); height: 25px;">삭제</button>
 				<input type="hidden" name="membId" value="<%=memb_id %>" />
 				<input type="hidden" name="tripId" value="<%=tripid %>" />
+				<input type="hidden" name="status" value="<%=status %>" />
 			</form>
 		</div><br>
 	<%} %>
@@ -211,6 +212,15 @@
 			<br>
 		</div>
 		<br>
+		<div style="margin: 0 auto; text-align: right;">
+			<form name="frmDeleteJoin" style="display: inline;">
+				<button type="button" onClick="checkDelete();" style="line-height:25px; display: inline-block; border-radius: 6px; background-color: rgba(66, 133, 244, 0.3); height: 25px;">삭제</button>
+				<input type="hidden" name="membId" value="<%=memb_id %>" />
+				<input type="hidden" name="tripId" value="<%=tripid %>" />
+				<input type="hidden" name="status" value="<%=status %>" />
+			</form>
+		</div>
+		<br>
 		<table style="width: 95%; margin: 0 auto;">
 			<tr style=" background-color: rgba(66, 133, 244, 0.1);">
 				<th style="height: 20px; line-height: 20px; text-align: center;">참여자명</th>
@@ -233,6 +243,7 @@
 						<form name="frmMembInfo" action="membInfo.jsp" method="get" style="display: inline;">
 							<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">자세히</button>
 							<input type="hidden" name="participantId" value="<%=participantId %>" />
+							<input type="hidden" name="membId" value="<%=memb_id %>" />
 						</form>
 					</div>
 				</td>
@@ -246,8 +257,13 @@
 	<script type="text/javascript">
 		function checkDelete() {
 			var result = confirm("삭제하시겠습니까?");
+			var f = document.frmDeleteJoin;
 			if(result){
-				document.frmDeleteJoin.submit();
+				if(f.status.value == "신청"){
+					f.submit();
+				} else {
+					alert("이미 수락된 여행은 삭제가 불가능합니다.");
+				}
 				return true;
 			}
 			else{
