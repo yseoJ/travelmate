@@ -19,6 +19,12 @@
 	String memb_id = request.getParameter("membId");
 	String participant_id = request.getParameter("participantId");
 	String trip_id = request.getParameter("tripId");
+	
+	sql = String.format("SELECT FULL_NM FROM MEMB_INFO WHERE MEMB_ID = '%s'", participant_id);
+	res = conn.prepareStatement(sql).executeQuery();
+	res.next();
+	
+	String Name = res.getString("FULL_NM");
 
 %>
 <!DOCTYPE html>
@@ -48,7 +54,7 @@
 			</svg>
 		</a>
 	</div>
-	<br><h2 style="text-align: center"> <%=participant_id %>님 평가하기 </h2>
+	<br><h2 style="text-align: center"> <%=Name %>님 평가하기 </h2>
 	<hr>
 	<form name="frmEval" method="get" action="evalFinish.jsp">
 		<div style="text-align: center;"><a style="font-weight:bold; margin: auto;">만족도 평가</a></div><br>

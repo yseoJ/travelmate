@@ -17,11 +17,10 @@
 	ResultSet res = null;
 	
 	String memb_id = request.getParameter("membId");
-	String trip_id = request.getParameter("tripId");
-
-	sql = "DELETE FROM TRIP_JOIN_LIST "+
-			"WHERE TRIP_ID = " + trip_id + " "+
-			"AND MEMB_ID = '" + memb_id + "' "; 
+	String participant_id = request.getParameter("participantId");
+	String report_id = request.getParameter("reportId");
+	
+	sql = String.format("INSERT INTO REPORT (REPORT_ID,GIVE_MEMB_ID,GET_MEMB_ID) VALUES ('%s','%s','%s')", report_id, memb_id, participant_id);
 	conn.prepareStatement(sql).executeUpdate();
 	
 %>
@@ -42,11 +41,11 @@
 	<!-- 파퍼 자바스크립트 추가하기 -->
 	<script src="./js/pooper.js"></script>
 	
-	<title>Delete Trip</title>
+	<title>REPORT</title>
 </head>
 <body>
 	<br><br><br><br>
-	<div style="font-size: 20px; font-weight: bold; text-align:center;"><a>여행 참여가 삭제되었습니다.</a></div>
+	<div style="font-size: 20px; font-weight: bold; text-align:center;"><a>신고가 완료되었습니다.</a></div>
 	<br><br><br>
 	<div style="margin: 0 auto; text-align: center;">
 	<form name="frmInex" action="index.jsp" method="get" >

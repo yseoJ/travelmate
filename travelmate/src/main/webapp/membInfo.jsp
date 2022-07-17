@@ -87,10 +87,11 @@
 	<div style="display: inline-block; font-weight: bold; width: 50px">이름:</div>
 	<div style="display: inline-block;"><%=Name %>
 		<form name="frmReport" action="report.jsp" method="get" style="display: inline;">
+			<button type="button" onclick="report()" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline; color: red;">신고하기</button>
 			<input type="hidden" name="participantId" value="<%=participant_id %>" />
 			<input type="hidden" name="membId" value="<%=memb_id %>" />
+			<input type="hidden" name="reportId"/>
 		</form>
-		<button type="submit" onclick="report()" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline; color: red;">신고하기</button>
 	</div><br>
 	<div style="display: inline-block; font-weight: bold; width: 60px">학번:</div><div style="display: inline-block;"><%=Year %></div><br>
 	<div style="display: inline-block; font-weight: bold; width: 60px">이메일:</div><div style="display: inline-block;"><%=Email %></div><br>
@@ -161,19 +162,28 @@
 		<%
 		}
 		res.close();
-		conn.close();
 		%>
 	</div>
 	
 	<script type="text/javascript">
 		function report() {
-			var result = prompt('신고항목\n1. 다른 목적이 있어요(종교, 사기 등).\n2. 폭력적이에요.\n3. 기타');
-			if(result == '1' || result == '2' || result == '3'){
-			    alert(result + '신고처리');
-			}else{
-				alert('신고항목에 없는 신고 내용입니다.');
-			}
+			<%
+			sql = String.format( "select * from REPORT where GIVE_MEMB_ID = '%s' and GET_MEMB_ID = '%s' ", memb_id, participant_id);
+			res = conn.prepareStatement(sql).executeQuery();
+			if(res.next()){%>
+				alert('같은 참여자에 대해서는 한번만 신고가 가능합니다.');
+			<% } else{%>
+				var f = document.frmReport;
+				var result = prompt('신고항목\n1. 다른 목적이 있어요(종교, 사기 등).\n2. 폭력적이에요.\n3. 기타');
+				if(result == '1' || result == '2' || result == '3'){
+				    f.reportId.value = result;
+				    f.submit();
+				}else{
+					alert('신고항목에 없는 신고 내용입니다.');
+				}
+			<% }%>
 		}
 	</script>
+	<%conn.close(); %>
 </body>
 </html>

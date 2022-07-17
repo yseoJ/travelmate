@@ -82,6 +82,13 @@
 	</div>
 	<br><h2 style="text-align: center"><%=Title %></h2>
 	<hr> 
+	<%if("삭제".equals(tripStatus)) {%>
+		<div style="color: red; font-size: 13px; line-height:120%; border: 1px solid red; display: inline-block;"><p style="font-size: 20px; display:inline">삭제</p>된 여행입니다.</div>
+	<%} else if("취소".equals(tripStatus)) {%>
+			<div style="color: red; font-size: 13px; line-height:120%; border: 1px solid red; display: inline-block; text-align: center;">여행 참여자가 없어<br><p style="font-size: 20px; display:inline">취소</p>된 여행입니다.</div>
+	<%} else{ %>
+		<div style="color: blue; font-size: 13px; line-height:120%; border: 1px solid blue; display: inline-block;">진행중</div>
+	<%} %>
 	<table class="tripInfo">
 	<tr>
 		<td style="width: 100px;">
@@ -179,7 +186,7 @@
 	<br>
 	<div style="margin: 0 auto; text-align: right;">
 		<form name="frmDeleteTrip" action="deleteTrip.jsp" method="get" style="display: inline;">
-			<button type="button" <%if(tripStatus.equals("삭제")){ %>disabled = "disabled"<%} %> onClick="checkDelete();" style="line-height:25px; display: inline-block; border-radius: 6px; background-color: rgba(66, 133, 244, 0.3); height: 25px;">삭제</button>
+			<button type="button" <%if(tripStatus.equals("삭제") || tripStatus.equals("취소")){ %>disabled = "disabled"<%} %> onClick="checkDelete();" style="line-height:25px; display: inline-block; border-radius: 6px; background-color: rgba(66, 133, 244, 0.3); height: 25px;">삭제</button>
 			<input type="hidden" name="membId" value="<%=memb_id %>" />
 			<input type="hidden" name="tripId" value="<%=tripid %>" />
 		</form>
@@ -209,6 +216,7 @@
 					<form name="frmMembInfo" action="membInfo.jsp" method="get" style="display: inline;">
 						<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">자세히</button>
 						<input type="hidden" name="participantId" value="<%=participantId %>" />
+						<input type="hidden" name="membId" value="<%=memb_id %>" />
 					</form>
 				</div>
 			</td>

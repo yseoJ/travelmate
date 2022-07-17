@@ -39,7 +39,6 @@
 	sql = String.format( "select * from MEMB_INFO where MEMB_ID = '%s'", id);
 	System.out.println(sql);
 	res = conn.prepareStatement(sql).executeQuery();
-	
 	res.next();
 	String DbId = res.getString("MEMB_ID");
 	String DbName = res.getString("FULL_NM");
@@ -49,6 +48,45 @@
 	String DbAdyear = res.getString("ADDM_YEAR");
 	String DbStatus = res.getString("MEMB_STATUS");
 	System.out.print(DbId); System.out.print(DbName); System.out.print(DbEmail); System.out.print(DbPhone); System.out.print(DbGender); System.out.print(DbAdyear); System.out.println(DbStatus);
+
+	sql = "SELECT TRIP_ID FROM TRIP_INFO i "+
+			"WHERE i.TRIP_STATUS = '진행중' "+
+			"AND i.MEMB_ID = '" + DbId + "' "+
+			"AND to_char(i.TRIP_MEET_DATE,'YYYY-MM-DD') <= to_char(SYSDATE, 'YYYY-MM-DD') "+
+			"AND NOT EXISTS (SELECT * FROM TRIP_JOIN_LIST l "+
+			"				WHERE l.TRIP_ID = i.TRIP_ID "+
+			"				AND l.PRG_STATUS = '수락' "+
+			"				AND l.MEMB_ID != '" + DbId + "') ";
+	res = conn.prepareStatement(sql).executeQuery();
+	while(res.next()){		//날짜가 지난 여행 중 수락한 참여자가 없으면 여행 취소 처리
+		String updateTripId = res.getString("TRIP_ID");
+		System.out.println(updateTripId);
+		sql = "UPDATE TRIP_INFO "+
+				"SET TRIP_STATUS = '취소' "+
+				"WHERE TRIP_ID = " + updateTripId + " ";
+		conn.prepareStatement(sql).executeUpdate();
+	}
+	
+	sql = "SELECT COUNT(*) count FROM REPORT "+
+			"WHERE GET_MEMB_ID = '" + DbId + "' "+
+			"GROUP BY REPORT_ID ";
+	res = conn.prepareStatement(sql).executeQuery();
+	while(res.next()){
+		String count = res.getString("count");
+		System.out.println(count);
+		int reportCount = Integer.parseInt(count);
+		if(reportCount >= 3) {
+			sql = "UPDATE MEMB_INFO SET MEMB_STATUS = '제명' "+
+					"WHERE MEMB_ID = '" + DbId + "' ";
+			conn.prepareStatement(sql).executeUpdate();
+		}
+	}
+
+	sql = "SELECT MEMB_STATUS FROM MEMB_INFO "+
+			"WHERE MEMB_ID = '" + DbId + "' ";
+	res = conn.prepareStatement(sql).executeQuery();
+	res.next();
+	String memb_status = res.getString("MEMB_STATUS");
 %>
 <!DOCTYPE html>
 <html>
@@ -104,7 +142,6 @@
 	<main style="position: absolute; top: 100px; width:100%; ">
 		<h4> 여행 목록 </h4>  
 	    <%     
-	    
 	    sql = "SELECT x.TRIP_ID, x.TRIP_TITLE, x.TRIP_MEET_DATE, x.TOT_NUM, x.JOIN_NUM, "+
 	          			"CASE WHEN join_num < tot_num THEN '모집중' "+
 	          			"ELSE '마감' "+
@@ -173,7 +210,7 @@
     	res.close();
  		conn.close();
 		%>
-		<script>
+		<script type="text/javascript">		
 			function signOut() {
 		      var auth2 = gapi.auth2.getAuthInstance();
 		      auth2.signOut().then(function () {
