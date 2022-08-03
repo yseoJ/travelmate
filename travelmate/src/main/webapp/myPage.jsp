@@ -15,6 +15,7 @@
 	Class.forName("oracle.jdbc.driver.OracleDriver");
 	Connection conn = DriverManager.getConnection(url, user, pw);
 	ResultSet res = null;
+	ResultSet rs = null;
 	
 	String memb_id = request.getParameter("MembId");
 	
@@ -139,9 +140,31 @@
 	</form>
 	<!-- 나의 관심사 -->
 	<div class="myPageText">나의 관심사</div>
-	<form name="frmMyInterest" action="myInterset.jsp" method="get" >
+	<form name="frmMyInterest" action="myInterest.jsp" method="get" >
 		<button class="myTrip" type="submit">
-			<div class="myPageButton">궁, 강 ..(db연동)</div>
+			<div class="myPageButton">
+				<div style="text-align: left; width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+					<%
+					sql = "SELECT * FROM MEMB_HOPE_LIST WHERE MEMB_ID = '" + memb_id + "' ";
+					res = conn.prepareStatement(sql).executeQuery();
+					if(res.next()){
+						do{
+							String tag_id = res.getString("TAG_ID");
+							sql = "SELECT * FROM TAG_LIST WHERE TAG_ID = '" + tag_id + "' ";
+							rs = conn.prepareStatement(sql).executeQuery();
+							rs.next();
+							String tag_nm = rs.getString("TAG_NM");
+							%>
+							<%=tag_nm %>,
+							<% 
+						}while(res.next());
+					}else{
+						%>
+						설정해주세요
+						<%
+					}%>
+				</div>
+			</div>
 			<div class="myPageButton2">></div>
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
