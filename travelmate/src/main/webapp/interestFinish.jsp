@@ -23,7 +23,7 @@
 	conn.prepareStatement(sql).executeUpdate();
 	if(checkedValue != null){
 		for(int i = 0; i < checkedValue.length; i++) {
-			sql = String.format( "INSERT INTO MEMB_HOPE_LIST (MEMB_ID,TAG_ID) values (to_number('%s'),to_number('%s'))",
+			sql = String.format( "INSERT INTO MEMB_HOPE_LIST (MEMB_ID,TAG_ID) values ('%s',to_number('%s'))",
 					memb_id, checkedValue[i]); 
 			System.out.println(sql);
 			conn.prepareStatement(sql).executeUpdate();

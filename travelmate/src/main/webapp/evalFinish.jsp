@@ -23,18 +23,28 @@
 	String rating = request.getParameter("rating");
 	String[] checkedValue = request.getParameterValues("checkedValue");
 	
-	if(rating.equals("happy")){
+	if(rating.equals("super-happy")){
 		sql = String.format( "INSERT INTO MEMB_SCORE (TRIP_ID,GIVE_MEMB_ID,GET_MEMB_ID,SATIS_SCORE) values (to_number('%s'),'%s','%s',100)",
 				tripId, membId, participantId); 
 		System.out.println(sql);
 		conn.prepareStatement(sql).executeUpdate();
+	} else if(rating.equals("happy")){
+		sql = String.format( "INSERT INTO MEMB_SCORE (TRIP_ID,GIVE_MEMB_ID,GET_MEMB_ID,SATIS_SCORE) values (to_number('%s'),'%s','%s',80)",
+				tripId, membId, participantId); 
+		System.out.println(sql);
+		conn.prepareStatement(sql).executeUpdate();
 	} else if(rating.equals("neutral")){
-		sql = String.format( "INSERT INTO MEMB_SCORE (TRIP_ID,GIVE_MEMB_ID,GET_MEMB_ID,SATIS_SCORE) values (to_number('%s'),'%s','%s',70)",
+		sql = String.format( "INSERT INTO MEMB_SCORE (TRIP_ID,GIVE_MEMB_ID,GET_MEMB_ID,SATIS_SCORE) values (to_number('%s'),'%s','%s',60)",
+				tripId, membId, participantId); 
+		System.out.println(sql);
+		conn.prepareStatement(sql).executeUpdate();
+	} else if(rating.equals("sad")){
+		sql = String.format( "INSERT INTO MEMB_SCORE (TRIP_ID,GIVE_MEMB_ID,GET_MEMB_ID,SATIS_SCORE) values (to_number('%s'),'%s','%s',40)",
 				tripId, membId, participantId); 
 		System.out.println(sql);
 		conn.prepareStatement(sql).executeUpdate();
 	} else{
-		sql = String.format( "INSERT INTO MEMB_SCORE (TRIP_ID,GIVE_MEMB_ID,GET_MEMB_ID,SATIS_SCORE) values (to_number('%s'),'%s','%s',40)",
+		sql = String.format( "INSERT INTO MEMB_SCORE (TRIP_ID,GIVE_MEMB_ID,GET_MEMB_ID,SATIS_SCORE) values (to_number('%s'),'%s','%s',20)",
 				tripId, membId, participantId); 
 		System.out.println(sql);
 		conn.prepareStatement(sql).executeUpdate();
