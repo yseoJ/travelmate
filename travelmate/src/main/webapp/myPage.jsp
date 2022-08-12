@@ -80,7 +80,8 @@
 			</a>
 		</div>
 		<br><h2 style="text-align: center"><%=name %>님</h2><br>
-	</div><hr style="margin-top: 0px; margin-bottom: 30px;">
+	</div>
+	<hr style="margin-top: 0px; margin-bottom: 30px;">
 	<% 
 	String score = null;
 	sql = "SELECT SATIS_SCORE "+
@@ -104,7 +105,55 @@
 		<div class="myPageText2">만족도 </div>
 		<div class="statisBack"></div>
 		<div style="text-align:center;">평가 내용이 업습니다.</div>
-	<%} %>
+	<%}%><br>
+	<%
+	sql = "SELECT SUM(cnt) sum "+
+			"FROM (SELECT REPORT_ID, COUNT(REPORT_ID) cnt "+
+			        "FROM REPORT "+
+			        "WHERE GET_MEMB_ID = '" + memb_id + "' "+
+			        "GROUP BY REPORT_ID) ";
+	res = conn.prepareStatement(sql).executeQuery();
+	if(res.next()){
+		String sum = res.getString("sum");
+		%>
+		<div style="color: red; margin-left: 5px; font-weight: bold;">
+			<svg style="color: red" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-megaphone-fill" viewBox="0 0 16 16">
+			  <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-11zm-1 .724c-2.067.95-4.539 1.481-7 1.656v6.237a25.222 25.222 0 0 1 1.088.085c2.053.204 4.038.668 5.912 1.56V3.224zm-8 7.841V4.934c-.68.027-1.399.043-2.008.053A2.02 2.02 0 0 0 0 7v2c0 1.106.896 1.996 1.994 2.009a68.14 68.14 0 0 1 .496.008 64 64 0 0 1 1.51.048zm1.39 1.081c.285.021.569.047.85.078l.253 1.69a1 1 0 0 1-.983 1.187h-.548a1 1 0 0 1-.916-.599l-1.314-2.48a65.81 65.81 0 0 1 1.692.064c.327.017.65.037.966.06z"/>
+			</svg>
+			신고 누적 횟수: <%=sum %>
+		</div>
+		<details style="margin-left: 10px;">
+			<summary>자세히</summary>
+			<%
+			do{
+				sql = "SELECT i.REPORT_ID report, i.REPORT_ITEM report_nm, COUNT(i.REPORT_ID) cnt "+
+						"FROM REPORT r JOIN REPORT_ITEM i "+
+						"ON r.REPORT_ID = i.REPORT_ID "+
+						"WHERE GET_MEMB_ID = '" + memb_id + "' "+
+						"GROUP BY i.REPORT_ID, i.REPORT_ITEM ";
+						
+				rs = conn.prepareStatement(sql).executeQuery();
+				if(rs.next()){
+					do{
+						String report = rs.getString("report");
+						String cnt = rs.getString("cnt");
+						String report_nm = rs.getString("report_nm");
+						%>
+						<div style="margin-left: 10px;">- <%=report_nm %>
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+						  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+						  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+						</svg>
+						<%=cnt %><br></div>
+						
+						<%
+					}while(rs.next());
+				}
+			}while(res.next());
+			}
+			%>
+		</details>
+		
 	<hr style="margin-top: 30px; margin-bottom: 30px;">
 	<!-- 진행중인 여행 -->
 	<form name="frmMyTrip" action="myTrip.jsp" method="get" >
