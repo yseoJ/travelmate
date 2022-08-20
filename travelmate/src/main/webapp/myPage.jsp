@@ -153,7 +153,9 @@
 			}
 			%>
 		</details>
-		
+		<div style="color: red; margin-left: 5px; font-weight: bold; font-size:10px;">
+			같은 항목에 대해 3번 신고 누적 시 사이트를 사용할 수 없습니다.
+		</div>
 	<hr style="margin-top: 30px; margin-bottom: 30px;">
 	<!-- 진행중인 여행 -->
 	<form name="frmMyTrip" action="myTrip.jsp" method="get" >
