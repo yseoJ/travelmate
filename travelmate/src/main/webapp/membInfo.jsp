@@ -95,7 +95,6 @@
 	</div><br>
 	<div style="display: inline-block; font-weight: bold; width: 60px">학번:</div><div style="display: inline-block;"><%=Year %></div><br>
 	<div style="display: inline-block; font-weight: bold; width: 60px">이메일:</div><div style="display: inline-block;"><%=Email %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 60px">MBTI:</div><div style="display: inline-block;"><%=MBTI %></div><br>
 	<div style="display: inline-block; font-weight: bold; width: 80px">주최횟수:</div><div style="display: inline-block;"><%=countHost %></div><br>
 	<div style="display: inline-block; font-weight: bold; width: 80px">참여횟수:</div><div style="display: inline-block;"><%=countJoin %></div><br>
 	<hr>
@@ -121,9 +120,31 @@
 	<%}else{ %>
 		<div class="myPageText2">만족도 </div>
 		<div class="statisBack"></div>
-		<div style="text-align:center;">평가 내용이 업습니다.</div>
+		<div style="text-align:center;">평가 내용이 없습니다.</div>
 	<%} %>
 	<br>
+	
+	<hr>
+		<div class="myPageText2">성격</div>
+		<div style="margin: auto; width: 90%;">
+			<%     
+			sql = "SELECT l.CHARACTER_NM character "+
+					"FROM MEMB_CHARACTER c LEFT OUTER JOIN CHARACTER_LIST l "+
+					"ON c.CHARACTER_ID = l.CHARACTER_ID "+
+					"WHERE MEMB_ID= '" + participant_id + "' "+
+					"ORDER BY l.CHARACTER_ID ";
+		    res = conn.prepareStatement(sql).executeQuery();
+		    while(res.next()) {            
+				String character = res.getString("character");  
+				%>
+					<div style="display:inline-block; width: 80px; height: 50px; margin: 5px;">
+						<label style="width:100%; border:2px solid #ddd; text-align:center; border-radius:20px; font-size:14px; color:#555;">#<%=character %></label>
+					</div>
+			<%
+			}
+			%>
+		</div>
+	
 	<hr> 
 	<div>
 		<a href="myEval.jsp?membId=<%=participant_id %>">
