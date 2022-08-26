@@ -103,7 +103,7 @@
 	<%}else{ %>
 		<div class="myPageText2">만족도 </div>
 		<div class="statisBack"></div>
-		<div style="text-align:center;">평가 내용이 업습니다.</div>
+		<div style="text-align:center;">평가 내용이 없습니다.</div>
 	<%} %>
 	<hr style="margin-top: 30px; margin-bottom: 30px;">
 	<!-- 진행중인 여행 -->
