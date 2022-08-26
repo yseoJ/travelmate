@@ -19,11 +19,11 @@
 	String memb_id = request.getParameter("membId");
 	String[] checkedValue = request.getParameterValues("checkedValue");
 	//기존 관심 태그 모두 삭제 후 재등록
-	sql = "DELETE FROM MEMB_HOPE_LIST WHERE MEMB_ID = '" + memb_id + "' ";
+	sql = "DELETE FROM MEMB_CHARACTER WHERE MEMB_ID = '" + memb_id + "' ";
 	conn.prepareStatement(sql).executeUpdate();
 	if(checkedValue != null){
 		for(int i = 0; i < checkedValue.length; i++) {
-			sql = String.format( "INSERT INTO MEMB_HOPE_LIST (MEMB_ID,TAG_ID) values ('%s',to_number('%s'))",
+			sql = String.format( "INSERT INTO MEMB_CHARACTER (MEMB_ID,CHARACTER_ID) values ('%s',to_number('%s'))",
 					memb_id, checkedValue[i]); 
 			System.out.println(sql);
 			conn.prepareStatement(sql).executeUpdate();
@@ -54,7 +54,7 @@
 	<!-- 파퍼 자바스크립트 추가하기 -->
 	<script src="./js/pooper.js"></script>
 	
-	<title>Change Interest Finish</title>
+	<title>Change Character Finish</title>
 </head>
 <body style="line-height: 100%">
 	<br><br><br><br>
