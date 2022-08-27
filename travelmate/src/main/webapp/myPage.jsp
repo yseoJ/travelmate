@@ -71,7 +71,7 @@
 	<title>MY PAGE</title>
 </head>
 <body style="line-height: 200%">
-	<div style="background-color: rgba(66, 133, 244, 0.5);">
+	<div style="background-color: rgba(13, 45, 125);">
 		<div style="display: inline; position: relative; left: 10px; top: 5px;">
 			<a href="index.jsp?ID=<%=memb_id %>">
 				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
