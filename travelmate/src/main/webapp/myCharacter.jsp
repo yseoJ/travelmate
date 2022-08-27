@@ -80,7 +80,7 @@
 							>
 							<label for="<%=character_id %>">
 								<div class="title">
-								<%if("17".equals(character_id)||"18".equals(character_id)||"19".equals(character_id)||"20".equals(character_id)||"21".equals(character_id)||"22".equals(character_id)) {%>#<%}%>
+								<%if("17".equals(character_id)||"18".equals(character_id)||"19".equals(character_id)||"20".equals(character_id)||"21".equals(character_id)||"22".equals(character_id)||"23".equals(character_id)||"24".equals(character_id)||"25".equals(character_id)) {%>#<%}%>
 								<%=character_nm %></div>
 							</label>
 						</div>
