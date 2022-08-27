@@ -104,10 +104,7 @@
 	<%}else{ %>
 		<div class="myPageText2">만족도 </div>
 		<div class="statisBack"></div>
-		<div style="text-align:center;">평가 내용이 없습니다.</div>
-<<<<<<< HEAD
-	<%} %>
-=======
+		<div style="text-align:center;">평가 내용이 업습니다.</div>
 	<%}%><br>
 	<%
 	sql = "SELECT SUM(cnt) sum "+
@@ -162,7 +159,7 @@
 			</div>
 		<%}
 	} %>
->>>>>>> refs/remotes/origin/master
+
 	<hr style="margin-top: 30px; margin-bottom: 30px;">
 	<!-- 진행중인 여행 -->
 	<form name="frmMyTrip" action="myTrip.jsp" method="get" >
