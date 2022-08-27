@@ -105,9 +105,6 @@
 		<div class="myPageText2">만족도 </div>
 		<div class="statisBack"></div>
 		<div style="text-align:center;">평가 내용이 없습니다.</div>
-<<<<<<< HEAD
-	<%} %>
-=======
 	<%}%><br>
 	<%
 	sql = "SELECT SUM(cnt) sum "+
