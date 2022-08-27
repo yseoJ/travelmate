@@ -139,7 +139,7 @@
 		</form>
 		<br>
 	</header>
-	<main style="position: absolute; top: 100px; width:100%; ">
+	<main style="position: absolute; top: 100px; width:95%; margin-left:10px; ">
 		<h4> 여행 목록 </h4>  
 	    <%     
 	    sql = "SELECT x.TRIP_ID, x.TRIP_TITLE, x.TRIP_MEET_DATE, x.TOT_NUM, x.JOIN_NUM, "+
@@ -177,7 +177,7 @@
 		<br>
 		<form name="frmTripInfo" action="tripInfo.jsp" method="get" >
 			<button type="submit" class="tripList">
-			<div style="float:left; width: 60%;">
+			<div style="float:left; width: 75%;">
 				<br><div style="font-weight:bold; line-height:50%;"><%=TRIP_TITLE%></div>
 				<br>
 				<!-- 여행 날짜 -->

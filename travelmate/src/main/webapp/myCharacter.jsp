@@ -28,7 +28,7 @@
 	<!-- 부트스트랩 CSS 추가하기 -->
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
 	<!-- 커스텀 CSS 추가하기 -->
-	<link rel="stylesheet" href="./css/custom.css?after">
+	<link rel="stylesheet" href="./css/custom.css?next">
 	<meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="120857777045-1oeeagtes07pmn0n2q2kfnvja770b2eg.apps.googleusercontent.com"/>
     <script src="https://apis.google.com/js/platform.js" async defer></script>

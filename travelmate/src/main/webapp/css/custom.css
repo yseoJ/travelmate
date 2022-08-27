@@ -44,7 +44,8 @@ th, td {
 	width:100%; 
 	text-align: left; 
 	border-radius: 20px; 
-	background: rgba(66, 133, 244, 0.5);
+	border : 2px solid rgba(66, 133, 244, 0.5);;
+	background: white;
 }
 
 .addTrip{
@@ -94,7 +95,8 @@ th, td {
 	border-radius: 12px;
 	display: block; 
 	margin: auto;
-	background: rgba(66, 133, 244, 0.5);
+	background:white;
+	border: 2px solid rgba(66, 133, 244, 0.5);
 	margin-bottom: 20px;
 }
 
@@ -102,20 +104,22 @@ th, td {
 	display: inline; 
 	float: left;
 	font-weight: bold;
-	font-size: 1.5em;
+	font-size: 1.0em;
+	margin-left: 10px;
 }
 
 .myPageButton2{
 	display: inline; 
 	float: right;
 	font-weight: bold;
-	font-size: 1.5em;
+	font-size: 1.0em;
+	margin-right: 10px;
 }
 
 .myPageText{
 	margin-left: 10px;
 	font-weight: bold;
-	font-size: 1.5em;
+	font-size: 1.0em;
 	margin-bottom: 5px;
 }
 
