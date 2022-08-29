@@ -158,7 +158,7 @@
 	</tr>
 	</table><br>
 	<div style="color: red; font-size: 13px; line-height:120%; text-align: center;"><p style="font-size: 15px">모임시간 / 장소 / 오픈채팅링크 / 참여자 정보</p>는 수락된 참여자에 한하여 열람 가능합니다.</div>
-	<div style="border: 1px solid black;">
+	<div style="border: 1px solid black; margin: 5px;">
 		<!-- 여행 시간 -->
 		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
 		  <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
