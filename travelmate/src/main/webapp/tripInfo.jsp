@@ -99,7 +99,7 @@
 			모집인원
 		</td>
 		<td>
-			&nbsp;총 모집 인원 <%=totNum %> 명 중 <%=join_num %>명 참여중
+			&nbsp; <%=join_num %> / <%=totNum %>
 		</td>
 	</tr>
 	<tr>
@@ -167,7 +167,7 @@
 		</td>
 	</tr>
 	</table>
-	<div style="color: blue;">#<%=sightClas %></div>
+	<div style="color: blue; margin-left: 3%;"> #<%=sightClas %></div>
 	<br><br>
 	<!-- 주최자 -->
 		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -188,9 +188,9 @@
 			<input type="hidden" name="tripId" value="<%=trip_id %>" />
 		</form>
 		<%if ("마감".equals(trip_close)) { %>
-			<button class="joinTrip" type='button' disabled='disabled'>마감</button>
+			<button class="joinTrip" type='button' disabled='disabled' style="color: white; font-size: 22px; border-radius: 5em; width: 300px; margin-left: 8%; margin-bottom: 4%; background-color: rgb(13, 45, 132); border: 2px solid rgb(13, 45, 132);">마감</button>
 		<%} else{ %>
-			<button class="joinTrip" type="submit" onclick="openJoin()">참여하기</button>
+			<button class="joinTrip" type="submit" onclick="openJoin()" style="color: white; font-size: 22px; border-radius: 5em; width: 300px; margin-left: 8%; margin-bottom: 4%; background-color: rgb(13, 45, 132); border: 2px solid rgb(13, 45, 132);">참여하기</button>
 		<%} %>
 	</footer>
 

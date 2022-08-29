@@ -85,12 +85,12 @@
 			</svg>
 		</a>
 	</div>
-	<br><h2 style="text-align: center">주최자 정보</h2>
+	<br><h2 style="text-align: center; margin-left: 3%;">주최자 정보</h2>
 	<hr> 
-	<div style="display: inline-block; font-weight: bold; width: 50px">이름:</div><div style="display: inline-block;"><%=Name %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 50px">학번:</div><div style="display: inline-block;"><%=Year %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 80px">주최횟수:</div><div style="display: inline-block;"><%=countHost %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 80px">참여횟수:</div><div style="display: inline-block;"><%=countJoin %></div><br><br>
+	<div style="display: inline-block; font-weight: bold; width: 50px; margin-left: 3%;">이름:</div><div style="display: inline-block;"><%=Name %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 50px; margin-left: 3%;">학번:</div><div style="display: inline-block;"><%=Year %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 80px; margin-left: 3%;">주최횟수:</div><div style="display: inline-block;"><%=countHost %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 80px; margin-left: 3%;">참여횟수:</div><div style="display: inline-block;"><%=countJoin %></div><br><br>
 	<hr>
 	<% 
 	String score = null;
@@ -143,7 +143,7 @@
 	<hr> 
 	<div>
 		<a href="myEval.jsp?membId=<%=participant_id %>">
-			<div style="float: left; font-weight: bold;">받은 매너/비매너 평가</div>
+			<div style="float: left; font-weight: bold; margin-left: 3%;">받은 매너/비매너 평가</div>
 			<div style="float: right; display: inline-block; font-weight: bold;">>&nbsp;</div>
 		</a>
 		<br><br>

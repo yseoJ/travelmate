@@ -84,7 +84,7 @@
 	</div>
 	<br><h2 style="text-align: center">참여자 정보</h2>
 	<hr> 
-	<div style="display: inline-block; font-weight: bold; width: 50px">이름:</div>
+	<div style="display: inline-block; font-weight: bold; width: 50px; margin-left: 3%;">이름:</div>
 	<div style="display: inline-block;"><%=Name %>
 		<form name="frmReport" action="report.jsp" method="get" style="display: inline;">
 			<button type="button" onclick="report()" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline; color: red;">신고하기</button>
@@ -93,10 +93,10 @@
 			<input type="hidden" name="reportId"/>
 		</form>
 	</div><br>
-	<div style="display: inline-block; font-weight: bold; width: 60px">학번:</div><div style="display: inline-block;"><%=Year %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 60px">이메일:</div><div style="display: inline-block;"><%=Email %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 80px">주최횟수:</div><div style="display: inline-block;"><%=countHost %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 80px">참여횟수:</div><div style="display: inline-block;"><%=countJoin %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 60px; margin-left: 3%;">학번:</div><div style="display: inline-block;"><%=Year %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 60px; margin-left: 3%;">이메일:</div><div style="display: inline-block;"><%=Email %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 80px; margin-left: 3%;">주최횟수:</div><div style="display: inline-block;"><%=countHost %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 80px; margin-left: 3%;">참여횟수:</div><div style="display: inline-block;"><%=countJoin %></div><br>
 	<hr>
 	<% 
 	String score = null;
@@ -148,7 +148,7 @@
 	<hr> 
 	<div>
 		<a href="myEval.jsp?membId=<%=participant_id %>">
-			<div style="float: left; font-weight: bold;">받은 매너/비매너 평가</div>
+			<div style="float: left; font-weight: bold; margin-left: 3%;">받은 매너/비매너 평가</div>
 			<div style="float: right; display: inline-block; font-weight: bold;">>&nbsp;</div>
 		</a>
 		<br><br>
