@@ -10,12 +10,14 @@
 	String user = "trip";
 	String pw = "trip";
 	String sql = "";
+	String sql2 = "";
 	
 	
 	Class.forName("oracle.jdbc.driver.OracleDriver");
 	Connection conn = DriverManager.getConnection(url, user, pw);
 	ResultSet res = null;
 	ResultSet rs = null;
+	ResultSet result = null;
 	
 	String memb_id = request.getParameter("MembId");
 	
@@ -104,7 +106,8 @@
 	<%}else{ %>
 		<div class="myPageText2">만족도 </div>
 		<div class="statisBack"></div>
-		<div style="text-align:center;">평가 내용이 업습니다.</div>
+		<div style="text-align:center;">평가 내용이 없습니다.</div>
+
 	<%}%><br>
 	<%
 	sql = "SELECT SUM(cnt) sum "+
@@ -290,7 +293,7 @@
 
 			    rs = conn.prepareStatement(sql).executeQuery();
 				
-			    while(rs.next()) {            
+			    if(rs.next()) {            
 			      String TRIP_TITLE = rs.getString("TRIP_TITLE");
 			      String TRIP_MEET_DATE = rs.getString("TRIP_MEET_DATE");   
 			      String TOT_NUM = rs.getString("TOT_NUM");
@@ -298,41 +301,54 @@
 			      String JOIN_NUM = rs.getString("JOIN_NUM");
 			      //System.out.println(sql);
 				
-		%>
-		<!-- 설정한 태그값과 일차하는 개수 -->
-		<%=cnt%>
-		<div class="box" style="display: inline-block; padding: 0; border: none;">
-			<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
-				<button type="submit" style="border-radius: 20px; border: 4px solid rgba(66, 133, 244, 0.5);">
-					<br><div style="font-weight:bold; line-height:50%;"><%=TRIP_TITLE%></div>
-					<br>
-					<!-- 여행 날짜 -->
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
-					  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-					  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-					</svg>
-					&nbsp;<%=TRIP_MEET_DATE%>
-					<br><br>
-				</button>
-				<input type="hidden" name="MembId" value="<%=memb_id %>" />
-				<input type="hidden" name="TripTitle" value="<%=TRIP_TITLE %>" />
-				<input type="hidden" name="TripId" value="<%=TRIP_ID %>" />
-				<input type="hidden" name="JoinNum" value="<%=JOIN_NUM %>" />
-			</form>
-		</div>
+				%>
+				<div class="box" style="display: inline-block; padding: 0; border: none;">
+					<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
+						<button type="submit" style="text-align: left; border-radius: 20px; border: 4px solid rgba(66, 133, 244, 0.5);">
+							<br><div style="font-weight:bold; line-height:50%;"><%=TRIP_TITLE%></div>
+							<div style="line-height: 80%;"><br></div>
+							<!-- 여행 날짜 -->
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+							  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+							  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+							</svg>
+							&nbsp;<%=TRIP_MEET_DATE%>
+							<div style="line-height: 80%;"><br></div>
+							<% 
+							sql2 = "SELECT t.TAG_NM tagnm "+
+									"FROM TAG_LIST t LEFT OUTER JOIN SIGHTS_TAG_LIST s "+
+									"ON t.TAG_ID = s.TAG_ID "+
+									"WHERE SIGHTS_ID = '" + sights_id + "' "+
+									"AND t.TAG_ID IN (SELECT TAG_ID "+
+														"FROM MEMB_HOPE_LIST "+
+														"WHERE MEMB_ID = '" + memb_id + "') ";
+							result = conn.prepareStatement(sql2).executeQuery();
+							
+						    while(result.next()) {            
+						      String tagnm = result.getString("tagnm");
+							%>
+							<div style="display: inline-block; border-radius: 18px; text-align:center; font-size: 12px; padding: 0px 5px 0px 5px; background-color: rgba(13, 45, 132); color: white;">
+							#<%=tagnm%>
+							</div>
+							<%} %>
+						</button>
+						<input type="hidden" name="MembId" value="<%=memb_id %>" />
+						<input type="hidden" name="TripTitle" value="<%=TRIP_TITLE %>" />
+						<input type="hidden" name="TripId" value="<%=TRIP_ID %>" />
+						<input type="hidden" name="JoinNum" value="<%=JOIN_NUM %>" />
+					</form>
+				</div>
 		
 	    		<%
 				}
 			}while(res.next());
 		} else{
 				%>
-				<div style="margin: 0 auto; border: 2px solid black; width: 80%; text-align:center; font-weight: bold ;">관심사를 설정해주세요.</div>
+				<div style="margin: 0 auto; border: 2px solid black; width: 80%; text-align:center; font-weight: bold ;">관심사를 설정해주세요.</div><br>
 		<% }
     	res.close();
  		conn.close();
 		%>
-	</div>
-	
-
+	</div><br>
 </body>
 </html>

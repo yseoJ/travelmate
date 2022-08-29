@@ -54,31 +54,51 @@
 	<hr> 
 	<div style="margin: 0 auto; text-align: center;">
 		<form name="frmInterest" method="get" action="interestFinish.jsp">
-			<div class="inputInterest">
-				<!-- for문으로 db에 있는 tag값 모두 불러오기 -->
-				<%
-				sql = "SELECT * FROM TAG_LIST ORDER BY TAG_ID ";
-				res = conn.prepareStatement(sql).executeQuery();
-				
-			    while(res.next()) {   
-					String tag_id = res.getString("TAG_ID");
-				    String tag_nm = res.getString("TAG_NM");
-				%>
-				    <label class="InterestCard">
-						<input type="checkbox" class="checkbox" name="checkedValue" value="<%=tag_id %>" 
-						<%
-							sql = "SELECT * FROM MEMB_HOPE_LIST WHERE MEMB_ID = '" + memb_id + "' AND TAG_ID = '" + tag_id + "' ";
-							rs = conn.prepareStatement(sql).executeQuery();
-						
-							if(rs.next()){%>
-								checked
-							<%} %>
-						/><%=tag_nm %>
-					</label>
-				<%
-			    }
-				%>
-				<div></div><br><br><br>
+			<div class="character-container">
+				<div class="character-list">
+					<div style="font-weight: bold; text-align: left; margin-left: 30px; font-size: 17px;">예술</div><br>
+					<%
+					sql = "SELECT * FROM TAG_LIST ORDER BY TAG_ID ";
+					res = conn.prepareStatement(sql).executeQuery();
+					
+				    while(res.next()) {   
+						String tag_id = res.getString("TAG_ID");
+					    String tag_nm = res.getString("TAG_NM");
+					%>
+					<%if("16".equals(tag_id)) {%>
+						<br><br><hr style="background-color: #555; height: 2px; width: 95%; margin:auto;"><br><div style="font-weight: bold; text-align: left; margin-left: 30px; font-size: 17px;">지역</div><br>
+					<%} else if("25".equals(tag_id)) {%>
+						<br><br><hr style="background-color: #555; height: 2px; width: 95%; margin:auto;"><br><div style="font-weight: bold; text-align: left; margin-left: 30px; font-size: 17px;">자연</div><br>
+					<%} else if("44".equals(tag_id)) {%>
+						<br><br><hr style="background-color: #555; height: 2px; width: 95%; margin:auto;"><br><div style="font-weight: bold; text-align: left; margin-left: 30px; font-size: 17px;">역사</div><br>
+					<%} else if("52".equals(tag_id)) {%>
+						<br><br><hr style="background-color: #555; height: 2px; width: 95%; margin:auto;"><br><div style="font-weight: bold; text-align: left; margin-left: 30px; font-size: 17px;">교육</div><br>
+					<%} else if("62".equals(tag_id)) {%>
+						<br><br><hr style="background-color: #555; height: 2px; width: 95%; margin:auto;"><br><div style="font-weight: bold; text-align: left; margin-left: 30px; font-size: 17px;">랜드마크</div><br>
+					<%} else if("70".equals(tag_id)) {%>
+						<br><br><hr style="background-color: #555; height: 2px; width: 95%; margin:auto;"><br><div style="font-weight: bold; text-align: left; margin-left: 30px; font-size: 17px;">종교</div><br>
+					<%} else if("73".equals(tag_id)) {%>
+						<br><br><hr style="background-color: #555; height: 2px; width: 95%; margin:auto;"><br><div style="font-weight: bold; text-align: left; margin-left: 30px; font-size: 17px;">익스트림</div><br>
+					<%} else if("84".equals(tag_id)) {%>
+						<br><br><hr style="background-color: #555; height: 2px; width: 95%; margin:auto;"><br><div style="font-weight: bold; text-align: left; margin-left: 30px; font-size: 17px;">기타</div><br>
+					<%} 
+					%>
+						<div class="form-element">
+							<input type="checkbox" class="checkbox" name="checkedValue" value="<%=tag_id %>" id="<%=tag_id %>" 
+							<%
+								sql = "SELECT * FROM MEMB_HOPE_LIST WHERE MEMB_ID = '" + memb_id + "' AND TAG_ID = '" + tag_id + "' ";
+								rs = conn.prepareStatement(sql).executeQuery();
+							
+								if(rs.next()){%>
+									checked
+								<%} %>
+							/>
+							<label for="<%=tag_id %>">
+								<div class="title"><%=tag_nm %></div>
+							</label>
+						</div>
+					<%}%>
+				</div><br><br><br><br><br>
 			</div>
 			<footer style="position: fixed; bottom: 0; width: 100%;">
 				<!-- 관심사 수정 -->
