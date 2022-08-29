@@ -177,7 +177,7 @@
 	<footer style="position: fixed; bottom: 0; width: 100%;">
 	<!-- 여행 개설 -->
 	<form name="frmMakeTrip" action="makeTrip.jsp" method="get" >
-		<button class="makeTripButton" type="submit" style="color: white; font-size: 22px; border-radius: 5em; width: 300px; margin-left: 8%; margin-bottom: 4%; background-color: rgb(13, 45, 132); border: 2px solid rgb(13, 45, 132);">선택하기</button>
+		<button class="makeTripButton" type="submit" style="color: white; font-size: 22px; border-radius: 5em; width: 300px; margin-bottom: 4%; background-color: rgb(13, 45, 132); border: 2px solid rgb(13, 45, 132);">선택하기</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
 		<input type="hidden" name="sightId" value="<%=sight_id %>" />
 	</form>
