@@ -121,15 +121,7 @@
 						<path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z"/>
 					</svg>
 				</a>
-				<!-- 마이페이지 -->
-				<form name="frmMyPage" action="myPage.jsp" method="get" style="display:inline;">
-					<button type="submit" class="myPage">
-					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-			  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-					</svg>
-					</button>
-					<input type="hidden" name="MembId" value="<%=DbId %>" />
-				</form>
+				
 			</div>
 		</nav>
 		<form class="form-inline my-2-my-lg-0" action="index.jsp" method="get">
@@ -210,6 +202,7 @@
     	res.close();
  		conn.close();
 		%>
+		<br><br><br><br><br>
 		<script type="text/javascript">		
 			function signOut() {
 		      var auth2 = gapi.auth2.getAuthInstance();
@@ -225,17 +218,38 @@
 		    }
 		</script> 
 	</main>
-	<footer style="position: fixed; bottom: 10px; width: 100%;">
-	<!-- 여행 개설 -->
-		<div style="margin-left: 85%;">
-		<br>
-		<form name="frmSightList" action="sightList.jsp" method="get" >
-			<button type="submit" class="addTrip">
-				+
-			</button>
-			<input type="hidden" name="MembId" value="<%=DbId %>" />
-		</form>
+	<footer style="position: fixed; bottom: 0px; width: 100%;">
+	<div style="width: 100%; background-color: #f8f9fa; height: 50px; display: flex;">
+		<!-- 진행/완료 여행 -->
+		<div style="display: inline-block; margin: auto; flex: 1; text-align: center;">
+			<form name="frmSightList" action="sightList.jsp" method="get" >
+				<button type="submit" class="addTrip" style="color: black;">
+					-
+				</button>
+				<input type="hidden" name="MembId" value="<%=DbId %>" />
+			</form>
 		</div>
+		<!-- 여행 개설 -->
+		<div style="display: inline-block; margin: auto; flex: 1; text-align: center;">
+			<form name="frmSightList" action="sightList.jsp" method="get" >
+				<button type="submit" class="addTrip" style="color: black;">
+					+
+				</button>
+				<input type="hidden" name="MembId" value="<%=DbId %>" />
+			</form>
+		</div>
+		<!-- 마이페이지 -->
+		<div style="display: inline-block; margin: auto; flex: 1; text-align: center;">
+				<form name="frmMyPage" action="myPage.jsp" method="get" style="display:inline;">
+					<button type="submit" class="myPage"">
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-person" viewBox="0 0 16 16">
+			  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+					</svg>
+					</button>
+					<input type="hidden" name="MembId" value="<%=DbId %>" />
+				</form>
+		</div>
+	</div>
 	</footer>
 	<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 </body>
