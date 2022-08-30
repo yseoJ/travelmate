@@ -100,9 +100,10 @@
 					<%}%>
 				</div><br><br><br><br><br>
 			</div>
-			<footer style="position: fixed; bottom: 0; width: 100%;">
+			
+			<footer>
 				<!-- 관심사 수정 -->
-				<button class="changeInterest" type="submit">수정하기</button>
+				<button class="changeInterest" type="submit" style="margin-left: 8%; color: white; font-size: 22px; border-radius: 5em; width: 300px; margin-bottom: 4%; background-color: rgb(13, 45, 132); border: 2px solid rgb(13, 45, 132);">수정하기</button>
 				<input type="hidden" name="membId" id="membId" value="<%=memb_id %>" />
 			</footer>
 		</form>
