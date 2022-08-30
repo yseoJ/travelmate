@@ -90,7 +90,7 @@
 			<br><br><br><br>
 			<footer style="position: fixed; bottom: 0; width: 100%;">
 				<!-- 성격 수정 -->
-				<button class="changeCharacter" type="submit">수정하기</button>
+				<button class="changeCharacter" type="submit" style="color: white; font-size: 22px; border-radius: 5em; width: 300px; margin-left: 8%; margin-bottom: 4%; background-color: rgb(13, 45, 132); border: 2px solid rgb(13, 45, 132);">수정하기</button>
 				<input type="hidden" name="membId" id="membId" value="<%=memb_id %>" />
 			</footer>
 		</form>
