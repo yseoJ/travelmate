@@ -69,7 +69,6 @@
 	<script src="./js/jquery.min.js"></script>
 	<!-- 파퍼 자바스크립트 추가하기 -->
 	<script src="./js/pooper.js"></script>
-	
 	<title>MY PAGE</title>
 </head>
 <body style="line-height: 200%">
