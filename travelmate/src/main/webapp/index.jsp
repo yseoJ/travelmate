@@ -221,19 +221,34 @@
 	<footer style="position: fixed; bottom: 0px; width: 100%;">
 	<div style="width: 100%; background-color: #f8f9fa; height: 50px; display: flex;">
 		<!-- 진행/완료 여행 -->
-		<div style="display: inline-block; margin: auto; flex: 1; text-align: center;">
-			<form name="frmSightList" action="sightList.jsp" method="get" >
-				<button type="submit" class="addTrip" style="color: black;">
-					-
+		<div class="dropup">
+		  <button onclick="tripMenu()" class="dropbtn">
+		  	<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+				<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+			</svg>
+		  </button>
+		  <div id="myDropup" class="dropup-content">
+		    <form name="frmMyTrip" action="myTrip.jsp" method="get" >
+				<button style="background-color:transparent; border: none;" type="submit">
+					<a>진행중인 여행</a>
 				</button>
-				<input type="hidden" name="MembId" value="<%=DbId %>" />
+				<input type="hidden" name="membId" value="<%=DbId %>" />
 			</form>
+		    <form name="frmMyTripPast" action="myTripPast.jsp" method="get" >
+				<button style="background-color:transparent; border: none;" type="submit">
+					<a>완료한 여행</a>
+				</button>
+				<input type="hidden" name="membId" value="<%=DbId %>" />
+			</form>
+		  </div>
 		</div>
 		<!-- 여행 개설 -->
 		<div style="display: inline-block; margin: auto; flex: 1; text-align: center;">
 			<form name="frmSightList" action="sightList.jsp" method="get" >
 				<button type="submit" class="addTrip" style="color: black;">
-					+
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+						<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+					</svg>
 				</button>
 				<input type="hidden" name="MembId" value="<%=DbId %>" />
 			</form>
