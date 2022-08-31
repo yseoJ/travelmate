@@ -86,11 +86,48 @@
 		</a>
 	</div>
 	<br><h2 style="text-align: center; margin-left: 3%;">주최자 정보</h2>
-	<hr> 
-	<div style="display: inline-block; font-weight: bold; width: 50px; margin-left: 3%;">이름:</div><div style="display: inline-block;"><%=Name %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 50px; margin-left: 3%;">학번:</div><div style="display: inline-block;"><%=Year %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 80px; margin-left: 3%;">주최횟수:</div><div style="display: inline-block;"><%=countHost %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 80px; margin-left: 3%;">참여횟수:</div><div style="display: inline-block;"><%=countJoin %></div><br><br>
+	<hr>
+	<div style="display: flex">
+		<div style="display: inline-block; margin: auto; flex: 1; text-align: center;"></div>
+		<div style="display: inline-block; margin: auto; flex: 1; text-align: center;"><h2 style="text-align: center; display: inline;"><%=Name %> 님</h2></div>
+		<div style="display: inline-block; margin: auto; flex: 1; text-align: center;">
+			<!-- 매너top10 -->
+			<%
+			sql = "SELECT top_id, top "+
+					"FROM (SELECT NVL(p.GET_MEMB_ID, n.GET_MEMB_ID) top_id, NVL(positive, 0)-NVL(negative, 0) top "+
+					        "FROM (SELECT GET_MEMB_ID, NVL(COUNT(*), 0) negative "+
+					        "FROM MEMB_EVALUATION "+
+					        "WHERE 101<=EVAL_ID "+
+					        "AND EVAL_ID<=105 "+
+					        "GROUP BY GET_MEMB_ID) p FULL OUTER JOIN (SELECT GET_MEMB_ID, COUNT(*) positive "+
+					                                                "FROM MEMB_EVALUATION "+
+					                                                "WHERE 1<=EVAL_ID "+
+					                                                "AND EVAL_ID<=10 "+
+					                                                "GROUP BY GET_MEMB_ID) n "+
+					        "ON p.GET_MEMB_ID = n.GET_MEMB_ID "+
+					        "ORDER BY top DESC) "+
+					"WHERE ROWNUM <= 10 ";
+			res = conn.prepareStatement(sql).executeQuery();
+			if(res.next()){
+				do{
+					String top_id = res.getString("top_id");
+					if(participant_id.equals(top_id)){
+						%>
+						<div style="display: inline-block">
+							<img src="image/manner.jpg" width="100px" height="80px">
+						</div>
+						<% 
+					}
+				}while(res.next());
+			}
+			%>
+		</div>
+	</div><br>
+	<div style=" width: 95%; margin: 0 auto; background-color:transparent; border-radius: 20%; border: 2px solid black;"><br>
+		<div style="display: inline-block; font-weight: bold; width: 50px; margin-left: 3%;">학번:</div><div style="display: inline-block;"><%=Year %></div><br>
+		<div style="display: inline-block; font-weight: bold; width: 80px; margin-left: 3%;">주최횟수:</div><div style="display: inline-block;"><%=countHost %></div><br>
+		<div style="display: inline-block; font-weight: bold; width: 80px; margin-left: 3%;">참여횟수:</div><div style="display: inline-block;"><%=countJoin %></div><br><br>
+	</div>
 	<hr>
 	<% 
 	String score = null;
