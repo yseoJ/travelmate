@@ -86,7 +86,7 @@
 	<hr> 
 	<div style="display: flex">
 		<div style="display: inline-block; margin: auto; flex: 1; text-align: center;"></div>
-		<div style="display: inline-block; margin: auto; flex: 1; text-align: center;"><h2 style="text-align: center; display: inline;"><%=Name %> 님</h2></div>
+		<div style="display: inline-block; margin: auto; flex: 1; text-align: center;"><h2 style="text-align: center; display: inline; font-size: 20px;"><%=Name %> 님</h2></div>
 		<div style="display: inline-block; margin: auto; flex: 1; text-align: center;">
 			<!-- 매너top10 -->
 			<%
@@ -111,7 +111,7 @@
 					if(participant_id.equals(top_id)){
 						%>
 						<div style="display: inline-block">
-							<img src="image/manner.jpg" width="100px" height="80px">
+							<img src="image/manner.jpg" width="70px" height="70px">
 						</div>
 						<% 
 					}
@@ -128,11 +128,11 @@
 			<input type="hidden" name="reportId"/>
 		</form>
 	</div><br>
-	<div style=" width: 95%; margin: 0 auto; background-color:transparent; border-radius: 20%; border: 2px solid black;"><br>
+	<div style=" width: 95%; margin: 0 auto; background-color:transparent; border-radius: 15%; border: 1px double black;"><br>
 		<div style="display: inline-block; font-weight: bold; width: 60px; margin-left: 3%;">학번:</div><div style="display: inline-block;"><%=Year %></div><br>
 		<div style="display: inline-block; font-weight: bold; width: 60px; margin-left: 3%;">이메일:</div><div style="display: inline-block;"><%=Email %></div><br>
-		<div style="display: inline-block; font-weight: bold; width: 80px; margin-left: 3%;">주최횟수:</div><div style="display: inline-block;"><%=countHost %></div><br>
-		<div style="display: inline-block; font-weight: bold; width: 80px; margin-left: 3%;">참여횟수:</div><div style="display: inline-block;"><%=countJoin %></div><br><br>
+		<div style="display: inline-block; font-weight: bold; width: 80px; margin-left: 3%;">주최 횟수:</div><div style="display: inline-block;"><%=countHost %></div><br>
+		<div style="display: inline-block; font-weight: bold; width: 80px; margin-left: 3%;">참여 횟수:</div><div style="display: inline-block;"><%=countJoin %></div><br><br>
 	</div><br>
 	<hr>
 	<% 
