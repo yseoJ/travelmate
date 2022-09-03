@@ -56,12 +56,12 @@
 	</div>
 	<br><h2 style="text-align: center">완료한 여행 목록</h2>
 	<hr><br>
-	<h4> 주최한 여행 </h4>
+	<h4 style="margin-left: 2%;"> 주최한 여행 </h4>
 	<br>
 	<table class="myTripList">
-		<tr style=" background-color: rgba(66, 133, 244, 0.1);">
-			<th style="height: 20px; line-height: 20px;">제목</th>
-			<th>여행 날짜</th>
+		<tr style="color: white; background-color: rgb(14, 45, 132);">
+			<th style="height: 20px; line-height: 20px; text-align: center; font-size: 15px;">제목</th>
+			<th style="text-align: center; font-size: 15px;">여행 날짜</th>
 		</tr>
 		<%     
 		sql = "SELECT i.TRIP_ID, i.TRIP_TITLE, TO_CHAR(i.TRIP_MEET_DATE, 'YYYY-MM-DD') AS TRIP_MEET_DATE FROM TRIP_JOIN_LIST l JOIN TRIP_INFO i "+
@@ -78,26 +78,26 @@
 		      String date = res.getString("TRIP_MEET_DATE");
 		%>
 		<tr>
-			<td style="font-size: 13px;">
+			<td style="height: 15px; line-height: 15px; font-size: 13px;">
 				<form name="frmMyTripHost" action="pastTrip.jsp" method="get" >
-					<button class="myTripButton" type="submit"><%=tripTitle%></button>
+					<button class="myTripButton" type="submit" style="text-align: center;"><%=tripTitle%></button>
 					<input type="hidden" name="tripId" value="<%=tripId %>" />
 					<input type="hidden" name="membId" value="<%=memb_id %>" />
 				</form>
 			</td>
-			<td style="font-size: 13px;"><%=date%></td>
+			<td style="font-size: 13px; text-align:center; "><%=date%></td>
 		</tr>
 		<%
 		    }
 		%>
 	</table> 
 	<br><br>
-	<h4> 참여한 여행 </h4>
+	<h4 style="margin-left: 2%;"> 참여한 여행 </h4>
 	<br>
 	<table class="myTripList">
-		<tr style=" background-color: rgba(66, 133, 244, 0.1);">
-			<th style="height: 20px; line-height: 20px;">제목</th>
-			<th>여행 날짜</th>
+		<tr style="color: white; background-color: rgb(14, 45, 132);">
+			<th style="height: 20px; line-height: 20px; text-align: center; font-size: 15px;">제목</th>
+			<th style="text-align: center; font-size: 15px;">여행 날짜</th>
 		</tr>
 		<%     
 		sql = "SELECT i.TRIP_ID, i.TRIP_TITLE, TO_CHAR(i.TRIP_MEET_DATE, 'YYYY-MM-DD') AS TRIP_MEET_DATE FROM TRIP_JOIN_LIST l JOIN TRIP_INFO i "+
@@ -116,14 +116,14 @@
 		      String date = res.getString("TRIP_MEET_DATE");
 		%>
 		<tr>
-			<td style="font-size: 13px;">
+			<td style="height: 15px; line-height: 15px; font-size: 13px;">
 				<form name="frmMyTripHost" action="pastTrip.jsp" method="get" >
-					<button class="myTripButton" type="submit"><%=tripTitle%></button>
+					<button class="myTripButton" type="submit" style="text-align: center; "><%=tripTitle%></button>
 					<input type="hidden" name="tripId" value="<%=tripId %>" />
 					<input type="hidden" name="membId" value="<%=memb_id %>" />
 				</form>
 			</td>
-			<td style="font-size: 13px;"><%=date%></td>
+			<td style="font-size: 13px; text-align: center;"><%=date%></td>
 		</tr>
 		<%
 		    }
