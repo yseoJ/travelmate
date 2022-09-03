@@ -80,6 +80,19 @@
 				</svg>
 			</a>
 		</div><br>
+
+		<div style="margin: 0 auto; text-align: center;">	
+			<div class="box" style="background: #000; width: 100px;height: 100px; border-radius: 70%; overflow: hidden; margin: 0 auto; border: 2px solid rgba(13, 45, 132);">
+			    <img class="profile" style="width: 100%;height: 100%;object-fit: cover;" src="/images/<%=memb_id %>.JPG">
+			</div>
+			<form name="frmImge" action="changeImage.jsp" method="get" >
+				<button class="changeImage" type="submit" style="line-height:25px; display: inline-block; border-radius: 6px; background-color: rgba(13, 45, 132); height: 25px; color: white;">수정</button>
+				<input type="hidden" name="membId" id="membId" value="<%=memb_id %>" />
+			</form>
+		</div>
+		
+		
+		<br>
 		<div style="display: flex">
 			<div style="display: inline-block; margin: auto; flex: 1; text-align: center;"></div>
 			<div style="display: inline-block; margin: auto; flex: 1; text-align: center;"><h2 style="text-align: center; display: inline;"><%=name %> 님</h2></div>
