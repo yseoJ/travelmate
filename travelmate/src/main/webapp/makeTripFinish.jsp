@@ -75,7 +75,7 @@
 	<br><br><br>
 	<div style="margin: 0 auto; text-align: center; height: 100px;">
 		<form name="frmTripInfo" action="index.jsp" method="get" >
-			<button onClick="location.href='index.jsp'" style=" display: inline-block; border-radius: 6px; background-color: rgba(66, 133, 244, 0.3); height: 25px;">확인</button>
+			<button onClick="location.href='index.jsp'" style=" display: inline-block; border-radius: 6px; background-color: rgb(13, 45, 132); color: white; height: 25px;">확인</button>
 			<input type="hidden" name="ID" value="<%=membId %>" />
 		</form>
 	</div>

@@ -60,21 +60,21 @@
 <body style="line-height: 200%">
 	<br><h2 style="text-align: center">여행 계획 확인</h2>
 	<hr> 
-	<div style="display: inline-block; font-weight: bold; width: 50px">제목:</div><div style="display: inline-block; text-decoration: underline;"><%=Title %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 50px">날짜:</div><div style="display: inline-block; text-decoration: underline;"><%=Date %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 50px">시간:</div><div style="display: inline-block; text-decoration: underline;"><%=Time %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 50px">장소:</div><div style="display: inline-block; text-decoration: underline;"><%=Place %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 100px">오픈채팅방:</div><div style="display: inline-block; text-decoration: underline;"><%=Link %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 50px">인원:</div><div style="display: inline-block; text-decoration: underline;"><%=Num %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 50px">비용:</div><div style="display: inline-block; text-decoration: underline;"><%=Cost %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 80px">관광지명:</div><div style="display: inline-block; text-decoration: underline;"><%=sightName %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 50px">주소:</div><div style="display: inline-block; text-decoration: underline;"><%=sightAddr %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 80px">교통정보:</div><div style="display: inline-block; text-decoration: underline;"><%=sightTraf %></div><br>
-	<div style="display: inline-block; font-weight: bold; width: 80px">세부정보:</div><div style="display: inline-block; text-decoration: underline;"><%=Detail %></div><br><br>
+	<div style="display: inline-block; font-weight: bold; width: 50px">제목:</div><div style="display: inline-block;"><%=Title %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 50px">날짜:</div><div style="display: inline-block;"><%=Date %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 50px">시간:</div><div style="display: inline-block;"><%=Time %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 50px">장소:</div><div style="display: inline-block;"><%=Place %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 100px">오픈채팅방:</div><div style="display: inline-block;"><%=Link %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 50px">인원:</div><div style="display: inline-block;"><%=Num %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 50px">비용:</div><div style="display: inline-block;"><%=Cost %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 80px">관광지명:</div><div style="display: inline-block;"><%=sightName %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 50px">주소:</div><div style="display: inline-block;"><%=sightAddr %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 80px">교통정보:</div><div style="display: inline-block;"><%=sightTraf %></div><br>
+	<div style="display: inline-block; font-weight: bold; width: 80px">세부정보:</div><div style="display: inline-block;"><%=Detail %></div><br><br>
 	<div style="margin: 0 auto; text-align: center;">
 		<button onClick="history.back();" style="line-height:25px; display: inline-block; border-radius: 6px; background-color: white; height: 25px;">이전</button>
 		<form name="frmMakeTripCheck" action="makeTripFinish.jsp" method="get" style="display: inline;">
-			<button type="submit" style="line-height:25px; display: inline-block; border-radius: 6px; background-color: rgba(66, 133, 244, 0.3); height: 25px;">확인</button>
+			<button type="submit" style="line-height:25px; display: inline-block; border-radius: 6px; background-color: rgb(13, 45, 132); color: white; height: 25px;">확인</button>
 			<input type="hidden" name="membId" value="<%=membId %>" />
 			<input type="hidden" name="sightId" value="<%=sightId %>" />
 			<input type="hidden" name="Title" value="<%=Title %>" />

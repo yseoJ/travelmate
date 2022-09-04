@@ -21,13 +21,15 @@
 	
 	String memb_id = request.getParameter("MembId");
 	
-	sql = String.format("SELECT FULL_NM, MEMB_STATUS, NVL(MBTI,'입력해주세요') MBTI FROM MEMB_INFO WHERE MEMB_ID = '%s' ", memb_id);
+	sql = String.format("SELECT FULL_NM, MEMB_STATUS, NVL(MBTI,'입력해주세요') MBTI, EMAIL_ADDR, ADDM_YEAR FROM MEMB_INFO WHERE MEMB_ID = '%s' ", memb_id);
 	res = conn.prepareStatement(sql).executeQuery();
 	res.next();
 	System.out.print(sql);
 	String name = res.getString("FULL_NM");
 	String status = res.getString("MEMB_STATUS");
 	String mbti = res.getString("MBTI");
+	String email = res.getString("EMAIL_ADDR");
+	String year = res.getString("ADDM_YEAR");
 	
 	sql = "SELECT COUNT(*) count_ing FROM TRIP_JOIN_LIST l JOIN TRIP_INFO i "+
 			"ON l.trip_id = i.trip_id "+
@@ -49,6 +51,7 @@
 	res.next();
 	System.out.print(sql);
 	String count_prev = res.getString("count_prev");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -72,31 +75,36 @@
 	<title>MY PAGE</title>
 </head>
 <body style="line-height: 200%">
-	<div style="background-color: transparent;">
-		<div style="display: inline; position: relative; left: 10px; top: 5px;">
+	<div style="background-color: transparent; top: 5px;">
+		<div style="position: absolute; left: 10px; top: 5px; z-index: 2;">
 			<a href="index.jsp?ID=<%=memb_id %>">
 				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
 				  <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
 				</svg>
 			</a>
-		</div><br>
-
-		<div style="margin: 0 auto; text-align: center;">	
-			<div class="box" style="background: #000; width: 100px;height: 100px; border-radius: 70%; overflow: hidden; margin: 0 auto; border: 2px solid rgba(13, 45, 132);">
-			    <img class="profile" style="width: 100%;height: 100%;object-fit: cover;" src="/images/<%=memb_id %>.JPG">
-			</div>
-			<form name="frmImge" action="changeImage.jsp" method="get" >
-				<button class="changeImage" type="submit" style="line-height:25px; display: inline-block; border-radius: 6px; background-color: rgba(13, 45, 132); height: 25px; color: white;">수정</button>
-				<input type="hidden" name="membId" id="membId" value="<%=memb_id %>" />
-			</form>
 		</div>
-		
-		
-		<br>
+		<div style="margin: auto; position: relative; top: 5px; text-align: center; z-index: 1;">
+			<p style="font-size: 20px; font-weight: bold; font-color: block;">마이페이지</p>
+		</div>
+	</div><br>
+	<!--
+	<div style="margin: 0 auto; text-align: center;">	
+		<div class="box" style="background: #000; width: 100px;height: 100px; border-radius: 70%; overflow: hidden; margin: 0 auto; border: 2px solid rgba(13, 45, 132);">
+		    <img class="profile" style="width: 100%;height: 100%;object-fit: cover;" src="/images/<%=memb_id %>.JPG">
+		</div>
+		<form name="frmImge" action="changeImage.jsp" method="get" >
+			<button class="changeImage" type="submit" style="line-height:25px; display: inline-block; border-radius: 6px; background-color: rgba(13, 45, 132); height: 25px; color: white;">수정</button>
+			<input type="hidden" name="membId" id="membId" value="<%=memb_id %>" />
+		</form>
+	</div>
+	<br>
+	-->
+	<div style="width: 95%; margin: auto; border: 4px solid rgba(13, 45, 132); border-radius: 12px;">
+		<div style="line-height:120%;"><br></div>
 		<div style="display: flex">
 			<div style="display: inline-block; margin: auto; flex: 1; text-align: center;"></div>
-			<div style="display: inline-block; margin: auto; flex: 1; text-align: center;"><h2 style="text-align: center; display: inline;"><%=name %> 님</h2></div>
-			<div style="display: inline-block; margin: auto; flex: 1; text-align: center;">
+			<div style="display: inline-block; margin: auto; flex: 1; text-align: center;"><h2 style="text-align: center; display: inline;"><%=name %></h2></div>
+			<div style="display: inline-block; margin: auto; flex: 1; text-align: left;">
 				<!-- 매너top10 -->
 				<%
 				sql = "SELECT top_id, top "+
@@ -120,7 +128,7 @@
 						if(memb_id.equals(top_id)){
 							%>
 							<div style="display: inline-block">
-								<img src="image/manner.jpg" width="100px" height="80px">
+								<img src="image/manner.jpg" width="80px" height="70px">
 							</div>
 							<% 
 						}
@@ -129,8 +137,24 @@
 				%>
 			</div>
 		</div>
-	</div><br>
-	<hr style="margin-top: 0px; margin-bottom: 30px;">
+		<div style="line-height:120%;"><br></div>
+		<div style="display: flex;  margin: auto;">
+			<div style="display: inline-block; margin: auto; flex: 1; text-align: center;">
+				<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+				  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+				</svg>
+				<div style="display: inline; font-size: 15px;"><%=year %></div>
+			</div>
+			<div style="display: inline-block; margin: auto; flex: 2; text-align: center;">
+				<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+				  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+				</svg>
+				<div style="display: inline; font-size: 12px;"><%=email %></div>
+			</div>
+		</div>
+		<div style="line-height:120%;"><br></div>
+	</div>
+	<br>
 	<% 
 	String score = null;
 	sql = "SELECT SATIS_SCORE "+
