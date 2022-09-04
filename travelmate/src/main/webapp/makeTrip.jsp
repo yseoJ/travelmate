@@ -51,15 +51,19 @@
 	<title>Make Trip</title>
 </head>
 <body style="line-height: 100%">
-	<div style="display: inline; position: relative; left: 10px; top: 5px;">
-		<a href="#" onClick="history.go(-1); return false;">
-			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-			  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-			</svg>
-		</a>
+	<div style="background-color: transparent; top: 5px;">
+		<div style="position: absolute; left: 10px; top: 5px; z-index: 2;">
+			<a href="#" onClick="history.go(-1); return false;">
+				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+				  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+				</svg>
+			</a>
+		</div>
+		<div style="margin: auto; position: relative; top: 12px; text-align: center; z-index: 1;">
+			<p style="font-size: 22px; font-weight: bold; font-color: block;">여행 계획하기</p>
+		</div>
 	</div>
-	<br><h2 style="text-align: center">여행 계획하기</h2>
-	<hr> 
+	<br><br>
 	<form name="frmMakeTrip" action="makeTripCheck.jsp" method="get" >
 		<div class="makeTripInput">
 			<div style="width:100%; height:25px; float:left; line-height: 25px;">제목</div><input type="text" name="Title" id="txtTitle" value=""/><br><br>
@@ -91,13 +95,15 @@
 			<br><br><div style="width:100%; height:25px; float:left; line-height: 25px;">주소</div><div style="border: 2px solid black; width : 90%; display:inline-block; line-height: 25px;"> <%=sightAddr %> </div>
 			<br><br><div style="width:100%; height:25px; float:left; line-height: 25px;">교통정보</div><div style="border: 2px solid black; width : 90%; display:inline-block; line-height: 25px;"> <%=sightTraf %> </div>
 			<br><br><div style="width:100%; height:25px; float:left; line-height: 25px;">세부정보</div><textarea name="Detail" id="txtDetail" rows="7" style="border: 2px solid black; border-radius: 30px; padding: 0 1em; width:90%; font-size:15px;"></textarea><br><br><br><br><br>
-		</div>
+		</div><br><br>
 		<footer style="position: fixed; bottom: 0; width: 100%;">
+		<div style="margin: auto; text-align: center;">
 			<!-- 여행 개설 -->
 			<button class="makeTripButton" type="button" onClick="checkPlan();">개설하기</button>
 			<input type="hidden" name="membId" value="<%=memb_id %>" />
 			<input type="hidden" name="sightId" value="<%=sight_id %>" />
-		</footer>
+		</div>
+		</footer>	
 	</form>
 	
 	<script type="text/javascript">

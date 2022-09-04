@@ -43,15 +43,18 @@
 	<title>Character</title>
 </head>
 <body style="line-height: 100%">
-	<div style="display: inline; position: relative; left: 10px; top: 5px;">
-		<a href="#" onClick="history.go(-1); return false;">
-			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-			  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-			</svg>
-		</a>
-	</div>
-	<br><h2 style="text-align: center">나의 성격</h2>
-	<hr> 
+	<div style="background-color: transparent; top: 5px;">
+		<div style="position: absolute; left: 10px; top: 5px; z-index: 2;">
+			<a href="#" onClick="history.go(-1); return false;">
+				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+				  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+				</svg>
+			</a>
+		</div>
+		<div style="margin: auto; position: relative; top: 12px; text-align: center; z-index: 1;">
+			<p style="font-size: 22px; font-weight: bold; font-color: block;">나의 성격</p>
+		</div>
+	</div><br><br><br>
 	<div style="margin: 0 auto; text-align: center;">
 		<form name="frmCharacter" method="get" action="characterFinish.jsp">
 			<div class="character-container">
@@ -90,7 +93,7 @@
 			<br><br><br><br>
 			<footer style="position: fixed; bottom: 0; width: 100%;">
 				<!-- 성격 수정 -->
-				<button class="changeCharacter" type="submit" style="color: white; font-size: 22px; border-radius: 5em; width: 300px; margin-left: 8%; margin-bottom: 4%; background-color: rgb(13, 45, 132); border: 2px solid rgb(13, 45, 132);">수정하기</button>
+				<button class="changeCharacter" type="submit">수정하기</button>
 				<input type="hidden" name="membId" id="membId" value="<%=memb_id %>" />
 			</footer>
 		</form>

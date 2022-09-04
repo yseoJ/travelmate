@@ -60,7 +60,7 @@
 	<h4> * 여행 계획을 등록할 관광지를 선택하세요. </h4>
 	<br>
 	<table class="sights">
-		<tr style=" background-color: rgba(66, 133, 244, 0.1);">
+		<tr style=" background-color: rgb(13, 45, 132); color: white;">
 			<th>관광지 명</th>
 			<th style="width: 150px; height: 20px; line-height: 20px;">지역</th>
 			<th style="width: 50px; height: 20px; line-height: 20px;">테마</th>
