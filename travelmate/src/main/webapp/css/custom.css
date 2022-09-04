@@ -114,11 +114,16 @@ th, td {
 
 
 .joinTrip{
-	width:100%; 
+	width:90%; 
 	height: 45px;
-	background: rgb(66, 133, 244);
 	font-size: 25px;
 	font-weight: bold;
+	color: white;
+	font-size: 22px; 
+	border-radius: 5em; 
+	margin-bottom: 4%; 
+	background-color: rgb(13, 45, 132);
+	border: 2px solid rgb(13, 45, 132);
 }
 
 .myPage{
@@ -184,12 +189,24 @@ th, td {
 	margin-bottom: 5px;
 }
 
+.Evaltext{
+	border: 4px solid rgba(13, 45, 132); 
+	border-radius: 12px; 
+	width: 95%; 
+	margin: auto;
+}
+
 .makeTripButton{
-	width:100%; 
+	width:90%; 
 	height: 45px;
-	background: rgb(66, 133, 244);
 	font-size: 25px;
 	font-weight: bold;
+	color: white;
+	font-size: 22px; 
+	border-radius: 5em; 
+	margin-bottom: 4%; 
+	background-color: rgb(13, 45, 132);
+	border: 2px solid rgb(13, 45, 132);
 }
 .makeTripInput{
 	text-align: center;
@@ -223,12 +240,40 @@ th, td {
 }
 
 .tripInfo{
-	 border-color: rgba(0,0,0,0.1); 
-	 border-color: rgba(0,0,0,0.1); 
-	 width:100%;
+	width: 95%; 
+	margin: auto; 
+	border: 4px solid rgba(13, 45, 132); 
+	border-radius: 12px;
 }
-.tripInfo tr td{
-	 border-color: rgba(0,0,0,0.1); 
+
+.tripInfoTitle{
+	width: 90%; 
+	margin: auto; 
+	background-color: rgba(13, 45, 132); 
+	color: white; 
+	border: 4px solid rgba(13, 45, 132); 
+	border-radius: 12px; 
+	text-align: center; 
+	font-size: 23px;
+	font-weight: bold;
+}
+
+.tripTable tr td{
+	 border: 1px solid transparent;
+}
+
+.tripInfoLeft{
+	width: 80px; 
+	text-align: center;
+}
+
+.tripInfoDetail{
+	width: 95%; 
+	margin: auto; 
+	background-color: rgba(13, 45, 132); 
+	color: white; 
+	border: 4px solid rgba(13, 45, 132); 
+	border-radius: 12px; 
 }
 
 .inputMBTI input{
@@ -293,11 +338,16 @@ input[type=radio] {display: none; margin: 10px;}
 }
 
 .changeInterest{
-	width:100%; 
+	width:90%; 
 	height: 45px;
-	background: rgb(66, 133, 244);
 	font-size: 25px;
 	font-weight: bold;
+	color: white;
+	font-size: 22px; 
+	border-radius: 5em; 
+	margin-bottom: 4%; 
+	background-color: rgb(13, 45, 132);
+	border: 2px solid rgb(13, 45, 132);
 }
 
 .InterestCard{
@@ -376,9 +426,14 @@ input[type=radio] {display: none; margin: 10px;}
 }
 
 .changeCharacter{
-	width:100%; 
+	width:90%; 
 	height: 45px;
-	background: rgb(66, 133, 244);
 	font-size: 25px;
 	font-weight: bold;
+	color: white;
+	font-size: 22px; 
+	border-radius: 5em; 
+	margin-bottom: 4%; 
+	background-color: rgb(13, 45, 132);
+	border: 2px solid rgb(13, 45, 132);
 }
