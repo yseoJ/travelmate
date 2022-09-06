@@ -40,12 +40,28 @@ th, td {
 	margin: 0;
 }
 
-.tripList{
-	width:100%; 
+
+.trip_list_button{
+	overflow: hidden; 
+	width: 190px; 
 	text-align: left; 
 	border-radius: 20px; 
-	border : 2px solid rgba(13, 45, 132);;
-	background: white;
+	border: 2px solid rgba(13, 45, 132);
+	border-radius: 20px; 
+}
+.trip_list_button_search{
+	overflow: hidden; 
+	width: 95%; 
+	text-align: left; 
+	border-radius: 20px; 
+	border: 2px solid rgba(13, 45, 132);
+	border-radius: 20px; 
+}
+.trip_list_title{
+	font-weight:bold; 
+	line-height:50%; 
+	font-size: 14px;
+	color: black
 }
 
 .addTrip{
