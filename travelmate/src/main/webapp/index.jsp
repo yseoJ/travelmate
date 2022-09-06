@@ -116,7 +116,7 @@
 <body>
 	<header style="position: fixed; top: 0; width: 100%; height:100px; z-index: 1">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div style="margin: 0 auto; text-align: center;"><a class="navbar-brand" href="index.jsp?ID=<%=DbId %>" style="padding-left: 59.5px;">TRAVELMATE</a></div>
+			<div style="margin: 0 auto; text-align: center;"><a class="navbar-brand" href="index.jsp?ID=<%=DbId %>" style="padding-left: 50px;">TRAVELMATE</a></div>
 			<div style="display: inline; float: right; margin: 0;">
 				<!-- 로그아웃 -->
 				<a href="userLogin.jsp" onclick="signOut();">
@@ -127,7 +127,7 @@
 				
 			</div>
 		</nav>
-		<form class="form-inline my-2-my-lg-0" action="index.jsp" method="get">
+		<form class="form-inline my-2-my-lg-0" action="search.jsp" method="get">
 			<input class="form-control mr-sm-2" name="search" type="search" placeholder="내용을 입력하세요" aria-label="Search" <%if (search != null && search.trim() != "") { %> value="<%=search %>"<%} %> style="width:80%; height:40px; float:left;">
 			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="width:20%; height:40px; float:right; margin: 0px !important">검색</button>
 			<input type="hidden" name="ID" value="<%=DbId %>" />
@@ -150,7 +150,7 @@
 			if(res.next()){
 				do{
 					String cnt = res.getString("cnt");
-					String sights_id = res.getString("SIGHTS_ID");
+					String recom_sights_id = res.getString("SIGHTS_ID");
 					sql = "SELECT x.TRIP_ID, x.TRIP_TITLE, x.TRIP_MEET_DATE, x.TOT_NUM, x.JOIN_NUM "+
 				    		"FROM (SELECT m.TRIP_ID, m.TRIP_TITLE, TO_CHAR(m.TRIP_MEET_DATE, 'YYYY/MM/DD') TRIP_MEET_DATE, "+
 				    				  "m.TOT_NUM, m.SIGHTS_ID, (SELECT COUNT(*) "+
@@ -160,7 +160,7 @@
 				    				  "FROM TRIP_INFO m "+
 				    				  "WHERE to_char(m.TRIP_MEET_DATE,'YYYY-MM-DD') > to_char(SYSDATE, 'YYYY-MM-DD') "+
 				    				  "AND m.TRIP_STATUS != '삭제' "+
-				    			      "AND m.SIGHTS_ID = '" + sights_id + "' "+
+				    			      "AND m.SIGHTS_ID = '" + recom_sights_id + "' "+
 				    			      "AND '" + DbId + "' NOT IN (SELECT MEMB_ID FROM TRIP_JOIN_LIST WHERE TRIP_ID = m.TRIP_ID) "+
 				    				  ") x LEFT OUTER JOIN SIGHTS_INFO s "+
 				    			"ON x.SIGHTS_ID = s.SIGHTS_ID "+
@@ -169,48 +169,59 @@
 				    rs = conn.prepareStatement(sql).executeQuery();
 					
 				    if(rs.next()) {            
-				      String TRIP_TITLE = rs.getString("TRIP_TITLE");
-				      String TRIP_MEET_DATE = rs.getString("TRIP_MEET_DATE");   
-				      String TOT_NUM = rs.getString("TOT_NUM");
-				      String TRIP_ID = rs.getString("TRIP_ID");
-				      String JOIN_NUM = rs.getString("JOIN_NUM");
+				      String recom_title = rs.getString("TRIP_TITLE");
+				      String recom_meet_date = rs.getString("TRIP_MEET_DATE");   
+				      String recom_tot_num = rs.getString("TOT_NUM");
+				      String recom_trip_id = rs.getString("TRIP_ID");
+				      String recom_join_num = rs.getString("JOIN_NUM");
 				      //System.out.println(sql);
 					
 					%>
 					<div class="box" style="display: inline-block; padding: 0; border: none;">
 						<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
-							<button type="submit" style="text-align: left; border-radius: 20px; border: 4px solid rgba(66, 133, 244, 0.5);">
-								<br><div style="font-weight:bold; line-height:50%;"><%=TRIP_TITLE%></div>
+							<button class="trip_list_button" type="submit">
+								<br><div class="trip_list_title"><%=recom_title%></div>
 								<div style="line-height: 80%;"><br></div>
-								<!-- 여행 날짜 -->
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
-								  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-								  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-								</svg>
-								&nbsp;<%=TRIP_MEET_DATE%>
+								<div style="display: flex;">
+									<div style="display: inline-block; flex: 2;">
+										<!-- 여행 날짜 -->
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+										  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+										  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+										</svg>
+										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=recom_meet_date%></div>
+									</div>
+									<div style="display: inline-block; flex: 1;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+										  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+										  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+										</svg>
+										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=recom_join_num %> / <%=recom_tot_num %></div>
+									</div>
+								</div>
 								<div style="line-height: 80%;"><br></div>
 								<% 
 								sql2 = "SELECT t.TAG_NM tagnm "+
 										"FROM TAG_LIST t LEFT OUTER JOIN SIGHTS_TAG_LIST s "+
 										"ON t.TAG_ID = s.TAG_ID "+
-										"WHERE SIGHTS_ID = '" + sights_id + "' "+
+										"WHERE SIGHTS_ID = '" + recom_sights_id + "' "+
 										"AND t.TAG_ID IN (SELECT TAG_ID "+
 															"FROM MEMB_HOPE_LIST "+
 															"WHERE MEMB_ID = '" + DbId + "') ";
 								result = conn.prepareStatement(sql2).executeQuery();
 								
 							    while(result.next()) {            
-							      String tagnm = result.getString("tagnm");
+							      String recom_tagnm = result.getString("tagnm");
 								%>
 								<div style="display: inline-block; border-radius: 18px; text-align:center; font-size: 12px; padding: 0px 5px 0px 5px; background-color: rgba(13, 45, 132); color: white;">
-								#<%=tagnm%>
+								#<%=recom_tagnm%>
 								</div>
 								<%} %>
 							</button>
 							<input type="hidden" name="MembId" value="<%=DbId %>" />
-							<input type="hidden" name="TripTitle" value="<%=TRIP_TITLE %>" />
-							<input type="hidden" name="TripId" value="<%=TRIP_ID %>" />
-							<input type="hidden" name="JoinNum" value="<%=JOIN_NUM %>" />
+							<input type="hidden" name="TripTitle" value="<%=recom_title %>" />
+							<input type="hidden" name="TripId" value="<%=recom_trip_id %>" />
+							<input type="hidden" name="JoinNum" value="<%=recom_join_num %>" />
 						</form>
 					</div>
 			
@@ -223,78 +234,335 @@
 			<% }
 			%>
 		</div><br>
+		<!-- 여행 임박 -->
 		<hr style="background-color: rgba(13, 45, 132);"><br>
-		<div class="myPageText">여행목록</div>
-	    <%     
-	    sql = "SELECT x.TRIP_ID, x.TRIP_TITLE, x.TRIP_MEET_DATE, x.TOT_NUM, x.JOIN_NUM, "+
-	          			"CASE WHEN join_num < tot_num THEN '모집중' "+
-	          			"ELSE '마감' "+
-	          			"END TRIP_CLOSE "+
-				"FROM ( "+
-	         			"SELECT m.TRIP_ID, m.TRIP_TITLE, TO_CHAR(m.TRIP_MEET_DATE, 'YYYY/MM/DD') TRIP_MEET_DATE,  m.TOT_NUM, m.SIGHTS_ID, "+
-	                	"(SELECT COUNT(*) FROM TRIP_JOIN_LIST j WHERE j.TRIP_ID = m.TRIP_ID AND (PRG_STATUS = '수락' OR PRG_STATUS = '신청')) JOIN_NUM "+
-	        			"FROM TRIP_INFO m "+
-	        			"WHERE to_char(m.TRIP_MEET_DATE,'YYYY-MM-DD') > to_char(SYSDATE, 'YYYY-MM-DD') "+
-	        			"AND m.TRIP_STATUS != '삭제' "+
-	        			") x LEFT OUTER JOIN SIGHTS_INFO s ON x.SIGHTS_ID = s.SIGHTS_ID ";
-	        	if (search != null && search.trim() != ""){
-	        		search = search.trim();
-		 			sql = sql + "WHERE x.TRIP_TITLE LIKE '%" + search + "%' "+
-		        				"OR s.SIGHTS_NM LIKE '%" + search + "%' "+
-					 			"OR s.SIGHTS_ADDR LIKE '%" + search + "%' "+
-					 			"OR s.SIGHTS_CLAS LIKE '%" + search + "%' "+
-					 			"OR s.SIGHTS_TRAFFIC LIKE '%" + search + "%' ";
-	        	}
-	    sql = sql + "ORDER BY TRIP_MEET_DATE ";
-	    res = conn.prepareStatement(sql).executeQuery();
-	    //System.out.print(rs.next());
+		<div class="myPageText">여행임박</div><br>
+		<div class="wrap-vertical" style="padding: 0; border: none;">
+			<%     
+				sql = "SELECT m.TRIP_ID, m.TRIP_TITLE, TO_CHAR(m.TRIP_MEET_DATE, 'YYYY/MM/DD') TRIP_MEET_DATE, "+
+										     "m.TOT_NUM, m.SIGHTS_ID, (SELECT COUNT(*) "+
+																		"FROM TRIP_JOIN_LIST j "+
+																		"WHERE j.TRIP_ID = m.TRIP_ID "+
+																		"AND (PRG_STATUS = '수락' OR PRG_STATUS = '신청')) JOIN_NUM "+
+						"FROM TRIP_INFO m "+
+						"WHERE TO_CHAR(m.TRIP_MEET_DATE,'YYYYMMDD') > TO_CHAR(SYSDATE, 'YYYYMMDD') "+
+						"AND TO_NUMBER(TO_CHAR(TRIP_MEET_DATE, 'YYYYMMDD')) - TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) <= 10 "+
+						"AND m.TRIP_STATUS != '삭제' ";
+	
+			    rs = conn.prepareStatement(sql).executeQuery();
+				
+			    if(rs.next()) {
+			    	do{            
+				      String close_title = rs.getString("TRIP_TITLE");
+				      String close_meet_date = rs.getString("TRIP_MEET_DATE");   
+				      String close_tot_num = rs.getString("TOT_NUM");
+				      String close_trip_id = rs.getString("TRIP_ID");
+				      String close_sights_id = rs.getString("SIGHTS_ID");
+				      String close_join_num = rs.getString("JOIN_NUM");
+				      //System.out.println(sql);
+					
+					%>
+					<div class="box" style="display: inline-block; padding: 0; border: none;">
+						<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
+							<button class="trip_list_button" type="submit">
+								<br><div class="trip_list_title"><%=close_title%></div>
+								<div style="line-height: 80%;"><br></div>
+								<div style="display: flex;">
+									<div style="display: inline-block; flex: 2;">
+										<!-- 여행 날짜 -->
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+										  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+										  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+										</svg>
+										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=close_meet_date%></div>
+									</div>
+									<div style="display: inline-block; flex: 1;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+										  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+										  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+										</svg>
+										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=close_join_num %> / <%=close_tot_num %></div>
+									</div>
+								</div>
+								<div style="line-height: 80%;"><br></div>
+								<% 
+								sql2 = "SELECT t.TAG_NM tagnm "+
+										"FROM TAG_LIST t LEFT OUTER JOIN SIGHTS_TAG_LIST s "+
+										"ON t.TAG_ID = s.TAG_ID "+
+										"WHERE SIGHTS_ID = '" + close_sights_id + "' ";
+								result = conn.prepareStatement(sql2).executeQuery();
+								
+							    while(result.next()) {            
+							      String close_tagnm = result.getString("tagnm");
+								%>
+								<div style="display: inline-block; border-radius: 18px; text-align:center; font-size: 12px; padding: 0px 5px 0px 5px; background-color: rgba(13, 45, 132); color: white;">
+								#<%=close_tagnm%>
+								</div>
+								<%} %>
+							</button>
+							<input type="hidden" name="MembId" value="<%=DbId %>" />
+							<input type="hidden" name="TripTitle" value="<%=close_title %>" />
+							<input type="hidden" name="TripId" value="<%=close_trip_id %>" />
+							<input type="hidden" name="JoinNum" value="<%=close_join_num %>" />
+						</form>
+					</div>
+					<%}while(rs.next());
+			    }%>
+		</div><br>
+		<!-- 마감 임박 -->
+		<hr style="background-color: rgba(13, 45, 132);"><br>
+		<div class="myPageText">마감임박</div><br>
+		<div class="wrap-vertical" style="padding: 0; border: none;">
+			<%     
+				sql = "SELECT TRIP_ID, SIGHTS_ID, TRIP_TITLE, TRIP_MEET_DATE, TOT_NUM, JOIN_NUM "+
+						"FROM (SELECT m.TRIP_ID, m.TRIP_TITLE, TO_CHAR(m.TRIP_MEET_DATE, 'YYYY/MM/DD') TRIP_MEET_DATE, "+
+					            "m.TOT_NUM, m.SIGHTS_ID, (SELECT COUNT(*) "+
+					                                       "FROM TRIP_JOIN_LIST j "+
+					                                       "WHERE j.TRIP_ID = m.TRIP_ID "+
+					                                       "AND (PRG_STATUS = '수락' OR PRG_STATUS = '신청')) JOIN_NUM "+
+					        	"FROM TRIP_INFO m "+
+					        	"WHERE TO_CHAR(m.TRIP_MEET_DATE,'YYYYMMDD') > TO_CHAR(SYSDATE, 'YYYYMMDD') "+
+					        	"AND m.TRIP_STATUS != '삭제') "+
+						"WHERE TOT_NUM - JOIN_NUM = 1 ";
+	
+			    rs = conn.prepareStatement(sql).executeQuery();
+				
+			    if(rs.next()) {
+			    	do{            
+				      String pop_title = rs.getString("TRIP_TITLE");
+				      String pop_meet_date = rs.getString("TRIP_MEET_DATE");   
+				      String pop_tot_num = rs.getString("TOT_NUM");
+				      String pop_trip_id = rs.getString("TRIP_ID");
+				      String pop_sights_id = rs.getString("SIGHTS_ID");
+				      String pop_join_num = rs.getString("JOIN_NUM");
+				      //System.out.println(sql);
+					
+					%>
+					<div class="box" style="display: inline-block; padding: 0; border: none;">
+						<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
+							<button class="trip_list_button" type="submit">
+								<br><div class="trip_list_title"><%=pop_title%></div>
+								<div style="line-height: 80%;"><br></div>
+								<div style="display: flex;">
+									<div style="display: inline-block; flex: 2;">
+										<!-- 여행 날짜 -->
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+										  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+										  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+										</svg>
+										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=pop_meet_date%></div>
+									</div>
+									<div style="display: inline-block; flex: 1;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+										  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+										  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+										</svg>
+										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=pop_join_num %> / <%=pop_tot_num %></div>
+									</div>
+								</div>
+								<div style="line-height: 80%;"><br></div>
+								<% 
+								sql2 = "SELECT t.TAG_NM tagnm "+
+										"FROM TAG_LIST t LEFT OUTER JOIN SIGHTS_TAG_LIST s "+
+										"ON t.TAG_ID = s.TAG_ID "+
+										"WHERE SIGHTS_ID = '" + pop_sights_id + "' ";
+								result = conn.prepareStatement(sql2).executeQuery();
+								
+							    while(result.next()) {            
+							      String pop_tagnm = result.getString("tagnm");
+								%>
+								<div style="display: inline-block; border-radius: 18px; text-align:center; font-size: 12px; padding: 0px 5px 0px 5px; background-color: rgba(13, 45, 132); color: white;">
+								#<%=pop_tagnm%>
+								</div>
+								<%} %>
+							</button>
+							<input type="hidden" name="MembId" value="<%=DbId %>" />
+							<input type="hidden" name="TripTitle" value="<%=pop_title %>" />
+							<input type="hidden" name="TripId" value="<%=pop_trip_id %>" />
+							<input type="hidden" name="JoinNum" value="<%=pop_join_num %>" />
+						</form>
+					</div>
+					<%}while(rs.next());
+			    }%>
+		</div><br>
+		<!-- 새싹주최자 -->
+		<hr style="background-color: rgba(13, 45, 132);"><br>
+		<div class="myPageText">새싹주최자</div><br>
+		<div class="wrap-vertical" style="padding: 0; border: none;">
+			<%     
+				sql = "SELECT MEMB_ID, SIGHTS_ID, TRIP_ID, TRIP_TITLE, TRIP_MEET_DATE, TOT_NUM, JOIN_NUM "+
+						"FROM (SELECT m.MEMB_ID, m.TRIP_ID, m.TRIP_TITLE, TO_CHAR(m.TRIP_MEET_DATE, 'YYYY/MM/DD') TRIP_MEET_DATE, "+
+					              "m.TOT_NUM, m.SIGHTS_ID, (SELECT COUNT(*) "+
+					                                       "FROM TRIP_JOIN_LIST j "+
+					                                       "WHERE j.TRIP_ID = m.TRIP_ID "+
+					                                       "AND (PRG_STATUS = '수락' OR PRG_STATUS = '신청')) JOIN_NUM "+
+					        "FROM TRIP_INFO m "+
+					        "WHERE TO_CHAR(m.TRIP_MEET_DATE,'YYYYMMDD') > TO_CHAR(SYSDATE, 'YYYYMMDD') "+
+					        "AND m.TRIP_STATUS != '삭제') "+
+					"WHERE MEMB_ID IN (SELECT MEMB_ID "+
+					                    "FROM (SELECT MEMB_ID, COUNT(*) cnt "+
+					                            "FROM TRIP_INFO "+
+					                            "GROUP BY MEMB_ID) "+
+					                    "WHERE cnt = 1) ";
+	
+			    rs = conn.prepareStatement(sql).executeQuery();
+				
+			    if(rs.next()) {
+			    	do{            
+				      String new_title = rs.getString("TRIP_TITLE");
+				      String new_meet_date = rs.getString("TRIP_MEET_DATE");   
+				      String new_tot_num = rs.getString("TOT_NUM");
+				      String new_trip_id = rs.getString("TRIP_ID");
+				      String new_sights_id = rs.getString("SIGHTS_ID");
+				      String new_join_num = rs.getString("JOIN_NUM");
+				      //System.out.println(sql);
+					
+					%>
+					<div class="box" style="display: inline-block; padding: 0; border: none;">
+						<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
+							<button class="trip_list_button" type="submit">
+								<br><div class="trip_list_title"><%=new_title%></div>
+								<div style="line-height: 80%;"><br></div>
+								<div style="display: flex;">
+									<div style="display: inline-block; flex: 2;">
+										<!-- 여행 날짜 -->
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+										  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+										  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+										</svg>
+										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=new_meet_date%></div>
+									</div>
+									<div style="display: inline-block; flex: 1;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+										  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+										  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+										</svg>
+										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=new_join_num %> / <%=new_tot_num %></div>
+									</div>
+								</div>
+								<div style="line-height: 80%;"><br></div>
+								<% 
+								sql2 = "SELECT t.TAG_NM tagnm "+
+										"FROM TAG_LIST t LEFT OUTER JOIN SIGHTS_TAG_LIST s "+
+										"ON t.TAG_ID = s.TAG_ID "+
+										"WHERE SIGHTS_ID = '" + new_sights_id + "' ";
+								result = conn.prepareStatement(sql2).executeQuery();
+								
+							    while(result.next()) {            
+							      String pop_tagnm = result.getString("tagnm");
+								%>
+								<div style="display: inline-block; border-radius: 18px; text-align:center; font-size: 12px; padding: 0px 5px 0px 5px; background-color: rgba(13, 45, 132); color: white;">
+								#<%=pop_tagnm%>
+								</div>
+								<%} %>
+							</button>
+							<input type="hidden" name="MembId" value="<%=DbId %>" />
+							<input type="hidden" name="TripTitle" value="<%=new_title %>" />
+							<input type="hidden" name="TripId" value="<%=new_trip_id %>" />
+							<input type="hidden" name="JoinNum" value="<%=new_join_num %>" />
+						</form>
+					</div>
+					<%}while(rs.next());
+			    }%>
+		</div><br>
+		<!-- 매너Top10 주최자 -->
+		<hr style="background-color: rgba(13, 45, 132);"><br>
+		<div class="myPageText">매너TOP10 주최자</div><br>
+		<div class="wrap-vertical" style="padding: 0; border: none;">
+			<%     
+			sql = "SELECT top_id, top "+
+					"FROM (SELECT NVL(p.GET_MEMB_ID, n.GET_MEMB_ID) top_id, NVL(positive, 0)-NVL(negative, 0) top "+
+					        "FROM (SELECT GET_MEMB_ID, NVL(COUNT(*), 0) negative "+
+					        "FROM MEMB_EVALUATION "+
+					        "WHERE 101<=EVAL_ID "+
+					        "AND EVAL_ID<=105 "+
+					        "GROUP BY GET_MEMB_ID) p FULL OUTER JOIN (SELECT GET_MEMB_ID, COUNT(*) positive "+
+					                                                "FROM MEMB_EVALUATION "+
+					                                                "WHERE 1<=EVAL_ID "+
+					                                                "AND EVAL_ID<=10 "+
+					                                                "GROUP BY GET_MEMB_ID) n "+
+					        "ON p.GET_MEMB_ID = n.GET_MEMB_ID "+
+					        "ORDER BY top DESC) "+
+					"WHERE ROWNUM <= 10 ";
+			res = conn.prepareStatement(sql).executeQuery();
+			if(res.next()){
+				do{
+					String top_id = res.getString("top_id");
+					sql = "SELECT m.TRIP_ID, m.TRIP_TITLE, TO_CHAR(m.TRIP_MEET_DATE, 'YYYY/MM/DD') TRIP_MEET_DATE, "+
+								"m.TOT_NUM, m.SIGHTS_ID, (SELECT COUNT(*) "+
+															"FROM TRIP_JOIN_LIST j "+
+															"WHERE j.TRIP_ID = m.TRIP_ID "+
+															"AND (PRG_STATUS = '수락' OR PRG_STATUS = '신청')) JOIN_NUM "+
+							"FROM TRIP_INFO m "+
+							"WHERE TO_CHAR(m.TRIP_MEET_DATE,'YYYYMMDD') > TO_CHAR(SYSDATE, 'YYYYMMDD') "+
+							"AND MEMB_ID = '" + top_id + "' "+
+							"AND m.TRIP_STATUS != '삭제' ";
+	
+				    rs = conn.prepareStatement(sql).executeQuery();
+					
+				    if(rs.next()) {
+				    	do{
+					      String top_title = rs.getString("TRIP_TITLE");
+					      String top_meet_date = rs.getString("TRIP_MEET_DATE");   
+					      String top_tot_num = rs.getString("TOT_NUM");
+					      String top_trip_id = rs.getString("TRIP_ID");
+					      String top_join_num = rs.getString("JOIN_NUM");
+					      String top_sights_id = rs.getString("SIGHTS_ID");
+					      //System.out.println(sql);
+						
+						%>
+						<div class="box" style="display: inline-block; padding: 0; border: none;">
+							<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
+								<button class="trip_list_button" type="submit">
+									<br><div class="trip_list_title"><%=top_title%></div>
+									<div style="line-height: 80%;"><br></div>
+									<div style="display: flex;">
+										<div style="display: inline-block; flex: 2;">
+											<!-- 여행 날짜 -->
+											<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+											  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+											  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+											</svg>
+											<div style="font-size: 12px; display: inline-block;">&nbsp;<%=top_meet_date%></div>
+										</div>
+										<div style="display: inline-block; flex: 1;">
+											<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+											  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+											  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+											</svg>
+											<div style="font-size: 12px; display: inline-block;">&nbsp;<%=top_join_num %> / <%=top_tot_num %></div>
+										</div>
+									</div>
+									<div style="line-height: 80%;"><br></div>
+									<% 
+									sql2 = "SELECT t.TAG_NM tagnm "+
+											"FROM TAG_LIST t LEFT OUTER JOIN SIGHTS_TAG_LIST s "+
+											"ON t.TAG_ID = s.TAG_ID "+
+											"WHERE SIGHTS_ID = '" + top_sights_id + "' ";
+									result = conn.prepareStatement(sql2).executeQuery();
+									
+								    while(result.next()) {            
+								      String top_tagnm = result.getString("tagnm");
+									%>
+									<div style="display: inline-block; border-radius: 18px; text-align:center; font-size: 12px; padding: 0px 5px 0px 5px; background-color: rgba(13, 45, 132); color: white;">
+									#<%=top_tagnm%>
+									</div>
+									<%} %>
+								</button>
+								<input type="hidden" name="MembId" value="<%=DbId %>" />
+								<input type="hidden" name="TripTitle" value="<%=top_title %>" />
+								<input type="hidden" name="TripId" value="<%=top_trip_id %>" />
+								<input type="hidden" name="JoinNum" value="<%=top_join_num %>" />
+							</form>
+						</div>
+				    	<%
+						}while(rs.next());
+				    }
+				}while(res.next());
+			}
+						%>
+		</div><br><br><br><br><br>
 		
-	    while(res.next()) {            
-	      String TRIP_TITLE = res.getString("TRIP_TITLE");
-	      String TRIP_MEET_DATE = res.getString("TRIP_MEET_DATE");   
-	      String TOT_NUM = res.getString("TOT_NUM");
-	      String TRIP_ID = res.getString("TRIP_ID");
-	      String TRIP_CLOSE = res.getString("TRIP_CLOSE");
-	      String JOIN_NUM = res.getString("JOIN_NUM");
-	      //System.out.println(sql);
-		%>
-		<br>
-		<form name="frmTripInfo" action="tripInfo.jsp" method="get" >
-			<button type="submit" class="tripList">
-			<div style="float:left; width: 75%;">
-				<br><div style="font-weight:bold; line-height:50%;"><%=TRIP_TITLE%></div>
-				<br>
-				<!-- 여행 날짜 -->
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
-				  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-				  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-				</svg>
-				&nbsp;<%=TRIP_MEET_DATE%>
-				<br>
-				<!-- 모집 인원 -->
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
-				  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-				  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-				</svg>
-				&nbsp;<%=JOIN_NUM %> / <%=TOT_NUM %>
-				<br><br>
-			</div>
-			<div style="display:inline-block; float:right; text-align:center; border: 2px solid <%if ("모집중".equals(TRIP_CLOSE)){%>green<%} else{%>red<%} %>; margin: 5px; width: 20%;">
-				<div style="color: <%if ("모집중".equals(TRIP_CLOSE)){%>green<%} else{%>red<%} %>; vertical-align: middle; margin: 5px;"><%=TRIP_CLOSE%></div>
-			</div>
-			</button>
-			<input type="hidden" name="MembId" value="<%=DbId %>" />
-			<input type="hidden" name="TripTitle" value="<%=TRIP_TITLE %>" />
-			<input type="hidden" name="TripId" value="<%=TRIP_ID %>" />
-			<input type="hidden" name="TripClose" value="<%=TRIP_CLOSE %>" />
-			<input type="hidden" name="JoinNum" value="<%=JOIN_NUM %>" />
-		</form>
-	    <%
-	    }
-    	res.close();
- 		conn.close();
-		%>
-		<br><br><br><br><br>
 		<script type="text/javascript">		
 			function signOut() {
 		      var auth2 = gapi.auth2.getAuthInstance();
@@ -320,15 +588,15 @@
 			</svg>
 		  </button>
 		  <div id="myDropup" class="dropup-content">
-		    <form name="frmMyTrip" action="myTrip.jsp" method="get" >
+		    <form name="frmMyTrip" action="allAcceptReject.jsp" method="get" >
 				<button style="background-color:transparent; border: none;" type="submit">
-					<a>진행중인 여행</a>
+					<a>참여자 수락/거절</a>
 				</button>
 				<input type="hidden" name="membId" value="<%=DbId %>" />
 			</form>
-		    <form name="frmMyTripPast" action="myTripPast.jsp" method="get" >
+		    <form name="frmMyTripPast" action="allEval.jsp" method="get" >
 				<button style="background-color:transparent; border: none;" type="submit">
-					<a>완료한 여행</a>
+					<a>참여자 평가</a>
 				</button>
 				<input type="hidden" name="membId" value="<%=DbId %>" />
 			</form>
