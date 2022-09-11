@@ -188,7 +188,6 @@
 						<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 					</div>
 				<% 
-					String score = null;
 					sql2 = "SELECT SIGHTS_SCORE "+
 							"FROM SIGHTS_SCORE "+
 							"WHERE SIGHTS_ID = '" + sightId + "' ";
@@ -199,14 +198,17 @@
 								"WHERE SIGHTS_ID = '" + sightId + "' ";
 						rs = conn.prepareStatement(sql2).executeQuery();
 						rs.next();
-						score = rs.getString("score");
-						double scoreForStar = Double.valueOf(score);
-						scoreForStar = scoreForStar/100.0*5.0;
+						double score = 0;
+						score = rs.getDouble("score");
+						double scoreForStar = 0;
+						scoreForStar = score - 20;
+						double scoreForStarscode = 0;
+						scoreForStarscode = score/100*5;
 					%>           
-						<div class="star-ratings-fill space-x-2 text-lg" style="width: <%=score %>% !important;">
+						<div class="star-ratings-fill space-x-2 text-lg" style="width: <%=scoreForStar %>% !important;">
 							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 						</div>
-						<div style="display: inline; font-size: 10px; color: black;">(<%=scoreForStar %>)</div>
+						<div style="display: inline; font-size: 10px; color: black;">(<%=scoreForStarscode %>)</div>
 					<%}else{%>
 						<div style="display: inline; font-size: 10px; color: black;">(-)</div>
 					<%}
@@ -216,11 +218,25 @@
 		</tr>
 		</table>
 	</div>
-	<div style="color: blue; margin-left: 3%;">#<%=sightClas %></div>
-	<%
-    	res.close();
+	<div style="width: 95%; margin: auto; ">
+		<%
+		sql = "SELECT t.TAG_NM tagnm "+
+				"FROM TAG_LIST t LEFT OUTER JOIN SIGHTS_TAG_LIST s "+
+				"ON t.TAG_ID = s.TAG_ID "+
+				"WHERE SIGHTS_ID = '" + sightId + "' ";
+		res = conn.prepareStatement(sql).executeQuery();
+		
+	    while(res.next()) {            
+	      String tagnm = res.getString("tagnm");
+		%>
+		<div style="display: inline-block; text-align:center; font-size: 15px; padding: 0px 3px 0px 3px; color: rgb(13, 45, 132);">
+			#<%=tagnm%>
+		</div>
+		<%} 
+	    res.close();
 		conn.close();
-	%>
+		%>
+	</div>
 	<br><br><br>
 	<footer style="position: fixed; bottom: 0; width: 100%; z-index: 1;">
 	<!-- 여행 개설 -->

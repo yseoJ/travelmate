@@ -64,10 +64,23 @@
 		<br>
 	</header>
 	<main style="position: absolute; top: 100px; width:95%; margin-left:10px; ">
-		<div class="myPageText">여행목록</div><br>
-		<label for="past" style="background-color: rgb(13, 45, 132); border-radius: 10px; padding: 5px; color: white;">
-			<input type="checkbox" class="past" id="past" name="past" value="past"/> 지난 여행 포함
-		</label>
+		<div class="myPageText">여행목록</div>
+		
+		
+		<div class="include-past">
+			<div class="form-element">
+				<input type="checkbox" name="past" value="past" id="past">
+				<label for="past">
+					<div class="title">지난 여행 포함</div>
+				</label>
+			</div>
+		</div>
+		
+
+		
+		
+		
+		
 		<br>
 	    <%     
 	    sql = "SELECT x.TRIP_ID, x.SIGHTS_ID, x.TRIP_TITLE, x.TRIP_MEET_DATE, x.TOT_NUM, x.JOIN_NUM, "+
@@ -208,5 +221,6 @@
 		</div>
 	</div>
 	</footer>
+	
 </body>
 </html>
