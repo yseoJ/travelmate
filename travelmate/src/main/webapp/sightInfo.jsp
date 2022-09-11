@@ -10,16 +10,21 @@
 	String user = "trip";
 	String pw = "trip";
 	String sql = "";
+	String sql2 = "";
 	
 	
 	Class.forName("oracle.jdbc.driver.OracleDriver");
 	Connection conn = DriverManager.getConnection(url, user, pw);
 	ResultSet res = null;
+	ResultSet rs = null;
 	
 	String memb_id = request.getParameter("membId");
 	String sight_id = request.getParameter("sightId");
 	
-	sql = String.format("SELECT * FROM SIGHTS_INFO WHERE SIGHTS_ID = '%s'", sight_id);
+	sql = "SELECT SIGHTS_ID, SIGHTS_NM, SIGHTS_CLAS, NVL(SIGHTS_ADDR, '-') SIGHTS_ADDR , NVL(SIGHTS_PHONE_NUM, '-') SIGHTS_PHONE_NUM, "+
+			"NVL(SIGHTS_WEBSITE, '-') SIGHTS_WEBSITE, NVL(SIGHTS_TIME, '-') SIGHTS_TIME, NVL(SIGHTS_WEEK, '-') SIGHTS_WEEK, "+
+			"NVL(SIGHTS_OFF, '-') SIGHTS_OFF, NVL(SIGHTS_TRAFFIC, '-') SIGHTS_TRAFFIC "+
+			"FROM SIGHTS_INFO WHERE SIGHTS_ID = '" + sight_id + "' ";
 	res = conn.prepareStatement(sql).executeQuery();
 	res.next();
 	
@@ -33,6 +38,7 @@
 	String sightTime = res.getString("SIGHTS_TIME");
 	String sightWeek = res.getString("SIGHTS_WEEK");
 	String sightOff = res.getString("SIGHTS_OFF");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -59,7 +65,7 @@
 <body style="line-height: 200%">
 	<div style="background-color: transparent; top: 5px;">
 		<div style="position: absolute; left: 10px; top: 5px; z-index: 2;">
-			<a href="sightList.jsp?MembId=<%=memb_id %>">
+			<a href="#" onClick="history.go(-1); return false;">
 				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
 				  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
 				</svg>
@@ -73,9 +79,12 @@
 		<div style="margin: auto; position: relative; top: 5px; text-align: center; z-index: 1;">
 			<p style="font-size: 20px; font-weight: bold; font-color: block;">관광지 상세정보</p>
 		</div>
+	</div><br>
+	<div style="width: 95%; height: 130px; overflow: hidden; margin: 0 auto; border-radius: 12px;">
+		<img style="width: 100%; height: 100%; object-fit: cover;" src="image/<%=sightId %>.jpg" onerror="this.src='image/0.png'";>
 	</div>
-	<br><div class="tripInfoTitle"><%=sightName %></div><br>
 	<div class="tripInfo">
+		<div class="tripInfoTitle"><%=sightName %></div>
 		<table class="tripTable">
 		<tr>
 			<td class="tripInfoLeft">
@@ -171,16 +180,49 @@
 			<td class="tripInfoLeft">휴무일</td>
 			<td style="vertical-align: middle;"><%=sightOff %></td>
 		</tr>
+		<tr>
+			<td class="tripInfoLeft">평가</td>
+			<td style="vertical-align: middle;">
+				<div class="star-ratings">
+					<div class="star-ratings-base space-x-2 text-lg" style="display: inline-block;">
+						<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+					</div>
+				<% 
+					String score = null;
+					sql2 = "SELECT SIGHTS_SCORE "+
+							"FROM SIGHTS_SCORE "+
+							"WHERE SIGHTS_ID = '" + sightId + "' ";
+					rs = conn.prepareStatement(sql2).executeQuery();
+					if(rs.next()){
+						sql2 = "SELECT ROUND(AVG(SIGHTS_SCORE), 1) score "+
+								"FROM SIGHTS_SCORE "+
+								"WHERE SIGHTS_ID = '" + sightId + "' ";
+						rs = conn.prepareStatement(sql2).executeQuery();
+						rs.next();
+						score = rs.getString("score");
+						double scoreForStar = Double.valueOf(score);
+						scoreForStar = scoreForStar/100.0*5.0;
+					%>           
+						<div class="star-ratings-fill space-x-2 text-lg" style="width: <%=score %>% !important;">
+							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+						</div>
+						<div style="display: inline; font-size: 10px; color: black;">(<%=scoreForStar %>)</div>
+					<%}else{%>
+						<div style="display: inline; font-size: 10px; color: black;">(-)</div>
+					<%}
+				%>
+				</div>
+			</td>
+		</tr>
 		</table>
 	</div>
-	<br>
 	<div style="color: blue; margin-left: 3%;">#<%=sightClas %></div>
 	<%
     	res.close();
 		conn.close();
 	%>
 	<br><br><br>
-	<footer style="position: fixed; bottom: 0; width: 100%;">
+	<footer style="position: fixed; bottom: 0; width: 100%; z-index: 1;">
 	<!-- 여행 개설 -->
 	<div style="margin: auto; text-align: center;">
 		<form name="frmMakeTrip" action="makeTrip.jsp" method="get" >

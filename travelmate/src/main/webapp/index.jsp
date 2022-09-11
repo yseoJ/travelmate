@@ -180,6 +180,9 @@
 					<div class="box" style="display: inline-block; padding: 0; border: none;">
 						<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
 							<button class="trip_list_button" type="submit">
+								<div style="width: 100%; height: 100px; overflow: hidden; margin: 0 auto; border-radius: 20px">
+									<img style="width: 100%; height: 100%; object-fit: cover;" src="image/<%=recom_sights_id %>.jpg" onerror="this.src='image/0.png'";>
+								</div>
 								<br><div class="trip_list_title"><%=recom_title%></div>
 								<div style="line-height: 80%;"><br></div>
 								<div style="display: flex;">
@@ -265,6 +268,9 @@
 					<div class="box" style="display: inline-block; padding: 0; border: none;">
 						<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
 							<button class="trip_list_button" type="submit">
+								<div style="width: 100%; height: 100px; overflow: hidden; margin: 0 auto; border-radius: 20px">
+									<img style="width: 100%; height: 100%; object-fit: cover;" src="image/<%=close_sights_id %>.jpg" onerror="this.src='image/0.png'";>
+								</div>
 								<br><div class="trip_list_title"><%=close_title%></div>
 								<div style="line-height: 80%;"><br></div>
 								<div style="display: flex;">
@@ -341,6 +347,9 @@
 					<div class="box" style="display: inline-block; padding: 0; border: none;">
 						<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
 							<button class="trip_list_button" type="submit">
+								<div style="width: 100%; height: 100px; overflow: hidden; margin: 0 auto; border-radius: 20px">
+									<img style="width: 100%; height: 100%; object-fit: cover;" src="image/<%=pop_sights_id %>.jpg" onerror="this.src='image/0.png'";>
+								</div>
 								<br><div class="trip_list_title"><%=pop_title%></div>
 								<div style="line-height: 80%;"><br></div>
 								<div style="display: flex;">
@@ -421,6 +430,9 @@
 					<div class="box" style="display: inline-block; padding: 0; border: none;">
 						<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
 							<button class="trip_list_button" type="submit">
+								<div style="width: 100%; height: 100px; overflow: hidden; margin: 0 auto; border-radius: 20px">
+									<img style="width: 100%; height: 100%; object-fit: cover;" src="image/<%=new_sights_id %>.jpg" onerror="this.src='image/0.png'";>
+								</div>
 								<br><div class="trip_list_title"><%=new_title%></div>
 								<div style="line-height: 80%;"><br></div>
 								<div style="display: flex;">
@@ -514,6 +526,9 @@
 						<div class="box" style="display: inline-block; padding: 0; border: none;">
 							<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
 								<button class="trip_list_button" type="submit">
+									<div style="width: 100%; height: 100px; overflow: hidden; margin: 0 auto; border-radius: 20px">
+										<img style="width: 100%; height: 100%; object-fit: cover;" src="image/<%=top_sights_id %>.jpg" onerror="this.src='image/0.png'";>
+									</div>
 									<br><div class="trip_list_title"><%=top_title%></div>
 									<div style="line-height: 80%;"><br></div>
 									<div style="display: flex;">
