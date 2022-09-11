@@ -166,12 +166,14 @@
 		    </li>
 		</ul>
 		<br><br><br>
-		<footer>
-			<button class="Eval" type="button" onClick="checkEval();" style="color: white; font-size: 22px; margin-left: 8%; border-radius: 5em; width: 300px; margin-bottom: 4%; background-color: rgb(13, 45, 132); border: 2px solid rgb(13, 45, 132);">평가하기</button>
-			<input type="hidden" name="membId" value="<%=memb_id %>" />
-			<input type="hidden" name="participantId" value="<%=participant_id %>" />
-			<input type="hidden" name="tripId" value="<%=trip_id %>" />
-		</footer>
+		<div style="margin: 0 auto; text-align: center;">
+			<footer style="position: fixed; bottom: 0; width: 100%;">
+				<button class="Eval" type="button" onClick="checkEval();">평가하기</button>
+				<input type="hidden" name="membId" value="<%=memb_id %>" />
+				<input type="hidden" name="participantId" value="<%=participant_id %>" />
+				<input type="hidden" name="tripId" value="<%=trip_id %>" />
+			</footer>
+		</div>
 	</form>
 	<script type="text/javascript">
 		function isEmpty(obj, msg) {

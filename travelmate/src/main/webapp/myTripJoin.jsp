@@ -86,13 +86,14 @@
 			</svg>
 		</a>
 	</div>
-	<br><div class="tripInfoTitle"><%=Title %></div><br>
+	<br>
 	<%if("삭제".equals(TripStatus)) {%>
 		<div style="color: red; font-size: 13px; line-height:120%; border: 1px solid red; display: inline-block;">주최자에 의해 여행이 <p style="font-size: 20px; display:inline">삭제</p>되었습니다.</div>
 	<%} else{ %>
 		<div style="color: blue; font-size: 13px; line-height:120%; border: 1px solid blue; display: inline-block;">진행중</div>
 	<%} %>
 	<div class="tripInfo">
+		<div class="tripInfoTitle"><%=Title %></div>
 		<table class="tripTable">
 		<tr>
 			<td class="tripInfoLeft">

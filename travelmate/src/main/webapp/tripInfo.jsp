@@ -66,15 +66,23 @@
 	<title>TRIP INFO</title>
 </head>
 <body style="line-height: 200%">
-	<div style="display: inline; position: relative; left: 10px; top: 5px;">
-		<a href="index.jsp?ID=<%=memb_id %>">
-			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
-			  <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
-			</svg>
-		</a>
+	<div style="background-color: transparent; top: 5px;">
+		<div style="position: absolute; left: 10px; top: 5px; z-index: 2;">
+			<a href="index.jsp?ID=<%=memb_id %>">
+				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+				  <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+				</svg>
+			</a>
+		</div>
+		<div style="margin: auto; position: relative; top: 5px; text-align: center; z-index: 1;">
+			<p style="font-size: 20px; font-weight: bold; font-color: block;">여행 상세정보</p>
+		</div>
+	</div><br>
+	<div style="width: 95%; height: 130px; overflow: hidden; margin: 0 auto; border-radius: 12px;">
+		<img style="width: 100%; height: 100%; object-fit: cover;" src="image/<%=sightId %>.jpg" onerror="this.src='image/0.png'";>
 	</div>
-	<br><div class="tripInfoTitle"><%=title %></div><br>
 	<div class="tripInfo">
+		<div class="tripInfoTitle"><%=title %></div>
 		<table class="tripTable">
 		<tr>
 			<td class="tripInfoLeft">
@@ -128,6 +136,35 @@
 			</td>
 			<td style="vertical-align: middle;">
 				&nbsp;<%=sightName %>
+				<div class="star-ratings">
+					<div class="star-ratings-base space-x-2 text-lg" style="display: inline-block;">
+						&nbsp;<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+					</div>
+				<% 
+					String score = null;
+					sql = "SELECT SIGHTS_SCORE "+
+							"FROM SIGHTS_SCORE "+
+							"WHERE SIGHTS_ID = '" + sightId + "' ";
+					res = conn.prepareStatement(sql).executeQuery();
+					if(res.next()){
+						sql = "SELECT ROUND(AVG(SIGHTS_SCORE), 1) score "+
+								"FROM SIGHTS_SCORE "+
+								"WHERE SIGHTS_ID = '" + sightId + "' ";
+						res = conn.prepareStatement(sql).executeQuery();
+						res.next();
+						score = res.getString("score");
+						double scoreForStar = Double.valueOf(score);
+						scoreForStar = scoreForStar/100.0*5.0;
+					%>           
+						<div class="star-ratings-fill space-x-2 text-lg" style="width: <%=score %>% !important;">
+							&nbsp;<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+						</div>
+						<div style="display: inline; font-size: 10px; color: black;">(<%=scoreForStar %>)</div>
+					<%}else{%>
+						<div style="display: inline; font-size: 10px; color: black;">(-)</div>
+					<%}
+				%>
+				</div>
 			</td>
 		</tr>
 		<tr>
@@ -169,7 +206,7 @@
 		</table>
 	</div>
 	<div style="color: blue; margin-left: 3%;"> #<%=sightClas %></div>
-	<br><br>
+	<br>
 	<div style="margin-left: 10px;">
 	<!-- 주최자 -->
 		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -183,7 +220,7 @@
 			<input type="hidden" name="participantId" value="<%=HostId %>" />
 			<input type="hidden" name="membId" value="<%=memb_id %>" />
 		</form>
-	</div>
+	</div><br><br><br>
 	<footer style="position: fixed; bottom: 0; width: 100%;">
 		<!-- 여행 참여 -->
 		<form name="frmJoin" method="get" action="joinFinish.jsp">
