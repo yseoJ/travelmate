@@ -141,7 +141,6 @@
 						&nbsp;<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 					</div>
 				<% 
-					String score = null;
 					sql = "SELECT SIGHTS_SCORE "+
 							"FROM SIGHTS_SCORE "+
 							"WHERE SIGHTS_ID = '" + sightId + "' ";
@@ -151,15 +150,18 @@
 								"FROM SIGHTS_SCORE "+
 								"WHERE SIGHTS_ID = '" + sightId + "' ";
 						res = conn.prepareStatement(sql).executeQuery();
-						res.next();
-						score = res.getString("score");
-						double scoreForStar = Double.valueOf(score);
-						scoreForStar = scoreForStar/100.0*5.0;
+						res.next();;
+						double score = 0;
+						score = res.getDouble("score");
+						double scoreForStar = 0;
+						scoreForStar = score - 20;
+						double scoreForStarscode = 0;
+						scoreForStarscode = score/100*5;
 					%>           
-						<div class="star-ratings-fill space-x-2 text-lg" style="width: <%=score %>% !important;">
+						<div class="star-ratings-fill space-x-2 text-lg" style="width: <%=scoreForStar %>% !important;">
 							&nbsp;<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 						</div>
-						<div style="display: inline; font-size: 10px; color: black;">(<%=scoreForStar %>)</div>
+						<div style="display: inline; font-size: 10px; color: black;">(<%=scoreForStarscode %>)</div>
 					<%}else{%>
 						<div style="display: inline; font-size: 10px; color: black;">(-)</div>
 					<%}
@@ -205,9 +207,24 @@
 		</tr>
 		</table>
 	</div>
-	<div style="color: blue; margin-left: 3%;"> #<%=sightClas %></div>
-	<br>
-	<div style="margin-left: 10px;">
+	<div style="width: 95%; margin: auto; ">
+		<%
+		sql = "SELECT t.TAG_NM tagnm "+
+				"FROM TAG_LIST t LEFT OUTER JOIN SIGHTS_TAG_LIST s "+
+				"ON t.TAG_ID = s.TAG_ID "+
+				"WHERE SIGHTS_ID = '" + sightId + "' ";
+		res = conn.prepareStatement(sql).executeQuery();
+		
+	    while(res.next()) {            
+	      String tagnm = res.getString("tagnm");
+		%>
+		<div style="display: inline-block; text-align:center; font-size: 15px; padding: 0px 3px 0px 3px; color: rgb(13, 45, 132);">
+			#<%=tagnm%>
+		</div>
+		<%}%>
+	</div>
+	<div style="line-height: 80%;"><br></div>
+	<div style="width: 95%; margin: auto; ">
 	<!-- 주최자 -->
 		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
 		  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>

@@ -291,7 +291,7 @@
 									</div>
 								</div>
 								<div style="line-height: 80%;"><br></div>
-								<% 
+								<%
 								sql2 = "SELECT t.TAG_NM tagnm "+
 										"FROM TAG_LIST t LEFT OUTER JOIN SIGHTS_TAG_LIST s "+
 										"ON t.TAG_ID = s.TAG_ID "+
@@ -302,7 +302,7 @@
 							      String close_tagnm = result.getString("tagnm");
 								%>
 								<div style="display: inline-block; border-radius: 18px; text-align:center; font-size: 12px; padding: 0px 5px 0px 5px; background-color: rgba(13, 45, 132); color: white;">
-								#<%=close_tagnm%>
+									#<%=close_tagnm%>
 								</div>
 								<%} %>
 							</button>
