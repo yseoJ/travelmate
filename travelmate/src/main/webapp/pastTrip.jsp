@@ -84,8 +84,9 @@
 			</svg>
 		</a>
 	</div>
-	<br><div class="tripInfoTitle"><%=Title %></div><br>
+	<br>
 	<div class="tripInfo">
+		<div class="tripInfoTitle"><%=Title %></div>
 		<table class="tripTable">
 		<tr>
 			<td class="tripInfoLeft">
@@ -138,7 +139,25 @@
 				<div style="font-size: 12px; line-height: 100%">관광지명</div>
 			</td>
 			<td style="vertical-align: middle;">
-				<%=sightName %>
+				&nbsp;<%=sightName %>&nbsp;
+				<div style="display: inline-block; margin: 0 auto; text-align: center; font-size: 14px;">
+					<form name="frmSightsEval" action="sightsEval.jsp" method="get" style="display: inline;">
+						<% 
+						sql = "SELECT * FROM SIGHTS_SCORE "+
+								"WHERE TRIP_ID = " + tripid + " "+
+								"AND SIGHTS_ID = " + sightId + " "+
+								"AND GIVE_MEMB_ID = '" + memb_id + "' ";
+						res = conn.prepareStatement(sql).executeQuery();
+						if(res.next()){ %>
+							<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0;" disabled='disabled'>평가완료</button>
+						<%} else{ %>
+							<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">평가하기</button>
+						<%} %>
+						<input type="hidden" name="sightId" value="<%=sightId %>" />
+						<input type="hidden" name="membId" value="<%=memb_id %>" />
+						<input type="hidden" name="tripId" value="<%=tripid %>" />
+					</form>
+				</div>
 			</td>
 		</tr>
 		<tr>
@@ -257,7 +276,6 @@
 						<input type="hidden" name="tripId" value="<%=tripid %>" />
 					</form>
 				</div>
-				
 			</td>
 		</tr>
 		
