@@ -10,11 +10,13 @@
 	String user = "trip";
 	String pw = "trip";
 	String sql = "";
+	String sql2 = "";
 	
 	
 	Class.forName("oracle.jdbc.driver.OracleDriver");
 	Connection conn = DriverManager.getConnection(url, user, pw);
 	ResultSet res = null;
+	ResultSet rs = null;
 	
 	String memb_id = request.getParameter("MembId");
 	String search = request.getParameter("search");
@@ -59,6 +61,56 @@
 	<br><br><br>
 	<h4> * 여행 계획을 등록할 관광지를 선택하세요. </h4>
 	<br>
+	<hr style="background-color: rgba(13, 45, 132);"><br>
+	<!-- 인기 TOP 관광지 -->
+	<div class="myPageText">인기 TOP 관광지</div><br>
+	<div class="wrap-vertical" style="padding: 0; border: none;">
+		<%     
+			sql2 = "SELECT ROWNUM, SIGHTS_ID "+
+					"FROM (SELECT SIGHTS_ID, AVG(SIGHTS_SCORE) score "+
+						    "FROM SIGHTS_SCORE "+
+						    "GROUP BY SIGHTS_ID "+
+						    "ORDER BY score DESC) "+
+					"WHERE ROWNUM <= 10 ";
+
+		    rs = conn.prepareStatement(sql2).executeQuery();
+			
+		    if(rs.next()) {
+		    	do{
+		    		String grade = rs.getString("ROWNUM");
+		    		String top_sights_id = rs.getString("SIGHTS_ID");
+		    		
+					sql = "SELECT * FROM SIGHTS_INFO "+
+							"WHERE SIGHTS_ID = '" + top_sights_id + "' ";
+					res = conn.prepareStatement(sql).executeQuery();
+					res.next();
+					String sightName = res.getString("SIGHTS_NM");
+					if(sightName.length() >= 8){
+						sightName = sightName.substring(0,8) + "..";
+					}
+					%>
+					<div class="box" style="display: inline-block;">
+						<form name="frmTripInfo" action="sightInfo.jsp" method="get" style="float:left; margin:5px;">
+							<button type="submit" style="overflow: hidden; border: 4px solid rgba(13, 45, 132); width: 170px; height: 40px; text-align: left; padding: 0px; color: block; background-color: white;">
+								<div style="display: flex; width: 100%; height: 100%;">
+									<div style="flex: 1; background-color: rgba(13, 45, 132); color: white; font-size: 16px; font-weight: bold; text-align: center;">
+										<p style="margin-top: 10px; color: white;"><%=grade%></p>
+									</div>
+									<div style="flex: 3; color: black; font-size: 15px; font-weight: bold; margin-top: 10px;">&nbsp<%=sightName%></div>
+								</div>
+							</button>
+							<input type="hidden" name="sightId" value="<%=top_sights_id %>" />
+							<input type="hidden" name="membId" value="<%=memb_id %>" />
+						</form>
+					</div>
+				<%
+		    	}while(rs.next());
+		    }
+			%>
+	</div>
+	<br>
+	<hr style="background-color: rgba(13, 45, 132);"><br>
+	
 	<table class="sights">
 		<tr style=" background-color: rgb(13, 45, 132); color: white;">
 			<th>관광지 명</th>
@@ -93,8 +145,8 @@
 			<td style="vertical-align:middle;">
 				<form name="frmsightInfo" action="sightInfo.jsp" method="get" >
 					<button type="submit" style="width: 100%; background-color: transparent; border: 1px solid transparent"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-  <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-</svg></button>
+						<path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+					</svg></button>
 					<input type="hidden" name="sightId" value="<%=sightId %>" />
 					<input type="hidden" name="membId" value="<%=memb_id %>" />
 				</form>

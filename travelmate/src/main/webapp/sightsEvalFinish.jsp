@@ -27,17 +27,17 @@
 				sightId, membId, tripId); 
 		System.out.println(sql);
 		conn.prepareStatement(sql).executeUpdate();
-	} else if(rating.equals("happy")){
+	} else if(rating.equals("4")){
 		sql = String.format( "INSERT INTO SIGHTS_SCORE (SIGHTS_ID,GIVE_MEMB_ID,TRIP_ID,SIGHTS_SCORE) values ('%s','%s','%s',80)",
 				sightId, membId, tripId); 
 		System.out.println(sql);
 		conn.prepareStatement(sql).executeUpdate();
-	} else if(rating.equals("neutral")){
+	} else if(rating.equals("3")){
 		sql = String.format( "INSERT INTO SIGHTS_SCORE (SIGHTS_ID,GIVE_MEMB_ID,TRIP_ID,SIGHTS_SCORE) values ('%s','%s','%s',60)",
 				sightId, membId, tripId); 
 		System.out.println(sql);
 		conn.prepareStatement(sql).executeUpdate();
-	} else if(rating.equals("sad")){
+	} else if(rating.equals("2")){
 		sql = String.format( "INSERT INTO SIGHTS_SCORE (SIGHTS_ID,GIVE_MEMB_ID,TRIP_ID,SIGHTS_SCORE) values ('%s','%s','%s',40)",
 				sightId, membId, tripId); 
 		System.out.println(sql);
