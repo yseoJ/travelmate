@@ -74,15 +74,24 @@
 					<div class="title">지난 여행 포함</div>
 				</label>
 			</div>
+			<div class="form-element">
+				<input type="checkbox" name="delete" value="delete" id="delete">
+				<label for="delete">
+					<div class="title">삭제 여행 포함</div>
+				</label>
+			</div>
+			<div class="form-element">
+				<input type="checkbox" name="cancel" value="cancel" id="cancel">
+				<label for="cancel">
+					<div class="title">취소 여행 포함</div>
+				</label>
+			</div>
 		</div>
 		
-
-		
-		
-		
-		
-		<br>
-	    <%     
+		<div id='result1' name="check" value="check"></div>
+		<div id='result2' name="check" value="check"></div>
+		<div id='result3' name="check" value="check"></div>
+		<%     
 	    sql = "SELECT x.TRIP_ID, x.SIGHTS_ID, x.TRIP_TITLE, x.TRIP_MEET_DATE, x.TOT_NUM, x.JOIN_NUM, "+
 	          			"CASE WHEN join_num < tot_num THEN '모집중' "+
 	          			"ELSE '마감' "+
@@ -167,11 +176,146 @@
 		</form>
 	    <%
 	    }
-    	res.close();
- 		conn.close();
 		%>
-		<br><br><br><br><br>
 
+		<script type="text/javascript">
+			$(document).ready(function(){
+			    $("#past").change(function(){
+			    	var p = document.getElementById('result1')
+			        if($("#past").is(":checked")){
+						p.innerHTML = "<br><div style=\"color: red; font-size: 15px;\">완료된 여행 목록입니다</div><br> "+
+										<%
+										    sql = "SELECT TRIP_ID, TRIP_TITLE, TO_CHAR(TRIP_MEET_DATE, 'YYYY-MM-DD') TRIP_MEET_DATE FROM TRIP_INFO WHERE TRIP_STATUS='완료' ORDER BY TRIP_MEET_DATE ";
+										    res = conn.prepareStatement(sql).executeQuery();
+										    while(res.next()) {       
+										      String past_trip_id = res.getString("TRIP_ID");
+										      String past_trip_title = res.getString("TRIP_TITLE");
+										      String past_trip_date = res.getString("TRIP_MEET_DATE");%>
+										      "<form name=\"frmTripInfo\" action=\"tripInfo.jsp\" method=\"get\" style=\"text-align: center;\" > "+
+													"<button type=\"submit\" class=\"trip_list_button_search\" style=\"background-color: #ddd;\"> "+
+													"<div style=\"display: flex\"> "+
+														"<div style=\"flex: 3; float:left; width: 75%;\"> "+
+															"<br><div class=\"trip_list_title\"><%=past_trip_title%></div> "+
+															"<br> "+
+															"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-calendar-event\" viewBox=\"0 0 16 16\"> "+
+															  "<path d=\"M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z\"/> "+
+															  "<path d=\"M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z\"/> "+
+															"</svg> "+
+															"<div style=\"font-size: 13px; display: inline-block;\">&nbsp;<%=past_trip_date%></div> "+
+															"<br><br> "+
+														"</div> "+
+														"<div style=\"flex: 1;\"> "+
+															"<div style=\"text-align: center; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; width: 100%; border: 2px solid red;\"> "+
+																"<div style=\"color: red; vertical-align: middle; margin: 5px;\">완료</div> "+
+															"</div> "+
+														"</div> "+
+													"</div> "+
+													"</button> "+
+													"<input type=\"hidden\" name=\"MembId\" value=\"<%=id %>\" /> "+
+													"<input type=\"hidden\" name=\"TripTitle\" value=\"<%=past_trip_title %>\" /> "+
+													"<input type=\"hidden\" name=\"TripId\" value=\"<%=past_trip_id %>\" /> "+
+												"</form> "+
+												"</br> "+
+										   <% }
+										    %>
+										"";
+			        }else{
+			            p.innerHTML = "";
+			        }
+			    });
+			    $("#delete").change(function(){
+			    	var d = document.getElementById('result2')
+			        if($("#delete").is(":checked")){
+						d.innerHTML = "<br><div style=\"color: red; font-size: 15px;\">주최자가 삭제한 여행 목록입니다</div><br> "+
+										<%
+									    sql = "SELECT TRIP_ID, TRIP_TITLE, TO_CHAR(TRIP_MEET_DATE, 'YYYY-MM-DD') TRIP_MEET_DATE FROM TRIP_INFO WHERE TRIP_STATUS='삭제' ORDER BY TRIP_MEET_DATE ";
+									    res = conn.prepareStatement(sql).executeQuery();
+									    while(res.next()) {       
+									      String delete_trip_id = res.getString("TRIP_ID");
+									      String delete_trip_title = res.getString("TRIP_TITLE");
+									      String delete_trip_date = res.getString("TRIP_MEET_DATE");%>
+									      "<form name=\"frmTripInfo\" action=\"tripInfo.jsp\" method=\"get\" style=\"text-align: center;\" > "+
+												"<button type=\"submit\" class=\"trip_list_button_search\" style=\"background-color: #ddd;\"> "+
+												"<div style=\"display: flex\"> "+
+													"<div style=\"flex: 3; float:left; width: 75%;\"> "+
+														"<br><div class=\"trip_list_title\"><%=delete_trip_title%></div> "+
+														"<br> "+
+														"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-calendar-event\" viewBox=\"0 0 16 16\"> "+
+														  "<path d=\"M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z\"/> "+
+														  "<path d=\"M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z\"/> "+
+														"</svg> "+
+														"<div style=\"font-size: 13px; display: inline-block;\">&nbsp;<%=delete_trip_date%></div> "+
+														"<br><br> "+
+													"</div> "+
+													"<div style=\"flex: 1;\"> "+
+														"<div style=\"text-align: center; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; width: 100%; border: 2px solid red;\"> "+
+															"<div style=\"color: red; vertical-align: middle; margin: 5px;\">삭제</div> "+
+														"</div> "+
+													"</div> "+
+												"</div> "+
+												"</button> "+
+												"<input type=\"hidden\" name=\"MembId\" value=\"<%=id %>\" /> "+
+												"<input type=\"hidden\" name=\"TripTitle\" value=\"<%=delete_trip_title %>\" /> "+
+												"<input type=\"hidden\" name=\"TripId\" value=\"<%=delete_trip_id %>\" /> "+
+											"</form> "+
+											"</br> "+
+									   <% }
+									    %>
+									"";
+			        }else{
+			            d.innerHTML = "";
+			        }
+			    });
+			    $("#cancel").change(function(){
+			    	var c = document.getElementById('result3')
+			        if($("#cancel").is(":checked")){
+						c.innerHTML = "<br><div style=\"color: red; font-size: 15px;\">참여자가 없어 취소된 여행 목록입니다</div><br> "+
+										<%
+									    sql = "SELECT TRIP_ID, TRIP_TITLE, TO_CHAR(TRIP_MEET_DATE, 'YYYY-MM-DD') TRIP_MEET_DATE FROM TRIP_INFO WHERE TRIP_STATUS='취소' ORDER BY TRIP_MEET_DATE ";
+									    res = conn.prepareStatement(sql).executeQuery();
+									    while(res.next()) {       
+									      String cancel_trip_id = res.getString("TRIP_ID");
+									      String cancel_trip_title = res.getString("TRIP_TITLE");
+									      String cancel_trip_date = res.getString("TRIP_MEET_DATE");%>
+									      "<form name=\"frmTripInfo\" action=\"tripInfo.jsp\" method=\"get\" style=\"text-align: center;\" > "+
+												"<button type=\"submit\" class=\"trip_list_button_search\" style=\"background-color: #ddd;\"> "+
+												"<div style=\"display: flex\"> "+
+													"<div style=\"flex: 3; float:left; width: 75%;\"> "+
+														"<br><div class=\"trip_list_title\"><%=cancel_trip_title%></div> "+
+														"<br> "+
+														"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-calendar-event\" viewBox=\"0 0 16 16\"> "+
+														  "<path d=\"M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z\"/> "+
+														  "<path d=\"M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z\"/> "+
+														"</svg> "+
+														"<div style=\"font-size: 13px; display: inline-block;\">&nbsp;<%=cancel_trip_date%></div> "+
+														"<br><br> "+
+													"</div> "+
+													"<div style=\"flex: 1;\"> "+
+														"<div style=\"text-align: center; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; width: 100%; border: 2px solid red;\"> "+
+															"<div style=\"color: red; vertical-align: middle; margin: 5px;\">취소</div> "+
+														"</div> "+
+													"</div> "+
+												"</div> "+
+												"</button> "+
+												"<input type=\"hidden\" name=\"MembId\" value=\"<%=id %>\" /> "+
+												"<input type=\"hidden\" name=\"TripTitle\" value=\"<%=cancel_trip_title %>\" /> "+
+												"<input type=\"hidden\" name=\"TripId\" value=\"<%=cancel_trip_id %>\" /> "+
+											"</form> "+
+											"</br> "+
+									   <% }
+									    %>
+									"";
+			        }else{
+			            c.innerHTML = "";
+			        }
+			    });
+			});
+		</script>
+		<%
+	   	res.close();
+	 	conn.close();
+		%>
+	<br><br><br><br><br><br>
 	</main>
 	<footer style="position: fixed; bottom: 0px; width: 100%;">
 	<div style="width: 100%; background-color: #f8f9fa; height: 50px; display: flex;">
@@ -221,6 +365,5 @@
 		</div>
 	</div>
 	</footer>
-	
 </body>
 </html>

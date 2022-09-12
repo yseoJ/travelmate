@@ -54,18 +54,34 @@
 
 	sql = "SELECT TRIP_ID FROM TRIP_INFO i "+
 			"WHERE i.TRIP_STATUS = '진행중' "+
-			"AND i.MEMB_ID = '" + DbId + "' "+
 			"AND to_char(i.TRIP_MEET_DATE,'YYYY-MM-DD') <= to_char(SYSDATE, 'YYYY-MM-DD') "+
 			"AND NOT EXISTS (SELECT * FROM TRIP_JOIN_LIST l "+
 			"				WHERE l.TRIP_ID = i.TRIP_ID "+
 			"				AND l.PRG_STATUS = '수락' "+
-			"				AND l.MEMB_ID != '" + DbId + "') ";
+			"				AND l.MEMB_ID != i.MEMB_ID) ";
+	res = conn.prepareStatement(sql).executeQuery();
+	while(res.next()){		//날짜가 지난 여행 중 수락한 참여자가 없으면 여행 취소 처리
+		String deleteTripId = res.getString("TRIP_ID");
+		System.out.println(deleteTripId);
+		sql = "UPDATE TRIP_INFO "+
+				"SET TRIP_STATUS = '취소' "+
+				"WHERE TRIP_ID = " + deleteTripId + " ";
+		conn.prepareStatement(sql).executeUpdate();
+	}
+	
+	sql = "SELECT TRIP_ID FROM TRIP_INFO i "+
+			"WHERE i.TRIP_STATUS = '진행중' "+
+			"AND to_char(i.TRIP_MEET_DATE,'YYYY-MM-DD') < to_char(SYSDATE, 'YYYY-MM-DD') "+
+			"AND EXISTS (SELECT * FROM TRIP_JOIN_LIST l "+
+			"				WHERE l.TRIP_ID = i.TRIP_ID "+
+			"				AND l.PRG_STATUS = '수락' "+
+			"				AND l.MEMB_ID != i.MEMB_ID) ";
 	res = conn.prepareStatement(sql).executeQuery();
 	while(res.next()){		//날짜가 지난 여행 중 수락한 참여자가 없으면 여행 취소 처리
 		String updateTripId = res.getString("TRIP_ID");
 		System.out.println(updateTripId);
 		sql = "UPDATE TRIP_INFO "+
-				"SET TRIP_STATUS = '취소' "+
+				"SET TRIP_STATUS = '완료' "+
 				"WHERE TRIP_ID = " + updateTripId + " ";
 		conn.prepareStatement(sql).executeUpdate();
 	}
