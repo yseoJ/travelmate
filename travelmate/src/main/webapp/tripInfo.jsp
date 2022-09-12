@@ -23,7 +23,7 @@
 	
 	sql = "SELECT t.SIGHTS_ID, t.MEMB_ID, t.TRIP_TITLE, "+
 				"TO_CHAR (t.TRIP_MEET_DATE, 'YYYY-MM-DD (DY)') TRIP_MEET_DATE, "+
-				"t.TOT_NUM, t.PLAN_COST, t.TRIP_DETAIL, "+
+				"t.TOT_NUM, t.PLAN_COST, t.TRIP_DETAIL, t.TRIP_STATUS, "+
 				"m.FULL_NM, s.SIGHTS_NM, s.SIGHTS_ADDR, s.SIGHTS_TRAFFIC, s.SIGHTS_CLAS "+
 			"FROM TRIP_INFO t LEFT OUTER JOIN MEMB_INFO m ON t.MEMB_ID = m.MEMB_ID "+
 							"LEFT OUTER JOIN SIGHTS_INFO s ON t.SIGHTS_ID = s.SIGHTS_ID "+
@@ -38,6 +38,7 @@
 	String totNum = res.getString("TOT_NUM");
 	String cost = res.getString("PLAN_COST");
 	String detail = res.getString("TRIP_DETAIL");
+	String tripStatus = res.getString("TRIP_STATUS");
 	
 	String sightName = res.getString("SIGHTS_NM");
 	String sightAddr = res.getString("SIGHTS_ADDR");
@@ -245,7 +246,13 @@
 			<input type="hidden" name="tripId" value="<%=trip_id %>" />
 		</form>
 		<div style="margin: auto; text-align: center;">
-			<%if ("마감".equals(trip_close)) { %>
+			<%if ("완료".equals(tripStatus)) { %>
+				<button class="joinTrip" type='button' disabled='disabled'>종료</button>
+			<%} else if ("삭제".equals(tripStatus)) { %>
+				<button class="joinTrip" type='button' disabled='disabled'>삭제</button>
+			<%}else if ("취소".equals(tripStatus)) { %>
+				<button class="joinTrip" type='button' disabled='disabled'>취소</button>
+			<%}else if ("마감".equals(trip_close)) { %>
 				<button class="joinTrip" type='button' disabled='disabled'>마감</button>
 			<%} else{ %>
 				<button class="joinTrip" type="submit" onclick="openJoin()">참여하기</button>
