@@ -30,10 +30,9 @@
 		String name = request.getParameter("NAME");
 		String email = request.getParameter("EMAIL");
 		String phone = request.getParameter("PHONE_NUM");
-		String gender = request.getParameter("GENDER");
 		String adyear = request.getParameter("ADDM_YEAR");
 
-		sql = String.format( "Insert into MEMB_INFO (MEMB_ID,FULL_NM,EMAIL_ADDR,ADDM_YEAR,PHONE_NUM,GENDER,MEMB_STATUS) values ('%s','%s','%s','%s','%s','%s','가입') ", id, name, email, adyear, phone, gender); 
+		sql = String.format( "Insert into MEMB_INFO (MEMB_ID,FULL_NM,EMAIL_ADDR,ADDM_YEAR,PHONE_NUM,MEMB_STATUS) values ('%s','%s','%s','%s','%s','가입') ", id, name, email, adyear, phone); 
 		conn.prepareStatement(sql).executeUpdate();
 		
 	}
@@ -47,10 +46,9 @@
 	String DbName = res.getString("FULL_NM");
 	String DbEmail = res.getString("EMAIL_ADDR");
 	String DbPhone = res.getString("PHONE_NUM");
-	String DbGender = res.getString("GENDER");
 	String DbAdyear = res.getString("ADDM_YEAR");
 	String DbStatus = res.getString("MEMB_STATUS");
-	System.out.print(DbId); System.out.print(DbName); System.out.print(DbEmail); System.out.print(DbPhone); System.out.print(DbGender); System.out.print(DbAdyear); System.out.println(DbStatus);
+	System.out.print(DbId); System.out.print(DbName); System.out.print(DbEmail); System.out.print(DbPhone); System.out.print(DbAdyear); System.out.println(DbStatus);
 
 	sql = "SELECT TRIP_ID FROM TRIP_INFO i "+
 			"WHERE i.TRIP_STATUS = '진행중' "+
@@ -145,12 +143,19 @@
 		</nav>
 		<form class="form-inline my-2-my-lg-0" action="search.jsp" method="get">
 			<input class="form-control mr-sm-2" name="search" type="search" placeholder="내용을 입력하세요" aria-label="Search" <%if (search != null && search.trim() != "") { %> value="<%=search %>"<%} %> style="width:80%; height:40px; float:left;">
-			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="width:20%; height:40px; float:right; margin: 0px !important">검색</button>
+			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="width:20%; height:40px; float:right; margin: 0px !important;" <%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>검색</button>
 			<input type="hidden" name="ID" value="<%=DbId %>" />
 		</form>
 		<br>
 	</header>
 	<main style="position: absolute; top: 100px; width:95%; margin-left:10px; ">
+		<%if(memb_status.equals("제명")){%>
+			<div style=" margin: 0 auto; background-color: red; border-radius: 10px; text-align: center;"><br>
+				<div style="color: black; font-size: 17px; font-weight: bold; line-height: 120%;">
+					동일 항목에 대한 신고 횟수 3번 누적으로<br>서비스 사용이 불가능합니다.
+				</div><br>
+			</div><br><br>
+		<%}%>
 		<!-- 미완료 수락/거절 -->
 		<%
 		sql = "SELECT i.TRIP_ID, i.TRIP_TITLE, TO_CHAR(i.TRIP_MEET_DATE, 'YYYY-MM-DD') TRIP_MEET_DATE, j.MEMB_ID "+
@@ -178,40 +183,40 @@
 		%>
 		<!-- 미완료 참여자평가 -->
 		<%
-		if(acceptReject == 0){%>
-			<div style="border: 2px red solid; border-radius: 10px; text-align: center;"><br>
-		<%}
-			sql = "SELECT TRIP_ID, MEMB_ID, PRG_STATUS "+
-					"FROM TRIP_JOIN_LIST j "+
-					"WHERE TRIP_ID IN (SELECT TRIP_ID "+
-					                "FROM TRIP_JOIN_LIST "+
-					                "WHERE MEMB_ID = '" + DbId +"' "+
-					                "AND PRG_STATUS = '수락') "+
-					"AND MEMB_ID != '" + DbId + "' "+
-					"AND PRG_STATUS = '수락' "+
-					"AND (SELECT TO_CHAR(TRIP_MEET_DATE,'YYYYMMDD') TRIP_MEET_DATE "+
-					    "FROM TRIP_INFO i "+
-					    "WHERE i.TRIP_ID = j.TRIP_ID)<TO_CHAR(SYSDATE,'YYYYMMDD') ";
-			res = conn.prepareStatement(sql).executeQuery();
-			
-			int evalcnt = 0;
-			
-			if(res.next()){
-				do{
-					String trip_id = res.getString("TRIP_ID");
-					String participant_id = res.getString("MEMB_ID");
-						
-					sql = "SELECT * FROM MEMB_SCORE "+
-							"WHERE TRIP_ID = " + trip_id + " "+
-							"AND GIVE_MEMB_ID = '" + DbId + "' "+
-							"AND GET_MEMB_ID = '" + participant_id + "' ";
-					rs = conn.prepareStatement(sql).executeQuery();
+		sql = "SELECT TRIP_ID, MEMB_ID, PRG_STATUS "+
+				"FROM TRIP_JOIN_LIST j "+
+				"WHERE TRIP_ID IN (SELECT TRIP_ID "+
+				                "FROM TRIP_JOIN_LIST "+
+				                "WHERE MEMB_ID = '" + DbId +"' "+
+				                "AND PRG_STATUS = '수락') "+
+				"AND MEMB_ID != '" + DbId + "' "+
+				"AND PRG_STATUS = '수락' "+
+				"AND (SELECT TO_CHAR(TRIP_MEET_DATE,'YYYYMMDD') TRIP_MEET_DATE "+
+				    "FROM TRIP_INFO i "+
+				    "WHERE i.TRIP_ID = j.TRIP_ID)<TO_CHAR(SYSDATE,'YYYYMMDD') ";
+		res = conn.prepareStatement(sql).executeQuery();
+		
+		int evalcnt = 0;
+		
+		if(res.next()){
+			if(acceptReject == 0){%>
+				<div style="border: 2px red solid; border-radius: 10px; text-align: center;"><br>
+			<%}
+			do{
+				String trip_id = res.getString("TRIP_ID");
+				String participant_id = res.getString("MEMB_ID");
 					
-					
-					if(!rs.next()){
-						evalcnt = evalcnt + 1;
-					}
-					}while(res.next());
+				sql = "SELECT * FROM MEMB_SCORE "+
+						"WHERE TRIP_ID = " + trip_id + " "+
+						"AND GIVE_MEMB_ID = '" + DbId + "' "+
+						"AND GET_MEMB_ID = '" + participant_id + "' ";
+				rs = conn.prepareStatement(sql).executeQuery();
+				
+				
+				if(!rs.next()){
+					evalcnt = evalcnt + 1;
+				}
+				}while(res.next());
 			}
 			if(evalcnt > 0){%>
 				<div style="color: red; font-size: 15px; font-weight: bold; line-height: 120%;">
@@ -221,9 +226,14 @@
 					평가를 하지 않은 참여자가 있습니다.<br>
 					&nbsp;&nbsp;해당 참여자에 대해 평가를 해주세요.
 				</div><br>
-			<%}
+				</div>
+			<%}else{
+				if(acceptReject == 1){%>
+					</div>
+				<%}
+			}
 		%>
-		</div><br>
+		<br>
 		<!-- 추천 여행 -->
 		<div class="myPageText">추천여행</div><br>
 		<div class="wrap-vertical" style="padding: 0; border: none;">
@@ -268,7 +278,7 @@
 					%>
 					<div class="box" style="display: inline-block; padding: 0; border: none;">
 						<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
-							<button class="trip_list_button" type="submit">
+							<button class="trip_list_button" type="submit"<%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>
 								<div style="width: 100%; height: 100px; overflow: hidden; margin: 0 auto; border-radius: 20px">
 									<img style="width: 100%; height: 100%; object-fit: cover;" src="image/<%=recom_sights_id %>.jpg" onerror="this.src='image/0.png'";>
 								</div>
@@ -356,7 +366,7 @@
 					%>
 					<div class="box" style="display: inline-block; padding: 0; border: none;">
 						<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
-							<button class="trip_list_button" type="submit">
+							<button class="trip_list_button" type="submit"<%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>
 								<div style="width: 100%; height: 100px; overflow: hidden; margin: 0 auto; border-radius: 20px">
 									<img style="width: 100%; height: 100%; object-fit: cover;" src="image/<%=close_sights_id %>.jpg" onerror="this.src='image/0.png'";>
 								</div>
@@ -435,7 +445,7 @@
 					%>
 					<div class="box" style="display: inline-block; padding: 0; border: none;">
 						<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
-							<button class="trip_list_button" type="submit">
+							<button class="trip_list_button" type="submit"<%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>
 								<div style="width: 100%; height: 100px; overflow: hidden; margin: 0 auto; border-radius: 20px">
 									<img style="width: 100%; height: 100%; object-fit: cover;" src="image/<%=pop_sights_id %>.jpg" onerror="this.src='image/0.png'";>
 								</div>
@@ -518,7 +528,7 @@
 					%>
 					<div class="box" style="display: inline-block; padding: 0; border: none;">
 						<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
-							<button class="trip_list_button" type="submit">
+							<button class="trip_list_button" type="submit"<%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>
 								<div style="width: 100%; height: 100px; overflow: hidden; margin: 0 auto; border-radius: 20px">
 									<img style="width: 100%; height: 100%; object-fit: cover;" src="image/<%=new_sights_id %>.jpg" onerror="this.src='image/0.png'";>
 								</div>
@@ -614,7 +624,7 @@
 						%>
 						<div class="box" style="display: inline-block; padding: 0; border: none;">
 							<form name="frmTripInfo" action="tripInfo.jsp" method="get" style="float:left; margin:5px;">
-								<button class="trip_list_button" type="submit">
+								<button class="trip_list_button" type="submit"<%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>
 									<div style="width: 100%; height: 100px; overflow: hidden; margin: 0 auto; border-radius: 20px">
 										<img style="width: 100%; height: 100%; object-fit: cover;" src="image/<%=top_sights_id %>.jpg" onerror="this.src='image/0.png'";>
 									</div>
@@ -686,20 +696,20 @@
 	<div style="width: 100%; background-color: #f8f9fa; height: 50px; display: flex;">
 		<!-- 진행/완료 여행 -->
 		<div class="dropup">
-		  <button class="dropbtn">
+		  <button class="dropbtn"<%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>
 		  	<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
 				<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
 			</svg>
 		  </button>
 		  <div id="myDropup" class="dropup-content">
 		    <form name="frmMyTrip" action="allAcceptReject.jsp" method="get" >
-				<button style="background-color:transparent; border: none;" type="submit">
+				<button style="background-color:transparent; border: none;" type="submit" <%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>
 					<a>참여자 수락/거절</a>
 				</button>
 				<input type="hidden" name="membId" value="<%=DbId %>" />
 			</form>
 		    <form name="frmMyTripPast" action="allEval.jsp" method="get" >
-				<button style="background-color:transparent; border: none;" type="submit">
+				<button style="background-color:transparent; border: none;" type="submit" <%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>
 					<a>참여자 평가</a>
 				</button>
 				<input type="hidden" name="membId" value="<%=DbId %>" />
@@ -709,7 +719,7 @@
 		<!-- 여행 개설 -->
 		<div style="display: inline-block; margin: auto; flex: 1; text-align: center;">
 			<form name="frmSightList" action="sightList.jsp" method="get" >
-				<button type="submit" class="addTrip" style="color: black;">
+				<button type="submit" class="addTrip" style="color: black;" <%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
 						<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
 					</svg>
@@ -720,7 +730,7 @@
 		<!-- 마이페이지 -->
 		<div style="display: inline-block; margin: auto; flex: 1; text-align: center;">
 				<form name="frmMyPage" action="myPage.jsp" method="get" style="display:inline;">
-					<button type="submit" class="myPage"">
+					<button type="submit" class="myPage" <%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-person" viewBox="0 0 16 16">
 			  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
 					</svg>
