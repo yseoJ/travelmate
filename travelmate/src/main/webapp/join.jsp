@@ -45,30 +45,39 @@
 </head>
 <body>
 	<br>
-	<h2 align="center">회원가입</h2>
+	<div style="text-align: center; font-size: 25px; color: black; font-weight: bold;">회원가입</div>
 	<br><br>
-	<!--  <a>아이디 : <%=id %></a><br> -->
-	<a>이름 : <%=name %></a><br>
-	<a>이메일 : <%=email %></a><br><br><br>
-	
-	<form name="InsertPerson" action="index.jsp" method="post" >
+	<div style="line-height: 120%; margin: 5px;">
+		<!--  <a>아이디 : <%=id %></a><br> -->
+		<a>이름 : <%=name %></a><br>
+		<a>이메일 : <%=email %></a><br><br><br>
+	</div>	
+	<form name="InsertPerson" action="index.jsp" method="GET" >
 		<input type="hidden" name="ID" value="<%=id %>" />
 		<input type="hidden" name="NAME" value="<%=name %>" />
 		<input type="hidden" name="EMAIL" value="<%=email %>" />
-		
-		<label for="ADDM_YEAR">학번&emsp;&emsp;&emsp;</label><input type="number" name="ADDM_YEAR" oninput='handleOnInput(this, 2)'><br>
-		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ex)19</a><br><br>
-		
-		<label>성별&emsp;&emsp;&emsp;</label>
-		<input type="radio" name="GENDER" id="rdoGenderFemale" value="F" checked/><label for="rdoGenderFemale">&nbsp;여성</label>
-	    <input type="radio" name="GENDER" id="rdoGenderMale" value="M" /><label for="rdoGenderMale">&nbsp;남성</label><br><br>
-	    
-		<label for="txtPhoneNum">핸드폰번호&nbsp;</label><input type="text" name="PHONE_NUM" id="txtPhoneNum" placeholder="01012345678" size="20" value="" pattern="[0-9]+" minlength="10" maxlength="11"/><br>
-		<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*숫자만 입력하세요</a> 
+		<div style="margin-left: 26px; display: inline-block;">
+			<label for="ADDM_YEAR">학번</label>
+		</div>
+		<div style="display: inline-block; margin-left: 30px;">
+			<input type="number" name="ADDM_YEAR" oninput='handleOnInput(this, 2)'><br>
+		</div>
+		<div style="margin-left: 100px;">
+			ex)19
+	    </div><br><br>
+	    <div style="margin: 6px; display: inline-block;">
+			<label for="txtPhoneNum">핸드폰번호&nbsp;</label>
+		</div>
+		<div style="display: inline-block;">
+			<input type="text" name="PHONE_NUM" id="txtPhoneNum" placeholder="01012345678" size="20" value="" pattern="[0-9]+" minlength="10" maxlength="11"/><br>
+		</div>
+		<div style="margin-left: 100px;">
+			*숫자만 입력하세요
+		</div>
 		<br><br><br>
 		<footer style="position: fixed; bottom: 0; width: 100%;">
-			<div class="d-grid gap-2">
-				<button class="btn btn-primary btn-ls" type="button" onclick="checkJoin();">회원가입</button>
+			<div style="margin: auto; text-align: center;">
+				<button class="joinTrip" type="button" onclick="checkJoin();">회원가입</button>
 			</div>
 		</footer>
 	</form> 
