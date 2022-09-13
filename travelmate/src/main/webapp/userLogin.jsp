@@ -43,13 +43,22 @@
 
 	<title> 로그인 | travelmate </title>
 </head>
-<body style="background-color: rgba(66, 133, 244, 0.5);">
-	<br><br><br>
-	<h2 align="center" style="text-decoration: underline; text-decoration-style: wavy; text-underline-position: under;">TRAVELMATE</h2>
-	<br><br><br><br><br><br>
-	<div style="width: 150px; border: 5px solid blue; margin: 0 auto; border-radius: 20px;">
-		<div class="g-signin2" data-onsuccess="onSignIn" style="text-align: center; margin: 10px;"></div>
-   	</div>
+<body style="background-color: #fff;">
+	<div style="position: absolute; top: 20%; left: 50%; transform: translate(-50%, -20%); width: 100%;">
+		<div style="width: 40%; margin: 0 auto;">
+			<img style="width: 100%; height: 100%; object-fit: fill;" src="image/logo.jpg">
+		</div>
+		<div style="margin-top: 8px; font-size: 14px; font-weight: bold; text-align: center; color: black;">함께 여행하는 즐거움,</div>
+		<div style="margin-top: 3px; font-size: 25px; font-weight: bold; text-align: center; color: rgb(13, 45, 132);">TRAVELMATE</div>
+	</div>
+	<div style="position: absolute; width: 100%; top: 80%; left: 50%; transform: translate(-50%, -80%); ">
+		<div style="margin: 0 auto;">
+			<div class="g-signin2" data-onsuccess="onSignIn" style="text-align: center; margin: 10px;"></div>
+	   	</div>
+	   	<div style="text-align: center">
+	    	<a style="font-size: 0.5em; color: black;">*해당 사이트는 숙명여자대학교 계정으로만 접근 가능합니다.</a>
+	    </div>
+	</div>
     <script type="text/javascript">
 	  //구글 로그인
       function onSignIn() {
@@ -128,8 +137,6 @@
 	  
     </script>
     <br>
-    <div style="text-align: center">
-    	<a style="font-size: 0.5em;">*해당 사이트는 숙명여자대학교 계정으로만 접근 가능합니다.</a>
-    </div>
+    
 </body>
 </html>
