@@ -151,6 +151,79 @@
 		<br>
 	</header>
 	<main style="position: absolute; top: 100px; width:95%; margin-left:10px; ">
+		<!-- 미완료 수락/거절 -->
+		<%
+		sql = "SELECT i.TRIP_ID, i.TRIP_TITLE, TO_CHAR(i.TRIP_MEET_DATE, 'YYYY-MM-DD') TRIP_MEET_DATE, j.MEMB_ID "+
+				"FROM (SELECT * "+
+						"FROM TRIP_INFO "+
+						"WHERE MEMB_ID = '" + DbId + "') i LEFT OUTER JOIN TRIP_JOIN_LIST j "+
+						"ON i.TRIP_ID = j.TRIP_ID "+
+						"WHERE j.PRG_STATUS = '신청' "+
+						"AND TO_CHAR(i.TRIP_MEET_DATE,'YYYYMMDD') > TO_CHAR(SYSDATE, 'YYYYMMDD') ";
+		res = conn.prepareStatement(sql).executeQuery();
+		int acceptReject = 0;
+		
+		if(res.next()){
+			acceptReject=1;
+		%>
+			<div style="border: 2px red solid; border-radius: 10px; text-align: center;"><br>
+				<div style="color: red; font-size: 15px; font-weight: bold; line-height: 120%;">
+					&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-bell-fill" viewBox="0 0 16 16">
+						<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+					</svg>
+					수락/거절을 하지 않은 참여자가 있습니다.<br>
+					&nbsp;&nbsp;해당 참여자에 대해 수락 또는 거절을 해주세요.
+				</div><br>
+			<%}
+		%>
+		<!-- 미완료 참여자평가 -->
+		<%
+		if(acceptReject == 0){%>
+			<div style="border: 2px red solid; border-radius: 10px; text-align: center;"><br>
+		<%}
+			sql = "SELECT TRIP_ID, MEMB_ID, PRG_STATUS "+
+					"FROM TRIP_JOIN_LIST j "+
+					"WHERE TRIP_ID IN (SELECT TRIP_ID "+
+					                "FROM TRIP_JOIN_LIST "+
+					                "WHERE MEMB_ID = '" + DbId +"' "+
+					                "AND PRG_STATUS = '수락') "+
+					"AND MEMB_ID != '" + DbId + "' "+
+					"AND PRG_STATUS = '수락' "+
+					"AND (SELECT TO_CHAR(TRIP_MEET_DATE,'YYYYMMDD') TRIP_MEET_DATE "+
+					    "FROM TRIP_INFO i "+
+					    "WHERE i.TRIP_ID = j.TRIP_ID)<TO_CHAR(SYSDATE,'YYYYMMDD') ";
+			res = conn.prepareStatement(sql).executeQuery();
+			
+			int evalcnt = 0;
+			
+			if(res.next()){
+				do{
+					String trip_id = res.getString("TRIP_ID");
+					String participant_id = res.getString("MEMB_ID");
+						
+					sql = "SELECT * FROM MEMB_SCORE "+
+							"WHERE TRIP_ID = " + trip_id + " "+
+							"AND GIVE_MEMB_ID = '" + DbId + "' "+
+							"AND GET_MEMB_ID = '" + participant_id + "' ";
+					rs = conn.prepareStatement(sql).executeQuery();
+					
+					
+					if(!rs.next()){
+						evalcnt = evalcnt + 1;
+					}
+					}while(res.next());
+			}
+			if(evalcnt > 0){%>
+				<div style="color: red; font-size: 15px; font-weight: bold; line-height: 120%;">
+					&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-bell-fill" viewBox="0 0 16 16">
+						<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+					</svg>
+					평가를 하지 않은 참여자가 있습니다.<br>
+					&nbsp;&nbsp;해당 참여자에 대해 평가를 해주세요.
+				</div><br>
+			<%}
+		%>
+		</div><br>
 		<!-- 추천 여행 -->
 		<div class="myPageText">추천여행</div><br>
 		<div class="wrap-vertical" style="padding: 0; border: none;">
