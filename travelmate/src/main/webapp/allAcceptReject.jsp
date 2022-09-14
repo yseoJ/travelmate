@@ -104,7 +104,7 @@
 						<div style="margin: 0 auto; text-align: center;">
 							<a style="font-weight: bold; font-size: 15px;">&nbsp;<%=name%></a>
 							<form name="frmMembInfo" action="membInfo.jsp" method="get" style="display: inline;">
-								<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">자세히</button>
+								<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline; color: black;">자세히</button>
 								<input type="hidden" name="participantId" value="<%=participant_id %>" />
 								<input type="hidden" name="membId" value="<%=memb_id %>" />
 							</form>
@@ -125,7 +125,7 @@
 							<p id="status"></p>
 							<div id="button">
 								<form name="frmAccept" method="get" onsubmit="return confirm('수락하시겠습니까?');" style="display: inline;" action="acceptReject.jsp">		
-									<button type="submit" style="display: inline-block; background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">수락</button>
+									<button type="submit" style="display: inline-block; background-color: rgba(0,0,0,0); color: black; border: 0; outline: 0; text-decoration-line: underline;">수락</button>
 									<input type="hidden" name="tripId" value="<%=trip_id %>" />
 									<input type="hidden" name="participantId" value="<%=participant_id %>" />
 									<input type="hidden" name="membId" value="<%=memb_id %>" />
@@ -133,7 +133,7 @@
 								</form>
 								|
 								<form name="frmReject" method="get" onsubmit="return confirm('거절하시겠습니까?');" style="display: inline;" action="acceptReject.jsp">
-									<button type="submit" style="display: inline-block; background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">거절</button>
+									<button type="submit" style="display: inline-block; background-color: rgba(0,0,0,0); color: black; border: 0; outline: 0; text-decoration-line: underline;">거절</button>
 									<input type="hidden" name="tripId" value="<%=trip_id %>" />
 									<input type="hidden" name="participantId" value="<%=participant_id %>" />
 									<input type="hidden" name="membId" value="<%=memb_id %>" />
