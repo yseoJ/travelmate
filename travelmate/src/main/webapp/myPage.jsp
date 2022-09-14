@@ -43,7 +43,7 @@
 	
 	sql = "SELECT COUNT(*) count_prev FROM TRIP_JOIN_LIST l JOIN TRIP_INFO i "+
 			"ON l.trip_id = i.trip_id "+
-			"WHERE i.trip_status = '진행중' "+
+			"WHERE i.trip_status = '완료' "+
 			"AND l.memb_id = '" + memb_id + "' "+
 			"AND l.prg_status = '수락' "+
 			"AND to_char(i.TRIP_MEET_DATE,'YYYY-MM-DD') < to_char(SYSDATE, 'YYYY-MM-DD') ";
@@ -238,8 +238,8 @@
 	<!-- 진행중인 여행 -->
 	<form name="frmMyTrip" action="myTrip.jsp" method="get" >
 		<button class="myTrip" type="submit">
-			<div class="myPageButton">진행중인 여행</div>
-			<div class="myPageButton2"><%=count_ing %>건 ></div>
+			<div class="myPageButton" style="color: black;">진행중인 여행</div>
+			<div class="myPageButton2" style="color: black;"><%=count_ing %>건 ></div>
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
 	</form>
