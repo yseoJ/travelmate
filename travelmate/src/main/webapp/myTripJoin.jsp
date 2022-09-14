@@ -173,7 +173,7 @@
 			<td style="vertical-align: middle;">
 				&nbsp;<%=HostNM %>
 				<form name="frmMembInfo" action="hostInfo.jsp" method="get" style="display: inline;">
-					<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">자세히</button>
+					<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline; color: black;">자세히</button>
 					<input type="hidden" name="participantId" value="<%=HostId %>" />
 					<input type="hidden" name="membId" value="<%=memb_id %>" />
 				</form>
@@ -185,7 +185,7 @@
 	<%if("신청".equals(status)) {%>
 		<div style="margin: 0 auto; text-align: right;">
 			<form name="frmDeleteJoin" action="deleteJoin.jsp" method="get" style="display: inline;">
-				<button type="button" onClick="checkDelete();" style="line-height:25px; display: inline-block; border-radius: 6px; background-color: rgba(66, 133, 244, 0.3); height: 25px;">삭제</button>
+				<button type="button" onClick="checkDelete();" style="line-height:25px; display: inline-block; border-radius: 6px; background-color: rgba(13, 45, 132); color: white; height: 25px;">삭제</button>
 				<input type="hidden" name="membId" value="<%=memb_id %>" />
 				<input type="hidden" name="tripId" value="<%=tripid %>" />
 				<input type="hidden" name="status" value="<%=status %>" />
@@ -249,7 +249,7 @@
 					<div style="margin: 0 auto; text-align: center;">
 						<a style="font-weight: bold; font-size: 15px;">&nbsp;<%=Name%></a>
 						<form name="frmMembInfo" action="membInfo.jsp" method="get" style="display: inline;">
-							<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">자세히</button>
+							<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline; color: black;">자세히</button>
 							<input type="hidden" name="participantId" value="<%=participantId %>" />
 							<input type="hidden" name="membId" value="<%=memb_id %>" />
 						</form>

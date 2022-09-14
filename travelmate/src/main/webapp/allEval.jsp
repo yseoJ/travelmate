@@ -121,13 +121,13 @@
 								<%} %>
 								<a style="font-weight: bold; font-size: 15px;">&nbsp;<%=participant_nm%></a>
 								<form name="frmMembInfo" action="membInfo.jsp" method="get" style="display: inline;">
-									<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">자세히</button>
+									<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline; color: black;">자세히</button>
 									<input type="hidden" name="participantId" value="<%=participant_id %>" />
 									<input type="hidden" name="membId" value="<%=memb_id %>" />
 								</form>
 							</div>
 						</td>
-						<td style="font-size: 13px; width: 80px;">
+						<td style="font-size: 13px; width: 100px;">
 							<div style="margin: 0 auto; text-align: center; font-size: 14px;">
 								<form name="frmMembEval" action="membEval.jsp" method="get" style="display: inline;">
 									<% 
@@ -139,7 +139,7 @@
 									if(rs.next()){ %>
 										<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0;" disabled='disabled'>평가완료</button>
 									<%} else{ %>
-										<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">평가하기</button>
+										<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline; color: black;">평가하기</button>
 									<%} %>
 									<input type="hidden" name="participantId" value="<%=participant_id %>" />
 									<input type="hidden" name="membId" value="<%=memb_id %>" />

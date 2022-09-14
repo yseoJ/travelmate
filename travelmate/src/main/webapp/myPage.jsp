@@ -246,16 +246,16 @@
 	<!-- 완료한 여행 -->
 	<form name="frmMyTripPast" action="myTripPast.jsp" method="get" >
 		<button class="myTrip" type="submit">
-			<div class="myPageButton" style="line-height: 50px;">완료한 여행<p style="font-size: 10px; line-height: 0px;">*완료한 여행에 대해 평가하세요</p></div>
-			<div class="myPageButton2" style="line-height: 60px;"><%=count_prev %>건 ></div>
+			<div class="myPageButton" style="line-height: 50px; color: black;">완료한 여행<p style="font-size: 10px; line-height: 0px; color: black;">*완료한 여행에 대해 평가하세요</p></div>
+			<div class="myPageButton2" style="line-height: 60px; color: black;"><%=count_prev %>건 ></div>
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
 	</form>
 	<!-- 받은 매너/비매너 평가 -->
 	<form name="frmMyEvaluation" action="myEval.jsp" method="get" >
 		<button class="myTrip" type="submit">
-			<div class="myPageButton">받은 매너/비매너 평가</div>
-			<div class="myPageButton2">></div>
+			<div class="myPageButton" style=" color: black;">받은 매너/비매너 평가</div>
+			<div class="myPageButton2" style=" color: black;">></div>
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
 	</form>
@@ -264,7 +264,7 @@
 	<form name="frmMyCHARACTER" action="myCharacter.jsp" method="get" >
 		<button class="myTrip" type="submit">
 			<div class="myPageButton">
-				<div style="text-align: left; width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+				<div style="text-align: left; width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;  color: black;">
 					<%
 					sql = "SELECT * FROM MEMB_CHARACTER WHERE MEMB_ID = '" + memb_id + "' ";
 					res = conn.prepareStatement(sql).executeQuery();
@@ -286,7 +286,7 @@
 					}%>
 				</div>
 			</div>
-			<div class="myPageButton2">></div>
+			<div class="myPageButton2" style=" color: black;">></div>
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
 	</form>
@@ -295,7 +295,7 @@
 	<form name="frmMyInterest" action="myInterest.jsp" method="get" >
 		<button class="myTrip" type="submit">
 			<div class="myPageButton">
-				<div style="text-align: left; width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+				<div style=" color: black; text-align: left; width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 					<%
 					sql = "SELECT * FROM MEMB_HOPE_LIST WHERE MEMB_ID = '" + memb_id + "' ";
 					res = conn.prepareStatement(sql).executeQuery();
@@ -317,7 +317,7 @@
 					}%>
 				</div>
 			</div>
-			<div class="myPageButton2">></div>
+			<div class="myPageButton2" style=" color: black;">></div>
 		</button>
 		<input type="hidden" name="membId" value="<%=memb_id %>" />
 	</form>
