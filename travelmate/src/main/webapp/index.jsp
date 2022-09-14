@@ -287,18 +287,18 @@
 								<div style="display: flex;">
 									<div style="display: inline-block; flex: 2;">
 										<!-- 여행 날짜 -->
-										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="black" class="bi bi-calendar-event" viewBox="0 0 16 16">
 										  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
 										  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
 										</svg>
-										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=recom_meet_date%></div>
+										<div style="font-size: 12px; display: inline-block; color: black;">&nbsp;<%=recom_meet_date%></div>
 									</div>
 									<div style="display: inline-block; flex: 1;">
-										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="black" class="bi bi-person-plus" viewBox="0 0 16 16">
 										  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
 										  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
 										</svg>
-										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=recom_join_num %> / <%=recom_tot_num %></div>
+										<div style="font-size: 12px; display: inline-block; color: black;">&nbsp;<%=recom_join_num %> / <%=recom_tot_num %></div>
 									</div>
 								</div>
 								<div style="line-height: 80%;"><br></div>
@@ -332,7 +332,7 @@
 				}while(res.next());
 			} else{
 					%>
-					<div style="margin: 0 auto; border: 2px solid black; width: 80%; text-align:center; font-weight: bold ;">관심사를 설정해주세요.</div><br>
+					<div style="margin: 0 auto; border: 2px solid black; width: 80%; text-align:center; font-weight: bold ; color: black;">관심사를 설정해주세요.</div><br>
 			<% }
 			%>
 		</div><br>
@@ -375,18 +375,18 @@
 								<div style="display: flex;">
 									<div style="display: inline-block; flex: 2;">
 										<!-- 여행 날짜 -->
-										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="black" class="bi bi-calendar-event" viewBox="0 0 16 16">
 										  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
 										  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
 										</svg>
-										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=close_meet_date%></div>
+										<div style="font-size: 12px; display: inline-block; color: black;">&nbsp;<%=close_meet_date%></div>
 									</div>
 									<div style="display: inline-block; flex: 1;">
-										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="black" class="bi bi-person-plus" viewBox="0 0 16 16">
 										  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
 										  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
 										</svg>
-										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=close_join_num %> / <%=close_tot_num %></div>
+										<div style="font-size: 12px; display: inline-block; color: black;">&nbsp;<%=close_join_num %> / <%=close_tot_num %></div>
 									</div>
 								</div>
 								<div style="line-height: 80%;"><br></div>
@@ -454,18 +454,18 @@
 								<div style="display: flex;">
 									<div style="display: inline-block; flex: 2;">
 										<!-- 여행 날짜 -->
-										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="black" class="bi bi-calendar-event" viewBox="0 0 16 16">
 										  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
 										  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
 										</svg>
-										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=pop_meet_date%></div>
+										<div style="font-size: 12px; display: inline-block;color: black;">&nbsp;<%=pop_meet_date%></div>
 									</div>
 									<div style="display: inline-block; flex: 1;">
-										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="black" class="bi bi-person-plus" viewBox="0 0 16 16">
 										  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
 										  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
 										</svg>
-										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=pop_join_num %> / <%=pop_tot_num %></div>
+										<div style="font-size: 12px; display: inline-block;color: black;">&nbsp;<%=pop_join_num %> / <%=pop_tot_num %></div>
 									</div>
 								</div>
 								<div style="line-height: 80%;"><br></div>
@@ -537,18 +537,18 @@
 								<div style="display: flex;">
 									<div style="display: inline-block; flex: 2;">
 										<!-- 여행 날짜 -->
-										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="black" class="bi bi-calendar-event" viewBox="0 0 16 16">
 										  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
 										  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
 										</svg>
-										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=new_meet_date%></div>
+										<div style="font-size: 12px; display: inline-block;color: black;">&nbsp;<%=new_meet_date%></div>
 									</div>
 									<div style="display: inline-block; flex: 1;">
-										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+										<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="black" class="bi bi-person-plus" viewBox="0 0 16 16">
 										  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
 										  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
 										</svg>
-										<div style="font-size: 12px; display: inline-block;">&nbsp;<%=new_join_num %> / <%=new_tot_num %></div>
+										<div style="font-size: 12px; display: inline-block;color: black;">&nbsp;<%=new_join_num %> / <%=new_tot_num %></div>
 									</div>
 								</div>
 								<div style="line-height: 80%;"><br></div>
@@ -633,18 +633,18 @@
 									<div style="display: flex;">
 										<div style="display: inline-block; flex: 2;">
 											<!-- 여행 날짜 -->
-											<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+											<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="black" class="bi bi-calendar-event" viewBox="0 0 16 16">
 											  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
 											  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
 											</svg>
-											<div style="font-size: 12px; display: inline-block;">&nbsp;<%=top_meet_date%></div>
+											<div style="font-size: 12px; display: inline-block;color: black;">&nbsp;<%=top_meet_date%></div>
 										</div>
 										<div style="display: inline-block; flex: 1;">
-											<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+											<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="black" class="bi bi-person-plus" viewBox="0 0 16 16">
 											  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
 											  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
 											</svg>
-											<div style="font-size: 12px; display: inline-block;">&nbsp;<%=top_join_num %> / <%=top_tot_num %></div>
+											<div style="font-size: 12px; display: inline-block;color: black;">&nbsp;<%=top_join_num %> / <%=top_tot_num %></div>
 										</div>
 									</div>
 									<div style="line-height: 80%;"><br></div>
@@ -704,13 +704,13 @@
 		  <div id="myDropup" class="dropup-content">
 		    <form name="frmMyTrip" action="allAcceptReject.jsp" method="get" >
 				<button style="background-color:transparent; border: none;" type="submit" <%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>
-					<a>참여자 수락/거절</a>
+					<a style="color: black; font-color: black;">참여자 수락/거절</a>
 				</button>
 				<input type="hidden" name="membId" value="<%=DbId %>" />
 			</form>
 		    <form name="frmMyTripPast" action="allEval.jsp" method="get" >
 				<button style="background-color:transparent; border: none;" type="submit" <%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>
-					<a>참여자 평가</a>
+					<a style="color: black; font-color: black;">참여자 평가</a>
 				</button>
 				<input type="hidden" name="membId" value="<%=DbId %>" />
 			</form>
