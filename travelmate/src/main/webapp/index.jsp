@@ -171,8 +171,7 @@
 		if(res.next()){
 			acceptReject=1;
 		%>
-			<div style="border: 2px red solid; border-radius: 10px; text-align: center;"><br>
-				<div style="color: red; font-size: 15px; font-weight: bold; line-height: 120%;">
+				<div style="color: red; font-size: 15px; font-weight: bold; line-height: 120%; text-align: center;">
 					&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-bell-fill" viewBox="0 0 16 16">
 						<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
 					</svg>
@@ -199,9 +198,6 @@
 		int evalcnt = 0;
 		
 		if(res.next()){
-			if(acceptReject == 0){%>
-				<div style="border: 2px red solid; border-radius: 10px; text-align: center;"><br>
-			<%}
 			do{
 				String trip_id = res.getString("TRIP_ID");
 				String participant_id = res.getString("MEMB_ID");
@@ -219,19 +215,14 @@
 				}while(res.next());
 			}
 			if(evalcnt > 0){%>
-				<div style="color: red; font-size: 15px; font-weight: bold; line-height: 120%;">
+				<div style="color: red; font-size: 15px; font-weight: bold; line-height: 120%; text-align: center;">
 					&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-bell-fill" viewBox="0 0 16 16">
 						<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
 					</svg>
 					평가를 하지 않은 참여자가 있습니다.<br>
 					&nbsp;&nbsp;해당 참여자에 대해 평가를 해주세요.
 				</div><br>
-				</div>
-			<%}else{
-				if(acceptReject == 1){%>
-					</div>
-				<%}
-			}
+			<%}
 		%>
 		<br>
 		<!-- 추천 여행 -->
@@ -704,13 +695,13 @@
 		  <div id="myDropup" class="dropup-content">
 		    <form name="frmMyTrip" action="allAcceptReject.jsp" method="get" >
 				<button style="background-color:transparent; border: none;" type="submit" <%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>
-					<a style="color: black; font-color: black;">참여자 수락/거절</a>
+					<a style="color: black; font-color: black; font-size: 12px;">참여자 수락/거절</a>
 				</button>
 				<input type="hidden" name="membId" value="<%=DbId %>" />
 			</form>
 		    <form name="frmMyTripPast" action="allEval.jsp" method="get" >
 				<button style="background-color:transparent; border: none;" type="submit" <%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>
-					<a style="color: black; font-color: black;">참여자 평가</a>
+					<a style="color: black; font-color: black; font-size: 12px;">참여자 평가</a>
 				</button>
 				<input type="hidden" name="membId" value="<%=DbId %>" />
 			</form>
