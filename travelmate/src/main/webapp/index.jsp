@@ -171,13 +171,20 @@
 		if(res.next()){
 			acceptReject=1;
 		%>
-				<div style="color: red; font-size: 15px; font-weight: bold; line-height: 120%; text-align: center;">
-					&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-bell-fill" viewBox="0 0 16 16">
+			<div style="border: 3px solid red; border-radius: 10px; width: 90%; margin: 0 auto;"><br>
+				<div style="text-align: center; background-color: red; color: white; font-size: 15px; font-weight: bold;">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-bell-fill" viewBox="0 0 16 16">
 						<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
 					</svg>
-					수락/거절을 하지 않은 참여자가 있습니다.<br>
-					&nbsp;&nbsp;해당 참여자에 대해 수락 또는 거절을 해주세요.
+					알림
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-bell-fill" viewBox="0 0 16 16">
+						<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+					</svg>
 				</div><br>
+				<div style="color: red; font-size: 15px; font-weight: bold; line-height: 120%; text-align: center;">
+					수락/거절을 하지 않은 참여자가 있습니다.<br>
+					해당 참여자에 대해 수락 또는 거절을 해주세요.
+				</div>
 			<%}
 		%>
 		<!-- 미완료 참여자평가 -->
@@ -199,30 +206,45 @@
 		
 		if(res.next()){
 			do{
-				String trip_id = res.getString("TRIP_ID");
-				String participant_id = res.getString("MEMB_ID");
-					
-				sql = "SELECT * FROM MEMB_SCORE "+
-						"WHERE TRIP_ID = " + trip_id + " "+
-						"AND GIVE_MEMB_ID = '" + DbId + "' "+
-						"AND GET_MEMB_ID = '" + participant_id + "' ";
-				rs = conn.prepareStatement(sql).executeQuery();
+			String trip_id = res.getString("TRIP_ID");
+			String participant_id = res.getString("MEMB_ID");
 				
-				
-				if(!rs.next()){
-					evalcnt = evalcnt + 1;
-				}
-				}while(res.next());
+			sql = "SELECT * FROM MEMB_SCORE "+
+					"WHERE TRIP_ID = " + trip_id + " "+
+					"AND GIVE_MEMB_ID = '" + DbId + "' "+
+					"AND GET_MEMB_ID = '" + participant_id + "' ";
+			rs = conn.prepareStatement(sql).executeQuery();
+			
+			
+			if(!rs.next()){
+				evalcnt = evalcnt + 1;
 			}
-			if(evalcnt > 0){%>
+			}while(res.next());
+		}
+		if(evalcnt > 0){
+			if(acceptReject != 1){%>
+			<div style="border: 3px solid red; border-radius: 10px; width: 90%; margin: 0 auto;"><br>
+			<div style="text-align: center; background-color: red; color: white; font-size: 15px; font-weight: bold;">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-bell-fill" viewBox="0 0 16 16">
+					<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+				</svg>
+				알림
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-bell-fill" viewBox="0 0 16 16">
+					<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+				</svg>
+			</div><br>
+			<%}else{ %>
+				<hr style="color: red; height: 4px;">
+			<%} %>
 				<div style="color: red; font-size: 15px; font-weight: bold; line-height: 120%; text-align: center;">
-					&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-bell-fill" viewBox="0 0 16 16">
-						<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
-					</svg>
 					평가를 하지 않은 참여자가 있습니다.<br>
-					&nbsp;&nbsp;해당 참여자에 대해 평가를 해주세요.
-				</div><br>
-			<%}
+					해당 참여자에 대해 평가를 해주세요.
+				</div>
+		<%}
+		if(acceptReject == 1 || evalcnt > 0){%>
+			<br></div>
+			<br><hr style="background-color: rgba(13, 45, 132);">
+		<%}
 		%>
 		<br>
 		<!-- 추천 여행 -->
@@ -323,7 +345,12 @@
 				}while(res.next());
 			} else{
 					%>
-					<div style="margin: 0 auto; border: 2px solid black; width: 80%; text-align:center; font-weight: bold ; color: black;">관심사를 설정해주세요.</div><br>
+					<div style="margin: auto; text-align: center;">
+						<form name="frmSightList" action="myInterest.jsp" method="get" >
+							<button class="changeCharacter" type="submit"<%if(memb_status.equals("제명")){%>disabled='disabled'<%}%>>관심사 설정하러 가기</button>
+							<input type="hidden" name="membId" id="membId" value="<%=DbId %>" />
+						</form>
+					</div>
 			<% }
 			%>
 		</div><br>
