@@ -151,7 +151,7 @@
 						if(res.next()){ %>
 							<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0;" disabled='disabled'>평가완료</button>
 						<%} else{ %>
-							<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline;">평가하기</button>
+							<button type="submit" style="background-color: rgba(0,0,0,0); border: 0; outline: 0; text-decoration-line: underline; color: black;">평가하기</button>
 						<%} %>
 						<input type="hidden" name="sightId" value="<%=sightId %>" />
 						<input type="hidden" name="membId" value="<%=memb_id %>" />
